@@ -1,0 +1,572 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="pl" xmlns="http://www.w3.org/1999/xhtml" xml:lang="pl" dir="ltr">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+  
+    
+    <meta name="keywords" content="Wstęp do programowania/Wstęp do algorytmów,Wstęp do programowania">
+<link rel="shortcut icon" href="favicon.ico">
+    <title>Wstęp do programowania/Wstęp do algorytmów - Studia Informatyczne</title>
+    
+    
+    <!--[if lt IE 5.5000]><style type="text/css">@import "/skins/wazniak/IE50Fixes.css";</style><![endif]-->
+    <!--[if IE 5.5000]><style type="text/css">@import "/skins/wazniak/IE55Fixes.css";</style><![endif]-->
+    <!--[if gte IE 6]><style type="text/css">@import "/skins/wazniak/IE60Fixes.css";</style><![endif]-->
+    <!--[if IE]><script type="text/javascript" src="/skins/common/IEFixes.js"></script>
+    <meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+        
+                  
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+
+<!-- WTF INCLUDE -->
+<script type="text/javascript" language="javascript" src="../wtf/wtf.nocache.js"></script>
+<!-- /WTF INCLUDE -->
+
+</head>
+<body class="ns-0">
+<div id="titleBar">
+
+	<div class="portlet" id="p-logo">
+	</div>	
+
+		
+</div>
+    <div id="globalWrapper">
+      <div id="column-content">
+	<div id="content">
+	  <a name="top" id="contentTop"></a>
+		<!-- WTF INCLUDE --><div id="wtf_status"></div><!-- /WTF INCLUDE -->
+	  	  <h1 class="firstHeading">Wstęp do programowania/Wstęp do algorytmów</h1>
+	  <div id="bodyContent">
+	    <h3 id="siteSub">From Studia Informatyczne</h3>
+	    <div id="contentSub"><span class="subpages">&lt; <a href="http://wazniak.mimuw.edu.pl/index.php?title=Wst%C4%99p_do_programowania" title="Wstęp do programowania">Wstęp do programowania</a></span></div>
+	    	    	    <!-- start content -->
+	    
+<p><span><a href="http://wazniak.mimuw.edu.pl/index.php?title=Wst%C4%99p_do_programowania" title="Wstęp do programowania">&lt;&lt;&lt; Powrót </a></span>
+</p>
+<table id="toc" class="toc" summary="Spis treści"><tbody><tr><td><div id="toctitle"><h2>Spis treści</h2> <span class="toctoggle">[<a href="javascript:toggleToc()" class="internal" id="togglelink">schowaj</a>]</span></div>
+<ul>
+<li class="toclevel-1"><a href="#Wprowadzenie_do_algorytm.C3.B3w"><span class="tocnumber">1</span> <span class="toctext">Wprowadzenie do algorytmów</span></a></li>
+<li class="toclevel-1"><a href="#Operacja_dzielenia_z_reszt.C4.85"><span class="tocnumber">2</span> <span class="toctext">Operacja dzielenia z resztą</span></a></li>
+<li class="toclevel-1"><a href="#Algorytm_Euklidesa"><span class="tocnumber">3</span> <span class="toctext">Algorytm Euklidesa</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Euklides_1"><span class="tocnumber">3.1</span> <span class="toctext">Euklides 1</span></a></li>
+<li class="toclevel-2"><a href="#Euklides_2"><span class="tocnumber">3.2</span> <span class="toctext">Euklides 2</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#Liczby_Fibonacciego"><span class="tocnumber">4</span> <span class="toctext">Liczby Fibonacciego</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Euklides3"><span class="tocnumber">4.1</span> <span class="toctext">Euklides3</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#Dziedzina_algorytmiczna"><span class="tocnumber">5</span> <span class="toctext">Dziedzina algorytmiczna</span></a></li>
+</ul>
+</td></tr></tbody></table>
+<div class="editsection" style="float: right; margin-left: 5px;">[<a href="http://wazniak.mimuw.edu.pl/index.php?title=Wst%C4%99p_do_programowania/Wst%C4%99p_do_algorytm%C3%B3w&amp;action=edit&amp;section=1" title="Edit section: Wprowadzenie do algorytmów">Edytuj</a>]</div><a name="Wprowadzenie_do_algorytm.C3.B3w"></a><h2>Wprowadzenie do algorytmów</h2>
+<div class="thumb tright"><div style="width: 158px;"><a href="http://wazniak.mimuw.edu.pl/index.php?title=Grafika:Alch.jpg" class="internal" title="Al Chuwarizmi (ok. 780–ok. 850)"><img src="alch.jpg" alt="Al Chuwarizmi (ok. 780–ok. 850)" longdesc="/index.php?title=Grafika:Alch.jpg" width="156" height="187"></a>  <div class="thumbcaption"><div class="magnify" style="float: right;"><a href="http://wazniak.mimuw.edu.pl/index.php?title=Grafika:Alch.jpg" class="internal" title="Enlarge"><img src="magnify-clip.png" alt="Enlarge" width="15" height="11"></a></div>Al Chuwarizmi (ok. 780–ok. 850)</div></div></div>
+<p>Najważniejszym pojęciem w informatyce jest algorytm. Nazwa ta ma swoje korzenie w średniowieczu i wzięła się ze zniekształconego nazwiska wielkiego uczonego arabskiego Al Chuwarizmiego, który żył na przełomie VIII i IX wieku i pochodzącego z Chorezmu. Al Chuwarizmi, działając w Domu Nauk kalifa Al Mamuna w Bagdadzie, opublikował ważne dzieła matematyczne, wśród nich Hisab al dżabr w'al muqabala – traktat o rozwiązywaniu równań, z którego wzięła nazwę algebra – jeden z głównych działów matematyki. W traktacie tym, poza wprowadzeniem systemu zapisu pozycyjnego, zaczerpniętego od Hindusów, a zwanego arabskim, podał między innymi metody rozwiązywania równań kwadratowych. Metody te odwoływały się do pojęć geometrycznych; utożsamiano wtedy liczby i działania z miarami obiektów geometrycznych. Liczby rzeczywiste to były długości odcinków, dodawanie to było sklejanie odcinków, mnożenie odpowiadało wyliczaniu pola prostokąta o danych bokach, a pierwiastkowanie wyznaczaniu boku kwadratu o zadanym polu. Arabowie, podobnie jak starożytni Grecy, nie znali pojęcia liczby ujemnej, stąd, gdy dziś patrzymy na metody Al Chuwarizmiego, poza oczywistym pięknem, wydają się nam one nieco dziwaczne. Ale cóż – wtedy inaczej po prostu się nie dało. 
+</p><p>W pierwszym kroku rozwiązania Al Chuwarizmi polecał podzielić wszystkie współczynniki trójmianu kwadratowego przez współczynnik przy <img class="tex" src="904d50d11297facaeb375ba9ef3d08ee.png" alt="x^{2}">, aby uwolnić się od jednego z nich; w końcu pierwiastki przez takie podzielenie nie zmieniają się, a metoda staje się prostsza. 
+Al Chuwarizmi rozważał zatem równania postaci <img class="tex" src="914d162e749b2152ebb203fe5811fe29.png" alt="x^{2}+bx+c"> dla różnych klas b i c: dodatnich, ujemnych i równych zero. Miał zatem do czynienia z 9 różnymi przypadkami i dla każdego z nich podał metodę wyznaczania pierwiastka takiego równania. Przyjrzyjmy się jednemu z nich: dane są zaczerpnięte bezpośrednio z omawianej księgi. Rozwiązujemy równanie
+</p>
+<div class="center"><img class="tex" src="685710fc286885d34db59207b9c95100.png" alt="x^{2}+10x = 39"></div>
+<p>Jest to zatem równanie z klasy równań, w których  współczynnik przy x jest dodatni, a wyraz wolny ujemny (dla wygody przenieśliśmy go na prawą stronę, więc po tamtej stronie jawi się nam jako c dodatnie). Oto co proponował Al Chuwarizmi. 
+</p><p><br>
+</p>
+<div class="center"><div class="thumb tnone"><div style="width: 178px;"><a href="http://wazniak.mimuw.edu.pl/index.php?title=Grafika:Ryc1.jpg" class="internal" title="Geometryczne rozwiązanie równania "><img src="ryc1.jpg" alt="Geometryczne rozwiązanie równania " longdesc="/index.php?title=Grafika:Ryc1.jpg" width="176" height="174"></a>  <div class="thumbcaption">Geometryczne rozwiązanie równania <img class="tex" src="fb1e4a87e83b356dff0b485c18acbd19.png" alt="x^2+10x=39"></div></div></div></div>
+<p><br>
+Rysujemy kwadrat o boku x. Po jednej jego stronie doklejamy prostokąt o bokach x oraz <img class="tex" src="af3dce9aa6ff0dd2d299559d38322782.png" alt="10/2 = 5">, po drugiej pod kątem prostym identyczny prostokąt. Uzupełniamy powstały kąt prosty wyznaczony przez 2 odcinki długości 5 do kwadratu i otrzymujemy duży kwadrat, którego pole wynosi 
+</p>
+<div class="center"><img class="tex" src="8c4d6ab52737dcdab1e2a21cf0cd2c4b.png" alt="x^{2} + 5x + 5x + 25= 39 + 25 = 64"></div>
+<p>Bok tego dużego kwadratu ma więc długość 8, a że powstał on przez sklejenie odcinka o długości x oraz odcinka o długości 5, więc <img class="tex" src="2f46d2bc50923f17a86442ec4e3465fa.png" alt="x = 3">. Drugi pierwiastek w tym przypadku nas nie interesuje: jest ujemny, a więc go "nie ma" – liczby ujemne nie istniały wówczas w świadomości współczesnych. 
+</p><p>Zauważmy, że konstrukcję tę, a zatem i stosowne obliczenia, można powtórzyć dla każdej pary (b,c) w której b&nbsp;&gt;&nbsp;0, zaś c&nbsp;&lt;&nbsp;0. Wyrażając jednym wzorem efekt obliczeń uzyskalibyśmy wyrażenie 
+</p><p><span id="RownanieKwadratowe"> 
+</span></p>
+<div class="center"><img class="tex" src="7f4a0ada2c0a7fcfd6dc02ab8977f5f9.png" alt="x=\sqrt{c+\left(\frac{b}{2}\right)^2}-\frac{b}{2}"></div>
+<p>Obliczenie wartości x mogłoby się odbywać według następującego schematu:
+</p>
+<ol><li>podziel <img class="tex" src="9b92d92f585b80059780db034c981a73.png" alt="b"> przez <img class="tex" src="e130dc9a698d0e75e35e0b081d13d0de.png" alt="2"> i zapamiętaj wynik na zmiennej pomocniczej <img class="tex" src="e8f0ea6ba8b6b7f45920ab59d3f1c2ad.png" alt="b'">
+</li><li>podnieś <img class="tex" src="e8f0ea6ba8b6b7f45920ab59d3f1c2ad.png" alt="b'"> do kwadratu
+</li><li>dodaj do otrzymanej liczby wartość <img class="tex" src="19141ee4ff4ce0353c4cc526af79ea20.png" alt="c"> 
+</li><li>wyciągnij z otrzymanej sumy pierwiastek kwadratowy
+</li><li>odejmij od tego, co uzyskałeś uprzednio zapamiętaną wartość <img class="tex" src="e8f0ea6ba8b6b7f45920ab59d3f1c2ad.png" alt="b'"> 
+</li><li>otrzymana liczba jest szukanym (nieujemnym) pierwiastkiem równania <img class="tex" src="b1c8a758a9f96b2141395a2a62e576a0.png" alt="x^{2}+bx=c">.
+</li></ol>
+<p>Zróbmy parę obserwacji. 
+</p><p>Po pierwsze powyższa procedura jest wykonywalna dla każdych danych b,c&gt;0. Zauważmy, że jedyna operacja, która mogłaby sprawić kłopoty z wykonaniem, to odejmowanie w punkcie 5 naszej procedury. Jednak można łatwo sprawdzić, że daje ono zawsze wynik dodatni: 
+</p>
+<div class="center">w końcu dla <img class="tex" src="15ef85dcbfb815e9fb075db8bc33c5f6.png" alt="c &gt;0"> mamy <img class="tex" src="09849c8b76a5655a37d6be56fb91a742.png" alt="\sqrt{c+\left(\frac{b}{2}\right)^2} &gt; \sqrt{\left(\frac{b}{2}\right)^2}=\frac{b}{2}">.</div>
+<p>Po drugie, zastosowaliśmy tu pewne niewielkie, ale ważne uproszczenie algorytmu: użyliśmy w jego opisie pomocniczej zmiennej <img class="tex" src="e8f0ea6ba8b6b7f45920ab59d3f1c2ad.png" alt="b'">, dzięki której nie musieliśmy dwukrotnie dzielić wartości <img class="tex" src="9b92d92f585b80059780db034c981a73.png" alt="b"> przez <img class="tex" src="e130dc9a698d0e75e35e0b081d13d0de.png" alt="2">.
+Po trzecie, zapisując wzór <a href="#RownanieKwadratowe" title="">na równanie kwadratowe</a> skorzystaliśmy z tradycji notacyjnej, w myśl  której w wyrażeniach arytmetycznych zawsze wiadomo, w jakiej kolejności wykonuje się działania. W szczególności w wyrażeniu podpierwiastkowym najpierw dzieliliśmy&nbsp;b przez&nbsp;2, potem podnosiliśmy wynik do kwadratu, a na końcu dodawaliśmy do niego&nbsp;c. To, co w podanym przez Al Chuwarizmiego przepisie wymagało uściślenia kolejności, można wyrazić wzorem w zwartej formie, umówiwszy się zawczasu co do interpretacji podanej notacji. Niezwykle ważne jest, aby używana notacja była jednoznaczna i abyśmy nie popełniali błędu przy interpretacji wyrażeń, w szczególności żebyśmy byli zgodni co do kolejności wykonywanych działań. Wrócimy do tego zagadnienia w wykładzie o gramatykach. 
+</p><p><br>
+</p>
+<div style="border-top-style: solid; border-top-width: thin; margin-top: 1em;">
+<p><span id="pytanie" style="font-variant: small-caps; color: rgb(26, 106, 191);">Ćwiczenie </span> 
+</p>
+<div>
+<ul><li>Jak będzie działała podana metoda, dla c&lt;realnowiki&gt;&lt;realnowiki&gt; = &lt;/realnowiki&gt;&lt;/realnowiki&gt;0?
+</li><li>Zaprojektuj geometryczną metodę w stylu Al Chuwarizmiego dla równania <img class="tex" src="6499de7fae48701ce8f8062e2b9eb95e.png" alt="x^{2}= 5x + 6">. Czy metoda ta da poprawne wyniki dla wszystkich równań postaci <img class="tex" src="1eb442a8d44a7b4ec5158ac9989f68ad.png" alt="x^{2} = bx + c"> przy  dodatnich b, c? 
+</li></ul>
+</div>
+</div>
+<p>Co to są zatem algorytmy? Ogólnie określamy tym mianem wszelkie przepisy postępowania, które 
+doprowadzają do uzyskania pożądanego efektu – rozwiązania zadania. W potocznej mowie mówimy czasem o algorytmach postępowania niewiele mających wspólnego z komputerami, jednak dla informatyków algorytmy wiążą się nierozerwalnie z programowaniem. 
+</p><p>Prawdziwe problemy pojawiają się, gdy chcemy algorytm zakodować w taki sposób, żeby był dobrze wykonany przez maszynę. Nie możemy sobie pozwolić na odwoływanie się do doświadczenia, machanie rękami, domysły. Komputer niczego się nie domyśla, ba, nie rozumie języka naturalnego i potrzebna będzie nam precyzyjna notacja do komunikacji z nim. Istotą programowania jest bowiem wyrażanie algorytmów w sposób ścisły, podlegający rygorom skończonej liczby reguł, których znaczenie w jednoznaczny sposób jesteśmy określić. 
+</p><p>Al Chuwarizmi nie był oczywiście pierwszym człowiekiem, który stosował podejście algorytmiczne do rozwiązywania problemów. W rzeczywistości każdy z nas stosuje algorytmy w rozmaitych sytuacjach życiowych. Człowiek pierwotny miał algorytm polowania na mamuty, czy rozpalania ognia. Dzisiaj często wykonujemy pewne algorytmy, nie zdając sobie sprawy. Warto przytoczyć parę przykładów algorytmów z życia codziennego:
+</p>
+<table>
+  <tbody><tr valign="top"><td><a href="http://wazniak.mimuw.edu.pl/index.php?title=Grafika:Przepis.jpg" class="image" title="Grafika:przepis.jpg"><img src="przepis.jpg" alt="Grafika:przepis.jpg" longdesc="/index.php?title=Grafika:Przepis.jpg" width="85" height="85"></a></td><td> <b>Przepisy kucharskie</b> Typowy przepis zawiera deklaracje obiektów (składników pichcenia) ich początkowe wartości (miary) oraz opis działań doprowadzający do przyrządzenia potrawy.</td></tr> 
+<tr valign="top"><td><a href="http://wazniak.mimuw.edu.pl/index.php?title=Grafika:Nuty.jpg" class="image" title="Grafika:nuty.jpg"><img src="nuty.jpg" alt="Grafika:nuty.jpg" longdesc="/index.php?title=Grafika:Nuty.jpg" width="85" height="85"></a></td><td><b>Zapis nutowy muzyki</b>. Za pomocą szczególnego systemu notacyjnego określa się wysokości i względne czasy trwania nut i pauz między nimi. Można również i tu określić dane: są to zazwyczaj określenia instrumentów, które w partyturze występują, oraz dane początkowe, takie jak metrum czy dynamika poszczególnych części. Zauważmy, że poza standardowymi znakami na pięciolinii, kompozytorzy często stosują dodatkowe określenia takie jak crescendo, poco allegretto, piano, con fuoco itp, pozwalające wykonawcy lepiej wyczuć ich intencje.  Szczególnie atrakcyjnie wyglądają niektóre nuty kompozytorów współczesnych, którzy odchodzą czasem od tradycyjnego zapisu nutowego i starają się niekiedy wymyślić i opisać własny system notacyjny, wyrażający ich intencje.</td></tr>
+<tr valign="top"><td><a href="http://wazniak.mimuw.edu.pl/index.php?title=Grafika:Narzedzia2.jpg" class="image" title="Grafika:narzedzia2.jpg"><img src="narzedzia2.jpg" alt="Grafika:narzedzia2.jpg" longdesc="/index.php?title=Grafika:Narzedzia2.jpg" width="85" height="85"></a></td><td><b>Instrukcje montażu</b> Często do zestawów mebli, czy klocków lego, dołączona jest kartka z instrukcją montażu zapisaną za pomocą sekwencji rycin obrazujących kolejne fazy powstawania składanego obiektu. Użytkownik, porównując zmiany na poszczególnych obrazkach, ma się domyślić, jakie czynności, w jakiej kolejności i za pomocą jakich części ma wykonywać. Zauważmy, że i tu występuje charakterystyczny dla algorytmów  opis danych: najczęściej zestaw części składowych jest wyrysowany obok historyjki obrazkowej z zaznaczeniem liczby poszczególnych elementów.</td></tr>
+<tr valign="top"><td><a href="http://wazniak.mimuw.edu.pl/index.php?title=Grafika:Mapa.jpg" class="image" title="Grafika:mapa.jpg"><img src="mapa.jpg" alt="Grafika:mapa.jpg" longdesc="/index.php?title=Grafika:Mapa.jpg" width="85" height="85"></a></td><td><b>Opisy dojazdu</b> Wyjaśniając jak dotrzeć do danego miejsca (mappy.com), wiele serwisów udostępnia opis drogi z zaznaczeniem kluczowych punktów i decyzji.</td></tr>
+<tr valign="top"><td><a href="http://wazniak.mimuw.edu.pl/index.php?title=Grafika:Kroki.jpg" class="image" title="Grafika:kroki.jpg"><img src="kroki.jpg" alt="Grafika:kroki.jpg" longdesc="/index.php?title=Grafika:Kroki.jpg" width="85" height="85"></a></td><td><b>Opis układów choreograficznych, scenopisy przedstawień</b> Tutaj też stosuje się specyficzną symbolikę i skróty notacyjne.</td></tr> </tbody></table>
+<p>Takich przykładów można przytaczać tysiące. Właściwie niemal wszystko, co robimy, podlega jakiemuś algorytmowi działania – przy czym warto podkreślić, że ludzie nie muszą mieć algorytmów objaśnianych dokładnie: wiele mogą wywnioskować z kontekstu, doświadczenia, po prostu domyślając się, o co może chodzić. Kucharce nie trzeba wyjaśniać, co to znaczy "zeszklić cebulkę na ciemnozłoty kolor", a monterowi - co znaczy "zaizolować przewody". 
+</p><p>Z komputerami jest jednak inaczej. Są to wyjątkowo głupie urządzenia i jeśli dokładnie nie wytłumaczymy, co mają zrobić, stają się bezradne. Między bajki należy włożyć rozmaite sytuacje znane z literatury fantastyczno-naukowej, w których komputery są równorzędnymi partnerami intelektualnymi dla ludzi. Sztuczna inteligencja, nawet jeśli istnieje, bazuje na ściśle określonych algorytmach działania i nie ma tam miejsca na intuicję, domyślenie się czegokolwiek czy nagłe olśnienie, które są doskonale znane istotom myślącym. Ludzie często nie zdają sobie sprawy, jak wiele w algorytmach, którymi się posługują, zależy od nieuświadamianego kontekstu, jak dużo muszą dopowiadać do rzekomo precyzyjnych procedur działania. Komputery bezlitośnie wyłapują luki w specyfikacji procedur i nie ma mowy, żeby domyśliły się, że wykonują jakąś bezsensowną akcję, typu wydrukowanie żądania zapłacenia 0 zł. Jeśli wyraźnie nie zapiszemy w algorytmie, że takich żądań nie należy generować, to komputer ślepo wykona nasze polecenie, choćby było ono w oczywisty sposób bezsensowne. W dalszych wykładach zobaczymy przykłady, w których algorytmy z pozoru wyglądające na poprawne i kompletne, będą miały luki powodujące błędne działanie. 
+</p>
+<div style="border-top-style: solid; border-top-width: thin; margin-top: 1em;">
+<p><span id="pytanie2" style="font-variant: small-caps; color: rgb(26, 106, 191);">Ćwiczenie </span> 
+</p>
+<div>
+<p>Znajdź w Internecie przykłady bezsensownego zachowania się komputerów. Spróbuj domyślić się, jakiego rodzaju błąd programisty był przyczyną kompromitacji. 
+</p>
+</div>
+</div>
+<p>Spróbujmy przymierzyć się do problemu znanego jeszcze ze starożytności. Przy dodawaniu sprowadza się mianowniki do najmniejszej wspólnej wielokrotności. Wyznaczenie jej najczęściej polega na tym, że oblicza się największy wspólny dzielnik, dzieli się jedną z liczb przez niego i wynik mnoży przez                    drugą. Jak jednak znaleźć największy wspólny dzielnik?
+</p>
+<div class="editsection" style="float: right; margin-left: 5px;">[<a href="http://wazniak.mimuw.edu.pl/index.php?title=Wst%C4%99p_do_programowania/Wst%C4%99p_do_algorytm%C3%B3w&amp;action=edit&amp;section=2" title="Edit section: Operacja dzielenia z resztą">Edytuj</a>]</div><a name="Operacja_dzielenia_z_reszt.C4.85"></a><h2>Operacja dzielenia z resztą</h2>
+<pre>Dla danych liczb całkowitych x, y, z zastrzeżeniem, że <img class="tex" src="7fbd24cf69ff2a1e8102eca7c06fa788.png" alt="y \neq 0"> określamy dwie operacje: 
+wynik i resztę z dzielenia x przez y następująco:
+&nbsp;&nbsp;<img class="tex" src="0625e2abe7f360da09f11b84a75816ea.png" alt="x \div y = c">,
+&nbsp;&nbsp;<img class="tex" src="38d110b8212188a9cbadeb44b8759cb7.png" alt="x\bmod y = r">, 
+gdzie liczby c i r spełniają następujące zależności:
+&nbsp;&nbsp;<img class="tex" src="ed3b034b589d583eec0eebe2e7440bbc.png" alt="x = cy + r"> 
+oraz 
+&nbsp;&nbsp;<img class="tex" src="61850dfcb2ea68999a96c5d53faa8dc6.png" alt="0 \le r &lt; |y|">
+</pre>
+<p><br>
+<span id="" style="font-variant: small-caps;">Przykład </span>
+</p>
+<div>
+<p><img class="tex" src="bae63b01be4d89bf72328e8c9aace3f5.png" alt="11\div 3 = 3,">
+</p><p><img class="tex" src="e70717d5be474457f8a7ce6723a0ce21.png" alt="11\bmod 3 = 2,">
+</p><p><img class="tex" src="de75d489e32819eef07a3efbbb601f1f.png" alt="-7\div 2 = -4,">
+</p><p><img class="tex" src="f35797d140ce8cbe9f952e080dd3a146.png" alt="-7\bmod 2 =1,">
+</p><p><img class="tex" src="f2d6b101f3bede83fba57610b0b5b362.png" alt="7\div -2 = -3,">
+</p><p><img class="tex" src="b04c454e75809c31a46591790f838755.png" alt="7\bmod -2 = 1,">
+</p>
+</div>
+<div style="border-top-style: solid; border-top-width: thin; margin-top: 1em;">
+<p><span id="pytanie3" style="font-variant: small-caps; color: rgb(26, 106, 191);">Ćwiczenie </span> 
+</p>
+<div>
+<p>Czy zawsze <img class="tex" src="88b60e010b95c290734a9fb5d01d521b.png" alt="x\bmod -y = -x \bmod  y"> oraz <img class="tex" src="7610eed79cb337173110e164f684f9ab.png" alt="x\div (-y) =  (-x) \div y">?
+</p>
+</div>
+</div>
+<p><span id="" style="font-variant: small-caps;">Wskazówka </span>
+</p>
+<div>
+<span class="tochidden" id="showhide1"><p> <span class="toctoggle">[<a href="javascript:toggleSH(1)" class="internal"><span id="showlink1" style="">pokaż</span><span style="display: none;" id="hidelink1">schowaj</span></a>]</span>
+
+</p><div style="display: none;" id="shinside1">Sprawdź hipotezę dla x= -7, y=3 oraz x=7, y=-3
+</div>
+</span>
+</div>
+<p><span id="" style="font-variant: small-caps;">Odpowiedź</span>
+</p>
+<div>
+<span class="tochidden" id="showhide2"><p> <span class="toctoggle">[<a href="javascript:toggleSH(2)" class="internal"><span id="showlink2" style="">pokaż</span><span style="display: none;" id="hidelink2">schowaj</span></a>]</span>
+
+</p><div style="display: none;" id="shinside2">Nie. Na przykład <img class="tex" src="e4c52dc623c410ce518cc8463baed9a3.png" alt="7\div -3 = -2, -7 \div 3 = -3">, bo <img class="tex" src="b87b0cd203197d5fa4488d7db64734c8.png" alt="7 = (-2)(-3) + 1">, a <img class="tex" src="eb136231ffba2416696271f6e424f9be.png" alt="-7 =(-3) \cdot 3 + 2">.
+</div>
+</span>
+</div> 
+<div style="border: 1px dashed rgb(153, 153, 153); margin: 0px; padding: 5px;">
+<div id="problem_1" style="padding: 5px; font-variant: small-caps;">Problem </div>
+<div style="padding: 5px;">[NWD(a,b)]:
+<p>Dane są dwie liczby całkowite nieujemne <img class="tex" src="ff338a7c1899a53efa682a196526ba6b.png" alt="a">, <img class="tex" src="8609e8c0ce24dde99576beb9c15d677f.png" alt="b"> takie, że <img class="tex" src="081a1398b3e0af16e63c09efd248e9ab.png" alt="a + b &gt; 0">. Wyznacz największą liczbę naturalną <img class="tex" src="9b18aea5b99a75b6ee425a95ab1a882e.png" alt="d"> taką, że <img class="tex" src="428536adbf0f1b0a9a3b6527a5011626.png" alt="a\bmod d"> &lt;realnowiki&gt;&lt;realnowiki&gt;= &lt;/realnowiki&gt;&lt;/realnowiki&gt;0 i <img class="tex" src="16b2d58d6b64819c4b62de037820d8e4.png" alt="b \bmod d= 0">. Liczbę tę nazywamy największym wspólnym dzielnikiem <img class="tex" src="926b88e2b4037701b93784dbef23a4cf.png" alt="a"> i <img class="tex" src="9b92d92f585b80059780db034c981a73.png" alt="b"> oraz oznaczamy przez <img class="tex" src="bf48ae1a424df5099eee80980962a338.png" alt="(a, b)">. 
+</p>
+</div>
+</div>
+<p>Zauważmy, że zawsze <img class="tex" src="2908146a67b232a8703f35c5504388e5.png" alt="(a, b)=(b, a)">. 
+</p><p>Załóżmy więc od tej pory, że <img class="tex" src="267fc28f36a90b452efd8331a7e7f816.png" alt="a\ge b">.
+</p>
+<div class="editsection" style="float: right; margin-left: 5px;">[<a href="http://wazniak.mimuw.edu.pl/index.php?title=Wst%C4%99p_do_programowania/Wst%C4%99p_do_algorytm%C3%B3w&amp;action=edit&amp;section=3" title="Edit section: Algorytm Euklidesa">Edytuj</a>]</div><a name="Algorytm_Euklidesa"></a><h2>Algorytm Euklidesa</h2>
+<div class="thumb tright"><div style="width: 158px;"><a href="http://wazniak.mimuw.edu.pl/index.php?title=Grafika:Euklides.jpg" class="internal" title="Euklides (ok. 365p.n.e.-ok. 300p.n.e)"><img src="euklides.jpg" alt="Euklides (ok. 365p.n.e.-ok. 300p.n.e)" longdesc="/index.php?title=Grafika:Euklides.jpg" width="156" height="185"></a>  <div class="thumbcaption"><div class="magnify" style="float: right;"><a href="http://wazniak.mimuw.edu.pl/index.php?title=Grafika:Euklides.jpg" class="internal" title="Enlarge"><img src="magnify-clip.png" alt="Enlarge" width="15" height="11"></a></div>Euklides (ok. 365p.n.e.-ok. 300p.n.e)</div></div></div>
+<p>Wiadomo, że nie istnieje ogólny wzór na największy wspólny dzielnik. Jak więc go można wyznaczyć? Metoda, którą poznamy, to jeden z najstarszych spisanych algorytmów zwany <b>algorytmem Euklidesa</b>, od imienia jednego z największych matematyków w całej historii, który go opublikował w swoim wiekopomnym dziele „Elementy”.  [<a href="http://pl.wikipedia.org/wiki/Elementy" class="external text" title="http://pl.wikipedia.org/wiki/Elementy" rel="nofollow">Elementy</a>]
+</p><p>Euklides zauważył, że gdy mniejsza z liczb jest równa zero, to największy wspólny dzielnik jest równy drugiej z nich, a gdy obie są dodatnie, to jest równy największemu wspólnemu dzielnikowi ich różnicy oraz mniejszej z nich. ref{MatematykaDyskretna...} Zapisując to zdanie za pomocą wzoru otrzymujemy
+</p><p><span id="RownanieKwadratowe"> 
+</span></p>
+<div class="center"><img class="tex" src="75e039f1b22a8bd97bac5fbdeefc8105.png" alt="(a, b) = \begin{cases}a &amp; \textrm{\ jeśli } b = 0 \\(a-b, b) &amp; \textrm{\ jeśli }  b &gt; 0\end{cases}"></div>
+<p>Taki wzór jak powyżej nazywamy <b>rekurencyjnym</b>. Istotą definiowania rekurencyjnego jest odwoływanie się w definicji jakiegoś pojęcia do niego samego, zazwyczaj zastosowanego dla prostszych danych. Tak jak tutaj: żeby zdefiniować  największy wspólny dzielnik, wykorzystujemy w definicji też pojęcie największego wspólnego dzielnika, tylko dla nieco mniejszych argumentów. Na dobrą sprawę taka definicja wygląda nieco podejrzanie, ale w rzeczywistości jest całkowicie poprawna. W końcu za jej pomocą jesteśmy  w stanie obliczyć największy wspólny dzielnik dla dowolnej pary argumentów. Spróbujmy: 
+</p><center><tt>
+(84,36)=(48,36)=(12,36)=(36,12)=(24,12)=(12,12)=(0,12)=(12,0)=12</tt></center>
+<p>W ciągu tym odejmowaliśmy od pierwszego argumentu drugi, a gdy wynik okazywał się od niego mniejszy, zamienialiśmy argumenty miejscami. Czy możemy być pewni, że zawsze w ten sposób postępując otrzymamy w końcu jeden z argumentów równy zero?
+</p>
+<div style="border-top-style: solid; border-top-width: thin; margin-top: 1em;">
+<p><span id="pytanie5" style="font-variant: small-caps; color: rgb(26, 106, 191);">Ćwiczenie </span> 
+</p>
+<div>
+<p>Udowodnij, że zawsze w skończonej liczbie kroków zejdziemy z jednym argumentem do zera.
+</p>
+</div>
+</div> 
+<p><span id="" style="font-variant: small-caps;">Wskazówka </span>
+</p>
+<div>
+<span class="tochidden" id="showhide3"><p> <span class="toctoggle">[<a href="javascript:toggleSH(3)" class="internal"><span id="showlink3" style="">pokaż</span><span style="display: none;" id="hidelink3">schowaj</span></a>]</span>
+
+</p><div style="display: none;" id="shinside3">Rozważ, jak zachowuje się suma argumentów w badanym ciągu.
+</div>
+</span>
+</div>
+<p><span id="" style="font-variant: small-caps;">Odpowiedź</span>
+</p>
+<div>
+<span class="tochidden" id="showhide4"><p> <span class="toctoggle">[<a href="javascript:toggleSH(4)" class="internal"><span id="showlink4" style="">pokaż</span><span style="display: none;" id="hidelink4">schowaj</span></a>]</span>
+
+</p><div style="display: none;" id="shinside4">Oba argumenty po każdym kroku są nieujemne, więc nieujemna jest też ich suma. Suma argumentów po każdym kroku maleje, a nie może ciąg liczb naturalnych ściśle maleć w nieskończoność – jego długość jest ograniczona przez początkową wartość tej sumy: w końcu jej wartość w każdym kroku pomniejsza się co najmniej o jedynkę. Zatem ciąg naszych operacji jest skończony. A jedyny powód przerwania obliczeń rekurencyjnych może być tylko taki, że mniejszy z argumentów równa się zero.
+</div>
+</span>
+</div> 
+<p><br>
+Zauważmy, że podaliśmy <i>przepis</i> otrzymywania  największego wspólnego dzielnika. Jest to właśnie <i>algorytm Euklidesa</i>. Za jego pomocą możemy znaleźć największy wspólny dzielnik dla dowolnej pary argumentów. 
+</p><p>Przedstawmy program w notacji, którą formalnie wprowadzimy nieco później, obliczający  największy wspólny dzielnik zgodnie z podanym algorytmem. 
+</p>
+<div class="editsection" style="float: right; margin-left: 5px;">[<a href="http://wazniak.mimuw.edu.pl/index.php?title=Wst%C4%99p_do_programowania/Wst%C4%99p_do_algorytm%C3%B3w&amp;action=edit&amp;section=4" title="Edit section: Euklides 1">Edytuj</a>]</div><a name="Euklides_1"></a><h3>Euklides 1</h3>
+<p><span id="kod_zrodlowy"></span>
+</p>
+<pre><b>Read</b>(a,b);             //Wczytujemy a i b, zakładając że użytkownik wie, że a&gt;=b, a+b&gt;0 
+  <b>while</b> b &gt; 0 <b>do</b> 
+  <b>begin</b>
+   <b>if</b> a&lt; b <b>then</b> zamień(a,b);  //po wykonaniu tej instrukcji zawsze a&gt;=b
+    a:=a-b                //tutaj być może raz wykonamy niepotrzebnie odejmowanie zera 
+  <b>end</b>;
+  <b>Write</b>(a)                //wypisujemy wynik, którym jest wartość a
+</pre>
+<p><br>
+Zastanówmy się, jak długo będziemy wykonywali nasz algorytm. Załóżmy, że dane na których pracujemy nie przekraczają <img class="tex" src="6de821d32e9bff5780df362355593eb4.png" alt="10^{30}">. Tak duże liczby jako argumenty nie są jakimś dziwactwem: w rzeczywistości szukanie  największego wspólnego dzielnika jest częścią szyfrowania RSA – powszechnie stosowanego protokołu kryptograficznego i zazwyczaj używa się tu znacznie większych liczbach – ponadstucyfrowych. 
+</p><p>Dobierzmy możliwie złośliwe dane. Oczywiście aby algorytm działał jak najdłużej, należy odejmować jak najmniejsze wartości w każdym kroku. Weźmy zatem <img class="tex" src="42da7d84619a450a2c0ba3792ea7bdd8.png" alt="a = 10^{30}, b = 1">. Widać, że dla tych danych wykona się <img class="tex" src="062478595b427a26c58ad6cdde3a335d.png" alt="10^{30}"> obrotów pętli: będziemy żmudnie odejmowali jedyneczkę od sporej dość liczby. Jak długo to może potrwać?
+</p><p>Przyjmijmy, że mamy do czynienia z bardzo szybkim komputerem, który na jeden obrót pętli potrzebuje jedną dziesięciomiliardową sekundy <img class="tex" src="e99151c905825457ba84e741d4dbbe20.png" alt="(10^{-10}s )">. Zatem  w ciągu doby mamy <img class="tex" src="9c5afdbb084edfc8d8e2a5beb6e56f43.png" alt="86400\cdot 10^{10}"> obrotów pętli. Dób w ciągu roku jest 365, czyli razem mamy <img class="tex" src="bc37d10693f0d0ac4b40d26594c187de.png" alt="31536 \cdot 10^{13}"> obrotów pętli na rok. A od Wielkiego Wybuchu minęło niespełna 14 miliardów lat, łącznie niespełna <img class="tex" src="fc00b86bd444b536e35f47aa39a9329c.png" alt="5 \cdot 10^{28}"> obrotów pętli. Przyjąwszy, że ktoś włączył nasz komputer na początku Wszechświata i on do dziś z tą zawrotną prędkością wykonuje nasz program dla tych właśnie danych, widzimy, że do dziś wykonałby niespełna jedną dwudziestą wszystkich obliczeń. Jeszcze dwadzieścia parę takich Wszechświatów i program zakończyłby swoje działanie. 
+</p><p>Co należy w takiej sytuacji zrobić? Niektórzy myślą, że trzeba kupić szybszy komputer. 
+Żarty na bok. Ale istnieją użytkownicy, którzy gdy im program działa zbyt wolno, myślą przede wszystkim o sprzęcie. W wielu przypadkach jednak główne rezerwy tkwią w samym algorytmie. Dlatego też w trakcie tego kursu będziemy wielką wagę przykładali do jakości algorytmów i szukali jak najlepszych rozwiązań. 
+</p><p>Zauważmy (a Euklides to wiedział długo przed nami), że tak naprawdę odejmowanie wykonujemy tylko po to, żeby wyznaczyć resztę z dzielenia <img class="tex" src="ff338a7c1899a53efa682a196526ba6b.png" alt="a"> przez <img class="tex" src="8609e8c0ce24dde99576beb9c15d677f.png" alt="b">. W końcu dopóki <img class="tex" src="ff338a7c1899a53efa682a196526ba6b.png" alt="a"> jest większe od <img class="tex" src="8609e8c0ce24dde99576beb9c15d677f.png" alt="b">, odejmujemy od <img class="tex" src="ff338a7c1899a53efa682a196526ba6b.png" alt="a"> całkowite wielokrotności <img class="tex" src="8609e8c0ce24dde99576beb9c15d677f.png" alt="b">, a zamieniamy rolami <img class="tex" src="ff338a7c1899a53efa682a196526ba6b.png" alt="a"> z <img class="tex" src="8609e8c0ce24dde99576beb9c15d677f.png" alt="b"> gdy tylko <img class="tex" src="ff338a7c1899a53efa682a196526ba6b.png" alt="a"> spadnie poniżej <img class="tex" src="8609e8c0ce24dde99576beb9c15d677f.png" alt="b">. W momencie, gdy <img class="tex" src="ff338a7c1899a53efa682a196526ba6b.png" alt="a"> z <img class="tex" src="8609e8c0ce24dde99576beb9c15d677f.png" alt="b"> zamieniają się rolami, <img class="tex" src="ff338a7c1899a53efa682a196526ba6b.png" alt="a"> ma wartość właśnie reszty z dzielenia <img class="tex" src="ff338a7c1899a53efa682a196526ba6b.png" alt="a"> przez <img class="tex" src="9b92d92f585b80059780db034c981a73.png" alt="b">. Można by zatem pominąć całe to odejmowanie, jeśli udałoby się nam od razu znaleźć tę resztę z dzielenia. A to nie jest takie trudne – można choćby stosować poznane w szkole podstawowej słupkowe dzielenie, które nad kreską daje wynik dzielenia, a na dole – resztę. Zmodyfikujmy zatem algorytm Euklidesa:
+</p>
+<div class="editsection" style="float: right; margin-left: 5px;">[<a href="http://wazniak.mimuw.edu.pl/index.php?title=Wst%C4%99p_do_programowania/Wst%C4%99p_do_algorytm%C3%B3w&amp;action=edit&amp;section=5" title="Edit section: Euklides 2">Edytuj</a>]</div><a name="Euklides_2"></a><h3>Euklides 2</h3>
+<p><span id="kod_zrodlowy"></span>
+</p>
+<pre><b>Read</b>(a,b);        //Wczytujemy a i b, zakładając że użytkownik wie, że a&gt;=b, a+b&gt;0 
+<b>while</b> b &gt; 0 do 
+<b>begin</b>
+  a:=a mod b;                     
+  zamień (a,b) //reszta jest zawsze mniejsza od dzielnika, więc w ciemno możemy
+                 zamienić a z b
+<b>end</b>;
+<b>Write</b>(a)          //Wypisujemy wynik
+</pre>
+<p>Podobnie jak poprzednio, możemy bez trudu pokazać, że program się zawsze zakończy. 
+</p><p>Jak długo się tym razem będzie wykonywała nasza pętla programu? Jeśli dobranie najbardziej złośliwych danych w poprzednim przypadku było proste, to teraz wcale nie jest oczywiste dla jakich danych spośród liczb 30-cyfrowych program będzie działał najdłużej. Załóżmy, że tak jak wcześniej interesuje nas liczba obrotów pętli. Pomijamy na razie koszt związany z operacją dzielenia z resztą, zakładając że jest on stały. 
+</p>
+<div style="border-top-style: solid; border-top-width: thin; margin-top: 1em;">
+<p><span id="pytanie6" style="font-variant: small-caps; color: rgb(26, 106, 191);">Ćwiczenie </span> 
+</p>
+<div>
+<p>Znajdź dwie liczby dwucyfrowe, dla których algorytm Euklides 2 wykona się najwięcej razy. 
+</p>
+</div>
+</div>
+<p><span id="" style="font-variant: small-caps;">Wskazówka  1</span>
+</p>
+<div>
+<span class="tochidden" id="showhide5"><p> <span class="toctoggle">[<a href="javascript:toggleSH(5)" class="internal"><span id="showlink5" style="">pokaż</span><span style="display: none;" id="hidelink5">schowaj</span></a>]</span>
+
+</p><div style="display: none;" id="shinside5">Maksymalna liczba obrotów pętli, to 9. </div>
+</span>
+</div>
+<p><span id="" style="font-variant: small-caps;">Wskazówka  2</span>
+</p>
+<div>
+<span class="tochidden" id="showhide6"><p> <span class="toctoggle">[<a href="javascript:toggleSH(6)" class="internal"><span id="showlink6" style="">pokaż</span><span style="display: none;" id="hidelink6">schowaj</span></a>]</span>
+
+</p><div style="display: none;" id="shinside6">Nie bądź rozrzutny: jeśli tę samą liczbę obrotów pętli możesz uzyskać wychodząc od mniejszych argumentów, to zrób to.
+</div>
+</span>
+</div>
+<p><span id="" style="font-variant: small-caps;">Odpowiedź</span>
+</p>
+<div>
+<span class="tochidden" id="showhide7"><p> <span class="toctoggle">[<a href="javascript:toggleSH(7)" class="internal"><span id="showlink7" style="">pokaż</span><span style="display: none;" id="hidelink7">schowaj</span></a>]</span>
+ 
+</p><div style="display: none;" id="shinside7"><img class="tex" src="327db90c7bb8bd5b797bdb9450bf17af.png" alt="(89, 55)">. Wykonując kolejne dzielenia z resztą otrzymujemy ciąg <img class="tex" src="598afc4a6261a1d4d43f90b531895029.png" alt="(55, 34), (34, 21), (21, 13), (13,8), (8,5), (5, 3), (3,2), (2,1), (1,0)">. Za każdym razem wynik dzielenia był równy jeden, a reszta była po prostu różnicą argumentów. 
+</div>
+</span>
+</div>
+<div class="editsection" style="float: right; margin-left: 5px;">[<a href="http://wazniak.mimuw.edu.pl/index.php?title=Wst%C4%99p_do_programowania/Wst%C4%99p_do_algorytm%C3%B3w&amp;action=edit&amp;section=6" title="Edit section: Liczby Fibonacciego">Edytuj</a>]</div><a name="Liczby_Fibonacciego"></a><h2>Liczby Fibonacciego</h2>
+<div class="thumb tright"><div style="width: 158px;"><a href="http://wazniak.mimuw.edu.pl/index.php?title=Grafika:Fibonacci.jpg" class="internal" title="Fibonacci (ok. 1170-1250)"><img src="fibonacci.jpg" alt="Fibonacci (ok. 1170-1250)" longdesc="/index.php?title=Grafika:Fibonacci.jpg" width="156" height="130"></a>  <div class="thumbcaption"><div class="magnify" style="float: right;"><a href="http://wazniak.mimuw.edu.pl/index.php?title=Grafika:Fibonacci.jpg" class="internal" title="Enlarge"><img src="magnify-clip.png" alt="Enlarge" width="15" height="11"></a></div>Fibonacci (ok. 1170-1250)</div></div></div>
+<p>Aby rozwiązać ten problem doboru najbardziej złośliwych danych, należy spojrzeć na problem od drugiej strony: jak za pomocą najmniejszych liczb uzyskać z góry zadaną liczbę obrotów pętli? Widać, że aby pętla wykonała się raz, wystarczą dane <img class="tex" src="0bcd240481d87050706a168ffbf129e4.png" alt="(1, 1)">. Ale te dane nie mogą być wynikiem wcześniejszego obrotu pętli: pamiętajmy, że pierwszy z argumentów jest zawsze dzielnikiem z poprzedniego obrotu pętli, a skoro jest nim jedynka, to reszta nie mogła być równa jeden. Zatem przy więcej niż jednym obrocie pętli najmniejsze dane dla ostatniego obrotu pętli, to <img class="tex" src="c027096df5277f68b9f7d8b4af014ec3.png" alt="(2, 1)"> (po czym dostajemy od razu parę <img class="tex" src="0320c8e5124edd0fd029b8ff78e096d7.png" alt="(1, 0)"> kończącą pętlę). Jakie były zatem dane przedostatnie? Widać, że dzieliliśmy przez <img class="tex" src="e3edda39062434479c577cd0091b71f8.png" alt="2"> i dostaliśmy resztę <img class="tex" src="420645451346c94124da10ef8b72de97.png" alt="1">. Zatem w poprzednim kroku mogliśmy mieć pary <img class="tex" src="d44bfcc009b4ee49e727192e6b40b241.png" alt="(3, 2)"> lub <img class="tex" src="a0a8bb1ea26c6149902c309f940de93b.png" alt="(5, 2)"> lub <img class="tex" src="1b5000654ae4f85318621958179c0c84.png" alt="(7, 2),\ldots">. Z nich para <img class="tex" src="d44bfcc009b4ee49e727192e6b40b241.png" alt="(3, 2)"> jest najoszczędniejsza – są to liczby, które dają najmniejszą sumę, a liczba obrotów naszej pętli jest równa <img class="tex" src="e3edda39062434479c577cd0091b71f8.png" alt="2">. Jak wyglądała zatem para dwa kroki wstecz? Dzielnik musiał być równy <img class="tex" src="4113fbdec67a12d894af4b66b76d2bae.png" alt="3">, a reszta równa <img class="tex" src="e3edda39062434479c577cd0091b71f8.png" alt="2">, więc w grę wchodzą pary <img class="tex" src="06e1cf11a274d4abfb86bb1d388ff75a.png" alt="(5, 3), (8, 3), (11, 3),\ldots">. Z nich znów najoszczędniejsza jest para <img class="tex" src="a1c9f2b44cd1153c5481cdd8d8ceb4e6.png" alt="(5, 3)">. Dalej, cofając się i rozumując w analogiczny sposób, dostaniemy pary <img class="tex" src="7f0f63dc1152b2ec7ecd1be69e805286.png" alt="(8,5)"> i kolejno <img class="tex" src="f3e426de58cfb47f3e7888b32c477b23.png" alt="(13, 8), (21, 13),\ldots">. Widać zatem, że zawsze najoszczędniej będzie tak dobierać kolejną parę, aby wynik dzielenia był równy <img class="tex" src="420645451346c94124da10ef8b72de97.png" alt="1">, czyli innymi słowy, jeśli w kolejnym obrocie pętli argumenty są równe <img class="tex" src="ff338a7c1899a53efa682a196526ba6b.png" alt="a"> i&nbsp;<img class="tex" src="8609e8c0ce24dde99576beb9c15d677f.png" alt="b">, to w poprzednim powinny być równe <img class="tex" src="433c65c7db9784d9c0585708f1172ca3.png" alt="a + b"> i&nbsp;<img class="tex" src="ff338a7c1899a53efa682a196526ba6b.png" alt="a">. Wtedy bowiem <img class="tex" src="8609e8c0ce24dde99576beb9c15d677f.png" alt="b"> jest resztą z dzielenia <img class="tex" src="433c65c7db9784d9c0585708f1172ca3.png" alt="a + b"> przez <img class="tex" src="ff338a7c1899a53efa682a196526ba6b.png" alt="a">, natomiast iloraz równy jest&nbsp;1. 
+</p><p>Zbadajmy zatem, jakie najmniejsze argumenty dają zadaną liczbę obrotów pętli. 
+</p>
+<table class="standard-table" align="center" border="1" cellspacing="2">
+<tbody><tr>
+<th> Liczba obrotów </th>
+<th>&nbsp; a&nbsp;   </th>
+<th>&nbsp;   b&nbsp;   </th>
+</tr>
+<tr><td align="center">
+<p>0<br>
+1<br>
+2<br>
+3<br>
+4<br>
+5<br>
+6<br>
+</p>
+...</td>
+<td align="center">
+<p>1<br>
+1<br>
+3<br>
+5<br>
+8<br>
+13<br>
+21<br>
+</p>
+&nbsp;</td>
+<td align="center">
+<p>0<br>
+1<br>
+2<br>
+3<br>
+5<br>
+8<br>
+13<br>
+</p>
+&nbsp;</td>
+</tr></tbody></table>
+<p><br>
+Liczby, które występują w tabeli, są znane pod nazwą <b>liczb Fibonacciego</b>. Mają one w informatyce duże znaczenie i warto znać podstawowe fakty o nich. Definiuje się je następująco: 
+</p><p><b>Liczby Fibonacciego</b>
+</p>
+<pre><img class="tex" src="6fb57eb9461116c82ef70bfb79ebd449.png" alt="F_{0}=0">
+<img class="tex" src="0fe66f164f89aaaa8c82dc6916911ea6.png" alt="F_{1}=1">
+<img class="tex" src="f1ed374a04f64b6ecb77e08dff2476de.png" alt="F_n = F_{n-1}+F_{n-2}"> dla <img class="tex" src="1b870a6c217fbc2e892816673e1a7b6f.png" alt="n \ge 2">
+</pre>
+<p>Każda kolejna liczba Fibonacciego jest sumą dwóch swoich poprzedniczek. Parę początkowych wyrazów tego ciągu warto znać na pamięć.
+</p>
+<table class="standard-table" align="center" border="1" cellspacing="2">
+<tbody><tr>
+<th>&nbsp;&nbsp; <img class="tex" src="72afa2d6001d7d9e8aa09a2349c87dee.png" alt="n"> &nbsp;&nbsp; </th>
+<th>&nbsp;&nbsp; <img class="tex" src="9692f5286eceae631f11a7c3ffb21159.png" alt="F_{n}"> &nbsp;&nbsp;   </th>
+</tr>
+<tr><td align="center">
+<p>0<br>
+1<br>
+2<br>
+3<br>
+4<br>
+5<br>
+6<br>
+7<br>
+8<br>
+</p>
+...</td>
+<td align="center">
+<p>0<br>
+1<br>
+1<br>
+2<br>
+3<br>
+5<br>
+8<br>
+13<br>
+21<br>
+</p>
+&nbsp;</td></tr></tbody></table>
+<div class="thumb tright"><div style="width: 158px;"><a href="http://wazniak.mimuw.edu.pl/index.php?title=Grafika:Binet.jpg" class="internal" title="Jacques Philippe Marie Binet (1786-1856)"><img src="binet.jpg" alt="Jacques Philippe Marie Binet (1786-1856)" longdesc="/index.php?title=Grafika:Binet.jpg" width="156" height="187"></a>  <div class="thumbcaption"><div class="magnify" style="float: right;"><a href="http://wazniak.mimuw.edu.pl/index.php?title=Grafika:Binet.jpg" class="internal" title="Enlarge"><img src="magnify-clip.png" alt="Enlarge" width="15" height="11"></a></div>Jacques Philippe Marie Binet (1786-1856)</div></div></div>
+<p>Widzimy więc, że poczynając od drugiego wiersza tabeli (<img class="tex" src="a961d42d4506a5d987f60eb72b7fe131.png" alt="n\ge 1">), najbardziej złośliwych danych dla algorytmu Euklides2 mamy zawsze <img class="tex" src="1ab3c35d33052da8dc53a03d55460cb9.png" alt="a = F_{n+2}, b= F_{n+1}">. Aby wymusić <img class="tex" src="24650b69c66c200e50e11b6bf7e2155e.png" alt="n"> obrotów pętli musimy wziąć zatem co najmniej <img class="tex" src="a02a69d8d28d99aac839baac3d94d59f.png" alt="n + 2">-gą i <img class="tex" src="f7021b0e3cd39db78e59767c56226d47.png" alt="n + 1">-wszą liczbę Fibonacciego. 
+</p>
+<div class="thumb tright"><div style="width: 158px;"><a href="http://wazniak.mimuw.edu.pl/index.php?title=Grafika:Euler.jpg" class="internal" title="Leonhard Euler (1707-1783)"><img src="euler.jpg" alt="Leonhard Euler (1707-1783)" longdesc="/index.php?title=Grafika:Euler.jpg" width="156" height="187"></a>  <div class="thumbcaption"><div class="magnify" style="float: right;"><a href="http://wazniak.mimuw.edu.pl/index.php?title=Grafika:Euler.jpg" class="internal" title="Enlarge"><img src="magnify-clip.png" alt="Enlarge" width="15" height="11"></a></div>Leonhard Euler (1707-1783)</div></div></div>
+<p>Liczby Fibonacciego rosną szybko. Konkretnie znany jest ogólny wzór na <img class="tex" src="24650b69c66c200e50e11b6bf7e2155e.png" alt="n">-tą liczbę Fibonacciego przypisywany Binetowi, a znany jeszcze na pewno Eulerowi 100 lat przed Binetem.
+</p><p><br> 
+<span id="WzorEulera-Bineta"> 
+</span></p>
+<div class="center"><img class="tex" src="a6798de76e054b1c349281ed845b7dd3.png" alt="F_n=\frac{1}{\sqrt{5}}((\frac{1+\sqrt{5}}{2})^n-(\frac{1-\sqrt{5}}{2})^n)"></div>
+<p>Dowód tego wzoru można znaleźć w <a href="#MatematykaDyskretna-xxx" title="">#MatematykaDyskretna-xxx</a>. 
+</p><p>Wprowadzając oznaczenia <img class="tex" src="3fbcec4212c7d6d363f6bc92af90623a.png" alt="\varphi = \frac{1+\sqrt{5}}{2}, \hat{\varphi} = \frac{1-\sqrt{5}}{2}">, otrzymujemy wzór w nieco bardziej czytelnej postaci
+</p>
+<div class="center"><img class="tex" src="d83dbb94fa2bada0eaa52695b809c23b.png" alt="F_n=\frac{1}{\sqrt{5}}(\varphi^n-\hat{\varphi}^n)">.</div> 
+<p>Biorąc pod uwagę to, że <img class="tex" src="62d9d6e63443970f6f27eb3af59aa452.png" alt="\varphi = 1,618...">, zaś <img class="tex" src="9381c4af215d0859dcaf805c4396a31b.png" alt="\hat{\varphi} = -0,318..."> i to, że w związku z tym składnik <img class="tex" src="19797ea64fff5400c879ebb30e37075d.png" alt="\hat{\varphi}^{n}"> w naszym wzorze bardzo szybko dąży do zera, możemy łatwo pokazać, że n-ta liczba Fibonacciego jest równa 
+</p><p><span id="KrotkiFibo"> 
+</span></p>
+<div class="center"><img class="tex" src="9371334eb1aa9c7ca3fa5658f57484c5.png" alt="F_n=[\frac{1}{\sqrt{5}}\varphi^n]">,&nbsp;&nbsp;&nbsp;(∗)</div>
+<p>gdzie przez <img class="tex" src="c5a47cbeb1b2ce72d3dd998a55895875.png" alt="[x]"> oznaczamy zaokrąglenie <img class="tex" src="c482dab4c2cfc9be2455cc17d3a85de8.png" alt="x">, czyli liczbę całkowitą najbliższą danej liczby rzeczywistej <img class="tex" src="6d4f457202659e249289eb62615bbf25.png" alt="x">. Zatem n-ta liczba Fibonacciego jest prawie dokładnie równa n-tej potędze <img class="tex" src="dcd6fca668c01f3a0aa74397c1125126.png" alt="\varphi"> podzielonej przez <img class="tex" src="a7533d9f1e1e623b7d6a3a6b3111268a.png" alt="{\sqrt{5}}">. Zauważmy jeszcze, że skoro tak, to po zlogarytmowaniu obustronnie wzoru <a href="#KrotkiFibo" title="">(∗)</a> przy podstawie <img class="tex" src="cabcd02a74eaa0f2f73e79af41db81b5.png" alt="\varphi"> otrzymujemy wzór 
+</p>
+<div class="center"><img class="tex" src="29d00053d812fe6d321e82b85b9dd8a3.png" alt="\log_{\varphi} F_n = n -  log_{\varphi}\sqrt{5}">.</div> 
+<p>Zatem indeks <img class="tex" src="3a6189a74dda54a451bec3de97d4d221.png" alt="n"> zadanej liczby Fibonacciego <img class="tex" src="9692f5286eceae631f11a7c3ffb21159.png" alt="F_{n}"> wynosi 
+</p>
+<div class="center"><img class="tex" src="cf9aa4404f45b3dd786f268c1b69021f.png" alt="n=\log_{\varphi}F_n  +  log_{\varphi}\sqrt{5}">.</div>
+<p>Zapamiętajmy sobie niezwykle ważny wniosek:
+</p><p><span id="" style="font-variant: small-caps;">Wniosek </span>
+</p>
+<div>Liczby Fibonacciego rosną wykładniczo szybko. Ich wzrost jest prawie identyczny, jak funkcji wykładniczej <img class="tex" src="9d68a36f01e6f550bc00ae262a5cbb2e.png" alt="\frac{1}{\sqrt{5}} \varphi^n">.</div> 
+<p>Wprowadźmy oznaczenie <img class="tex" src="3a65b49209a236c3608f686f7d34b02f.png" alt="\text{FIB}(a)"> na największą liczbę Fibonacciego mniejszą od <img class="tex" src="ff338a7c1899a53efa682a196526ba6b.png" alt="a">, a przez <img class="tex" src="04cc73856a5a14e1c42f11a9be4d88c0.png" alt="[n]\text{FIB}(a)"> jej indeks. Ponieważ dla dowolnych argumentów <img class="tex" src="bf48ae1a424df5099eee80980962a338.png" alt="(a, b)"> liczba obrotów pętli algorytmu Euklides2 nie przekracza liczby obrotów pętli dla argumentów najbardziej złośliwych, czyli <img class="tex" src="8d65dca9150ea691d129e7cf94d55789.png" alt="\text{FIB}(a)=F_{[n]\text{FIB}(a)}"> oraz poprzedniej liczby Fibonacciego <img class="tex" src="4b236bf1ee2e215910915021d8b901d8.png" alt="F_{[n]\text{FIB}(a)-1}">, a liczba obrotów pętli dla tych argumentów jest o <img class="tex" src="e3edda39062434479c577cd0091b71f8.png" alt="2"> mniejsza, niż indeks większej z nich, to otrzymujemy szacowanie na liczbę obrotów pętli <img class="tex" src="65bf3e3156663d1b110d814971cfd933.png" alt="M(a, b)"> dla dowolnych argumentów <img class="tex" src="926b88e2b4037701b93784dbef23a4cf.png" alt="a"> i <img class="tex" src="9b92d92f585b80059780db034c981a73.png" alt="b">:
+</p><p><span id="KrotkiFibo2"> 
+</span></p>
+<div class="center"><img class="tex" src="6c053d492f2b88831c4a4d888258a034.png" alt="M(a,b) \le M(\text{FIB}(a)), \text{FIB}(\text{FIB}(a)) = [n]\text{FIB}(a)-2,"> </div>
+<p>skąd
+</p>
+<div class="center"><img class="tex" src="7eee35e3ffccf234859ed511c0231979.png" alt="M(a, b)+ 2 \le \log_{\varphi}F_n  +  log_{\varphi}\sqrt{5}">,</div>
+<p>a biorąc pod uwagę, że 
+</p>
+<div class="center"><img class="tex" src="1c68aae5d1dfaad5193aa5675ea3041c.png" alt="log_{\varphi}\sqrt{5}=1,67..."></div>
+<p>otrzymujemy 
+</p>
+<div class="center"><img class="tex" src="4515e54e60149972c0e1ac308b38af6d.png" alt="M(a,b)\le \log_{\varphi}a \log_{\varphi}a \le log_{\varphi}(\text{FIB}(a))">.</div>
+<p>Zapamiętajmy jeszcze jedną ważną prawidłowość. 
+</p>
+<div id="">Uwaga </div>
+<div style="padding: 5px;">
+<p>Indeksy liczb Fibonacciego rosną logarytmicznie wolno w stosunku do wartości tych liczb. 
+</p>
+</div>
+<p>Zatem funkcja [n]FIB(x) rośnie logarytmicznie ze względu na x.
+</p><p>Wracając do naszych danych trzydziestocyfrowych: możemy oszacować liczbę obrotów pętli przez <img class="tex" src="651ec89d4e0a0a850186b668e15eda10.png" alt="log_{\varphi} 10^{30} = 148,33...">. Zatem wykonamy nie więcej niż 150 obrotów pętli, co oczywiście będzie w zasięgu nawet bardzo wolnego komputera. Pamiętajmy, że przy dużych liczbach możemy zapomnieć o wbudowanych w języki programowania procedurach arytmetycznych. O arytmetykę musimy zadbać sami. Własną arytmetyką dużych liczb zajmiemy się później.
+</p><p>Zauważmy pewną niedogodność. W algorytmie Euklides2 jeden krok pętli jest nieco trudniejszy. W poprzednim algorytmie Euklides1 mieliśmy tylko porównywanie liczb i ich odejmowanie. Tutaj musimy zaprogramować dzielenie z resztą. Jest to nie tylko trudniejsze, ale i ogólnie wolniejsze od odejmowania. Jeśli zdecydujemy się na algorytm szkolny dzielenia słupkowego, to trzeba będzie wykonać całą serię obliczeń realizujących kolejne kroki wyznaczania cyfr ilorazu. Każdy z tych kroków wymaga wyznaczenia stosownej cyfry wyniku, przemnożenia jej wartości przez dzielnik, a następnie odjęcia od fragmentu dzielnej tego wyniku. Robimy to z grubsza tyle razy, ile cyfr ma iloraz. 
+</p><p>Jeżeli za miarę wielkości liczby przyjmiemy długość jej reprezentacji w systemie pozycyjnym (czyli liczbę cyfr), to o ile porównywanie oraz odejmowanie można zrobić w czasie proporcjonalnym do długości tej reprezentacji, to dzielenie może wymagać kwadratowego czasu. Niech długość dzielnej wynosi <img class="tex" src="72afa2d6001d7d9e8aa09a2349c87dee.png" alt="n">. Zauważmy, że jeśli dzielnik jest o połowę krótszy od dzielnej, (czyli mając długość <img class="tex" src="58dd192e80a20c4f373659fc8d7b3d20.png" alt="n/2"> jest mniej więcej równy pierwiastkowi kwadratowemu z dzielnej), to iloraz będzie miał długość podobną jak dzielnik, czyli <img class="tex" src="58dd192e80a20c4f373659fc8d7b3d20.png" alt="n/2"> i tyle razy będzie się musiała wykonać zasadnicza  pętla algorytmu dzielącego, bo tyle cyfr trzeba wyznaczyć. Z kolei wyznaczenie każdej cyfry ilorazu wymaga odjęcia jakiejś niewielkiej wielokrotności dzielnika, a więc liczby również z grubsza <img class="tex" src="58dd192e80a20c4f373659fc8d7b3d20.png" alt="n/2">-cyfrowej. A odejmowanie jest proporcjonalnie kosztowne do długości argumentów. Łącznie zatem <img class="tex" src="58dd192e80a20c4f373659fc8d7b3d20.png" alt="n/2"> cyfr ilorazu razy <img class="tex" src="58dd192e80a20c4f373659fc8d7b3d20.png" alt="n/2"> jednocyfrowych kroków przy odejmowaniu daje nam łącznie <img class="tex" src="ea2311f37e1479b743b4b960a6aeb5c5.png" alt="{n^2/4">, więc kwadratowo wiele w stosunku do <img class="tex" src="72afa2d6001d7d9e8aa09a2349c87dee.png" alt="n">. 
+</p><p>Liczba obrotów głównej pętli algorytmu jest też proporcjonalna do <img class="tex" src="24650b69c66c200e50e11b6bf7e2155e.png" alt="n">, bo w dowolnym systemie pozycyjnym liczba cyfr jest proporcjonalna do logarytmu z danej liczby przy podstawie będącej bazą systemu, czyli również proporcjonalna do logarytmu przy podstawie <img class="tex" src="cabcd02a74eaa0f2f73e79af41db81b5.png" alt="\varphi">, bo logarytmy o różnych podstawach różnią się od siebie tylko o czynnik stały. 
+</p><p>Jeśli skupimy się na operacjach na pojedynczych cyfrach, to łączna liczba wszystkich operacji będzie rzędu co najwyżej <img class="tex" src="e6ac24393c4812418c66e9951028ee9b.png" alt="n^3">. W rzeczywistości możemy się pokusić o przypuszczenie, że będzie to nawet mniej. Zauważmy bowiem, że złośliwe dane dla głównej pętli, to kolejne liczby Fibonacciego, a te długością różnią się co najwyżej o 1, natomiast złośliwe dane dla algorytmu dzielenia z resztą, to dane różniące się długością dwukrotnie; liczby Fibonacciego można podzielić w czasie liniowym, a nie kwadratowym. I to liczby Fibonacciego będą się pojawiały cały czas, w każdym kroku algorytmu. Jeżeli zatem zaczniemy od pary kolejnych liczb Fibonacciego, to <img class="tex" src="fc586d5ed524d1d85365d1c3a7fd637c.png" alt="O(n)">-krotnie wykonamy dzielenie kosztujące <img class="tex" src="4bfd0686e263f532666007889418835f.png" alt="O(n)">, co nam da <img class="tex" src="1f2279810d3752f11ab2cd97572efcfa.png" alt="O(n^{2})">. Jeśli natomiast będziemy się starali wywindować koszt dzielenia, to długości kolejnych par powinny być równe <img class="tex" src="74a3e836a95b3c5237d9bb4a96be8a67.png" alt="(n,n/2), (n/2,n/4 ), (n/4, n/8),\ldots">. Ale wtedy łączny koszt dzieleń będzie równy 
+</p>
+<div class="center"><img class="tex" src="0b2ac4675486e49375fb1557f717f49b.png" alt="\frac{n^2}{4}+\frac{n^2}{16}+ \frac{n^2}{64}+\ldots =O(n^2)">.</div> 
+<p>Zatem obie skrajności: złośliwe dane dla zewnętrznej i dla wewnętrznej pętli dają koszt kwadratowy. Ale czy nie można wypośrodkować złośliwości tak, aby uzyskać jednak złożoność sześcienną? 
+</p>
+<div style="border-top-style: solid; border-top-width: thin; margin-top: 1em;">
+<p><span id="" style="font-variant: small-caps; color: rgb(26, 106, 191);">Ćwiczenie </span> 
+</p>
+<div>
+<p>Czy można tak dobrać dane, żeby wymusić sześcienną złożoność algorytmu Euklides2? 
+</p>
+</div>
+</div>
+<p><span id="" style="font-variant: small-caps;">Odpowiedź</span>
+</p>
+<div>
+<span class="tochidden" id="showhide8"><p> <span class="toctoggle">[<a href="javascript:toggleSH(8)" class="internal"><span id="showlink8" style="">pokaż</span><span style="display: none;" id="hidelink8">schowaj</span></a>]</span>
+
+</p><div style="display: none;" id="shinside8">NIE. Złożoność algorytmu Euklides2 jest jednak kwadratowa. 
+</div>
+</span>
+</div> 
+<p>Powstaje pytanie, czy nie dałoby się znaleźć takiego algorytmu znajdowania największego wspólnego dzielnika tak, aby zachowując złożoność kwadratową korzystać z łatwiejszych operacji niż dzielenia z resztą. Rozwiązanie jest zaskakująco proste, jeśli zauważymy parę dość oczywistych faktów. Będziemy rozważać parzystość argumentów i redukować problem ze względu na tę właśnie własność. Oznaczmy zbiór liczb parzystych przez <img class="tex" src="ba67f62baef512e40fe0f3b9f713dc97.png" alt="P">. Kluczem do algorytmu jest spostrzeżenie, że jeśli jedna liczba jest parzysta, a druga nie, to największy wspólny dzielnik nie zmieni się, jeśli parzysty argument podzielimy przez 2.
+</p>
+<div class="editsection" style="float: right; margin-left: 5px;">[<a href="http://wazniak.mimuw.edu.pl/index.php?title=Wst%C4%99p_do_programowania/Wst%C4%99p_do_algorytm%C3%B3w&amp;action=edit&amp;section=7" title="Edit section: Euklides3">Edytuj</a>]</div><a name="Euklides3"></a><h3>Euklides3</h3>
+<div class="center"><img class="tex" src="aeb8878dee4abc2090185b2b0450bd9f.png" alt="(a,b) = \begin{cases} a &amp; \mbox{jeśli }b=0 \\ 2(\frac{a}{2},\frac{b}{2}) &amp; \mbox{jeśli }a,b\in P \\ (\frac{a}{2},b) &amp; \mbox{jeśli }a\in P, b\notin P \\ (a,\frac{b}{2}) &amp; \mbox{jeśli }a\notin P, b\in P\\ (a-b,b) &amp; \mbox{jeśli }a,b\notin P \end{cases}"></div>
+<p>Oczywiście, podobnie jak poprzednio, dbamy zawsze o to, żeby pierwszy argument nie był mniejszy od drugiego i w razie czego zamieniamy je miejscami. 
+</p><p><b>Euklides 3</b>
+<span id="kod_zrodlowy"></span>
+</p>
+<pre><b>Read</b>(a,b);       //Wczytujemy a i b, zakładając że użytkownik wie, że a&gt;=b, a+b&gt;0 
+wynik:=1;
+<b>while</b> b &gt; 0 <b>do</b> 
+<b>begin</b>
+  <b>if</b> a&lt; b <b>then</b> zamień(a,b); //po wykonaniu tej instrukcji zawsze a&gt;=b
+  <b>if</b> parzyste(a) <b>and</b> parzyste(b) <b>then</b> 
+         <b>begin</b>
+             wynik:=wynik*2
+             a:=a div 2;
+             b:=b div 2
+         <b>end</b>
+  <b>else</b> // w przeciwnym razie
+  <b>if</b> parzyste(a) <b>and</b> <b>not</b> parzyste(b) <b>then</b> a:=a div 2 <b>else</b> 
+  <b>if</b> <b>not</b> parzyste(a) <b>and</b> parzyste(b) <b>then</b> b:=b div 2 <b>else</b>
+  a:=a-b
+<b>end</b>;
+wynik:=wynik*a;
+Write(a)
+</pre>
+<p><br>
+W kodzie tym posługujemy się predykatem <tt>parzyste(x)</tt>, który przyjmuje wartość <tt>true</tt> (prawda), jeśli x jest parzyste i <tt>false</tt> (fałsz) jeśli jest nieparzyste. Operacja <tt>div</tt> daje nam wynik dzielenia całkowitego (z ucięciem reszty). 
+</p><p>Przyjrzyjmy się naszemu algorytmowi pod kątem liczby obrotów pętli. Zauważmy, że w każdym obrocie we wszystkich przypadkach, poza sytuacją obu argumentów nieparzystych, co najmniej jeden z argumentów jest połowiony. Natomiast w przypadku obu argumentów nieparzystych jeden z argumentów stanie się parzysty w wyniku odejmowania i w następnym obrocie pętli zostanie podzielony przez 2. Zatem co najmniej raz na dwa obroty pętli, co najmniej jeden z argumentów jest dzielony przez 2. Ale dzieleń przez 2 można wykonać tylko logarytmicznie dużo. 
+</p>
+<div id="">Uwaga </div>
+<div style="padding: 5px;">W dziedzinie całkowitoliczbowej możemy spojrzeć na logarytm jak na liczbę możliwych dzieleń przez 2, zanim dojdziemy do jedynki. Liczba ta jest równa podłodze z logarytmu rzeczywistego przy podstawie 2. </div>
+<p>Zatem łączna liczba obrotów pętli nie przekracza <img class="tex" src="c61e4c250ee00a2cf0db54a3d9806112.png" alt="2(\log_2a + \log_2b)">. Co się dzieje w każdym obrocie pętli? Każda z operacji ma złożoność liniową. Sprawdzenie parzystości liczby wymaga zajrzenia do ostatniej cyfry. Sprawdzenie, czy liczba jest równa zero wymaga przejrzenia w najgorszym razie wszystkich jej cyfr jednokrotnie. Dzielenie przez 2 i mnożenie przez dwa, podobnie jak odejmowanie, mają złożoność liniową (czyli proporcjonalną do logarytmu z wartości a i b). Zatem złożoność algorytmu na poziomie operacji na cyfrach jest kwadratowa, czyli w tym przypadku proporcjonalna do kwadratu z logarytmu <img class="tex" src="926b88e2b4037701b93784dbef23a4cf.png" alt="a">.
+</p>
+<div class="editsection" style="float: right; margin-left: 5px;">[<a href="http://wazniak.mimuw.edu.pl/index.php?title=Wst%C4%99p_do_programowania/Wst%C4%99p_do_algorytm%C3%B3w&amp;action=edit&amp;section=8" title="Edit section: Dziedzina algorytmiczna">Edytuj</a>]</div><a name="Dziedzina_algorytmiczna"></a><h2>Dziedzina algorytmiczna</h2>
+<p>Ważnym pojęciem przy określaniu algorytmu jest pojęcie dziedziny algorytmicznej. Algorytmy wykonują pewne operacje na argumentach i wyrażenie własności algorytmu, a w tym określenie jego złożoności, dokonywane jest za pomocą tych operacji. Dziedziną algorytmiczną nazwiemy zatem system relacyjny <img class="tex" src="6bfb4188a92bf7bec412b24af211be33.png" alt="\langle A,\{o_i\}_{i\in I}, \{r_{j}\}_{j\in J}\rangle">, gdzie <img class="tex" src="a8da7d0e8d504e67e07e78895b9e5b17.png" alt="A"> nazywany jest nośnikiem, a zbiory <img class="tex" src="900f22accf1b18bae8f540d0acec492c.png" alt="\{o_i\}_{i\in I}, \{r_{j}\}_{j\in J}">, odpowiednio zbiorem operacji i relacji określonych w <img class="tex" src="cae338ac73de4c4f28612894eff30100.png" alt="A">, których można używać w algorytmie. Zauważmy, że od tego, jakimi operacjami i relacjami dysponujemy zależą nasze możliwości opisywania algorytmów. Zawsze musimy wiedzieć, z jakich operacji można korzystać, zanim zabierzemy się za programowanie. Czasami takie operacje przyjmują postać bibliotek gotowych procedur i funkcji – cegiełek, z których składamy nasze algorytmy.  
+</p><p>W przypadku naszych trzech algorytmów Euklidesa te trzy dziedziny, to: 
+</p>
+<ol><li>Euklides1: <img class="tex" src="fba07a98433c35094b11a762e8cd70c9.png" alt="\langle {\cal N}, -,\le, =_0 \rangle">
+</li><li>Euklides2: <img class="tex" src="badc1873d8232da0f307d9fafe3b16c9.png" alt="\langle  {\cal N}, \bmod, =_0 \rangle">
+</li><li>Euklides3: <img class="tex" src="543be54392c88410a19a55e49b611219.png" alt="\langle  {\cal N}, -,\div_2, *_2,\le, \in_P,=_0 \rangle">,
+</li></ol>
+<p>gdzie <img class="tex" src="62b381a33c1b631ceec9dadbfa05f295.png" alt="-">, to zwykłe odejmowanie, <img class="tex" src="7508b19af6ce534cde4d7aeb4b39cdb7.png" alt="\bmod"> operacja znajdowania reszty, <img class="tex" src="5cd913cbf920baee481a9c841772d079.png" alt="\div_2"> - jednoargumentowa operacja dzielenia przez 2, <img class="tex" src="275bf24564b1b1d26934b79b45cd5a82.png" alt="*_2"> jednoargumentowa operacja mnożenia przez 2 (zauważmy, że przez nic innego nie musimy dzielić ani mnożyć), <img class="tex" src="55547cfda113d1748e886ac1d81058a5.png" alt="\le"> relacja dwuargumentowa niemniejszości, <img class="tex" src="49b65dffec2476db3dbc439e700667bf.png" alt="\in_P"> jednoargumentowa relacja parzystości, zaś <img class="tex" src="9ccaa81651c75f5cc87e252c041e37b0.png" alt="=_0"> relacja jednoargumentowa bycia zerem. 
+</p><p>Uświadomienie sobie, w jakiej dziedzinie algorytmicznej operujemy, jest ważne między innymi z punktu widzenia porównywania algorytmów. Łatwo jest bowiem "skrzywdzić" jakiś algorytm nie zauważając, że działa on w uboższej dziedzinie niż rzekomo lepszy, a przyjrzenie się kosztowi operacji podstawowych daje lepszy wgląd w istotę złożoności. 
+</p><p>Jeszcze parę słów na temat złożoności algorytmów. Jak mogliśmy to zauważyć, brak analizy złożoności może doprowadzić do porażki – algorytm, nawet poprawny, może stać się praktycznie bezużyteczny, jeśli będzie miał zbyt dużą złożoność. Dokładniej o złożoności będzie jeszcze mowa na dalszych wykładach z bardziej zaawansowanej algorytmiki. Podkreślmy parę podstawowych spraw. 
+</p>
+<ol><li> Złożoność określamy obliczając liczbę operacji dominujących, czyli takich, które najczęściej będą wykonywane.
+</li><li> Złożoność wyznacza się zazwyczaj z dokładnością do rzędu wielkości, a więc zaniedbując czynnik stały. Czasami czynnik ten bierze się pod uwagę, ale dopiero wtedy, gdy porównujemy algorytmy o podobnym rzędzie złożoności. Najczęściej do określenia złożoności używa się notacji <img class="tex" src="e4b0b1eb26ca3f65e3432072e14d946b.png" alt="O">, która pozwala uwolnić się od czynnika stałego i skupia się właśnie na rzędzie wielkości. <a href="#MatematykaDyskretna.xxx" title="">#MatematykaDyskretna.xxx</a> <br><br><span style="font-variant: small-caps;">Definicja [Definicja notacji <img class="tex" src="d468d39c4fb64bd65b8ba0a6440c9ed2.png" alt="O">]</span><br>Mówimy, że funkcja <img class="tex" src="13f3fbcb884e0b09c6ec90c867eebd7b.png" alt="f:{\cal N}  \rightarrow R"> jest <img class="tex" src="ee547127ad9ab331465ab96dadd9d5bd.png" alt="O(g)">, jeśli istnieją stała <img class="tex" src="51c0c604956a1f3a7c67d019c1f11017.png" alt="c&gt;0"> oraz liczba <img class="tex" src="cd7a8eef277b4a8f7d1a7259417571e0.png" alt="m\in {\cal N}"> takie, że dla każdego <img class="tex" src="ac14a59670b34c748ac4fa86513e0ce9.png" alt="n&gt;m"> zachodzi <img class="tex" src="84ebb1824d691ded3880eb894bb6c41f.png" alt="f(n)\le cg(n)">.<br><br>
+</li><li> Złożoność zależy od rozmiaru danych. Przez rozmiar danych najczęściej rozumiemy liczbę bitów (czy bajtów) potrzebnych do zakodowania danych; znowu chodzi o rząd wielkości. Na przykład jeśli mówimy o sortowaniu liczb, to ważne jest ile ich jest, a nie to, z jaką dokładnością je podajemy – zwiększenie takiej dokładności w końcu rozmiar danych powiększy o stały czynnik. Stąd na przykład
+<ol><li> gdy sortujemy n obiektów, rozmiarem danych jest n;
+</li><li> gdy rozważamy graf, rozmiarem danych jest suma liczby krawędzi i wierzchołków (czasem rozważamy osobno liczbę krawędzi i wierzchołków);
+</li><li> gdy rozważamy algorytmy liczbowe – tak jak w naszych przykładach obliczania największego wspólnego dzielnika – rozmiarem danych jest długość zapisu cyfrowego liczby, bo tak złożone jest podanie jej wartości
+</li></ol>
+</li><li> Czasami do wykonania algorytmu potrzeba dodatkowej pamięci na pomocnicze struktury. Wtedy również zastanawiamy się, ile tej pamięci potrzeba i wynik nazywamy <i>złożonością pamięciową</i>
+</li><li> Dla różnych danych algorytm może różnie się wykonywać. W praktyce rozważa się dwa rodzaje danych: pesymistyczne (czyli najbardziej złośliwe) i losowe, czyli typowe. Mówimy wtedy odpowiednio o <i>złożoności pesymistycznej</i> i <i>złożoności średniej</i>.
+</li></ol>
+<p>Dobrzy informatycy wyrabiają sobie przy programowaniu nawyk myślenia o złożoności.
+
+
+
+
+</p>
+<!-- Saved in parser cache with key osilek1:pcache:idhash:1974-0!0!0!0!!pl!2 and timestamp 20090419185459 -->
+<div class="printfooter">
+Źródło: "<a href="http://wazniak.mimuw.edu.pl/index.php?title=Wst%C4%99p_do_programowania/Wst%C4%99p_do_algorytm%C3%B3w">http://wazniak.mimuw.edu.pl/index.php?title=Wst%C4%99p_do_programowania/Wst%C4%99p_do_algorytm%C3%B3w</a>"</div>
+	    	    <!-- end content -->
+	    <div class="visualClear"></div>
+	  </div>
+	</div>
+      </div>
+      <div id="column-one">	
+
+	
+		<div class="portlet" id="p-Nawigacja">
+	  <h5>Nawigacja</h5>
+	  <div class="pBody">
+	    <ul>
+	    	      <li id="n-mainpage"><a href="http://wazniak.mimuw.edu.pl/index.php?title=Strona_g%C5%82%C3%B3wna">Strona główna</a></li>
+	     	      <li id="n-Przedmioty"><a href="http://wazniak.mimuw.edu.pl/index.php?title=Przedmioty">Przedmioty</a></li>
+	     	      <li id="n-Uczelnie"><a href="http://wazniak.mimuw.edu.pl/index.php?title=Lista_przedmiot%C3%B3w_w_podziale_na_uczelnie">Uczelnie</a></li>
+	     	      <li id="n-O-nas"><a href="http://wazniak.mimuw.edu.pl/index.php?title=O_nas">O nas</a></li>
+	     	      <li id="n-MIMINF"><a href="http://wazniak.mimuw.edu.pl/index.php?title=MIMINF:Strona_g%C5%82%C3%B3wna">MIMINF</a></li>
+	     	      <li id="n-MIMMAT"><a href="http://wazniak.mimuw.edu.pl/index.php?title=MIMMAT:Strona_g%C5%82%C3%B3wna">MIMMAT</a></li>
+	     	    </ul>
+	  </div>
+	</div>
+	
+	<div id="p-search" class="portlet">
+	  <h5><label for="searchInput">Szukaj</label></h5>
+	  <div class="pBody">
+	    <form name="searchform" action="http://wazniak.mimuw.edu.pl/index.php?title=Specjalna:Search" id="searchform">
+	      <input id="searchInput" name="search" accesskey="f" value="" type="text">
+	     <input name="go" class="searchButton" id="searchGoButton" value="OK" type="submit">&nbsp;<input name="fulltext" class="searchButton" value="Szukaj" type="submit">
+	    </form>
+	  </div>
+	<div id="p-comment" class="portlet">
+	  <h5><label for="comments">Napisz do nas</label></h5>
+	  <div class="pBody">
+            <a href="mailto:maruda@mimuw.edu.pl">maruda@mimuw.edu.pl</a>
+	  </div>
+	</div>
+	      </div><!-- end of the left (by default at least) column -->
+      <div class="visualClear"></div></div>
+      <div id="footer">
+    <div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="poweredby_mediawiki_88x31.png" alt="MediaWiki"></a></div>		<ul id="f-list">
+	  <li id="f-lastmod"> Tę stronę ostatnio zmodyfikowano o 17:40, 26 lis 2007;</li>	  <li id="f-viewcount">Tę stronę obejrzano 39961 razy;</li>	  	  	  	  <li id="f-about"><a href="http://wazniak.mimuw.edu.pl/index.php?title=Studia_Informatyczne:O_Wikipedii" title="Studia Informatyczne:O Wikipedii">O Wikipedii</a></li>	  <li id="f-disclaimer"><a href="http://wazniak.mimuw.edu.pl/index.php?title=Studia_Informatyczne:General_disclaimer" title="Studia Informatyczne:General disclaimer">Disclaimers</a></li>	  	</ul>
+      </div>
+    </div>
+    <!-- Served by osilek in 0.04 secs. -->    
+    
+  </body>
+</html>
