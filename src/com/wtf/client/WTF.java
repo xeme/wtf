@@ -24,7 +24,7 @@ public class WTF implements EntryPoint {
     HTML status = new HTML();
     status.setText("tutaj status wtf..");
 
-    RootPanel.get("wtf_status").add(status);  
+ //   RootPanel.get("wtf_status").add(status);  
     initDOM();  
     
   }
@@ -37,42 +37,36 @@ public class WTF implements EntryPoint {
 	  }
 //	  GWT.log("elemOver" + elem.toString(), null);	
 	  
-	  //add border INSIDE element
-	  
-//	  Node cloned_elem = elem.cloneNode(true);
-//	  ((Element) cloned_elem).setId("wtf_selection");
-	  
-	  
-	  
 	  Element div = DOM.createDiv();
 	  div.setId("wtf_selection");
-	  elem.getParentElement().insertBefore(div, elem);
-	  div.appendChild(elem);
+	  elem.appendChild(div);
 	  
-	  
-	  
-	 // elem.getParentElement().removeChild(elem);
-	 // div.appendChild(cloned_elem);
-	//  DOM.setStyleAttribute((com.google.gwt.user.client.Element) cloned_elem, "border", "solid 1px #00f");
 
-	  DOM.setStyleAttribute((com.google.gwt.user.client.Element) div, "backgroundColor", "#fdd");
+	  com.google.gwt.user.client.Element div_ = (com.google.gwt.user.client.Element) div;
+	  DOM.setStyleAttribute(div_, "border", "solid 2px #3c7bd9");
+	  DOM.setStyleAttribute(div_, "height", Integer.toString(elem.getClientHeight()));
+	  DOM.setStyleAttribute(div_, "width", Integer.toString(elem.getClientWidth()));
+	  DOM.setStyleAttribute(div_, "position", "absolute");
+	  DOM.setStyleAttribute(div_, "top", Integer.toString(elem.getAbsoluteTop()));
+	  DOM.setStyleAttribute(div_, "left", Integer.toString(elem.getAbsoluteLeft()));
+	
+	  DOM.sinkEvents(div_, Event.ONMOUSEOUT);
+	  DOM.setEventListener(div_, new EventListener() {
+		  public void onBrowserEvent(Event event) {
+			  com.google.gwt.user.client.Element elem = DOM.eventGetTarget(event);
+			  switch (DOM.eventGetType(event)) {
+		      case Event.ONMOUSEOUT:
+		    	  elem.getParentElement().removeChild(elem);
+		        break;
+		    }
+		  }
+	  });
   }
   
-  public void elemOut(com.google.gwt.user.client.Element elem){
-//	  GWT.log("elemOut" + elem.toString(), null);
-	  
-	  com.google.gwt.user.client.Element sel;
-	  while(true) {		  
-		  sel = DOM.getElementById("wtf_selection");
-		  if(sel != null){
-			  sel.getParentElement().insertBefore(elem, sel);
+  public void selectionClean(com.google.gwt.user.client.Element elem){
+		  com.google.gwt.user.client.Element sel = DOM.getElementById("wtf_selection");
+		  if(sel != null && !DOM.isOrHasChild(elem, sel))
 			  sel.getParentElement().removeChild(sel);
-		  }
-		  else
-			  break;
-	  }
-
-//	  DOM.setStyleAttribute(elem, "border", "solid 1px #0f0");
   }
   
   private void elemInit(com.google.gwt.user.client.Element elem){
@@ -80,16 +74,17 @@ public class WTF implements EntryPoint {
   }
   
   private void addListener(com.google.gwt.user.client.Element elem){
-	  DOM.sinkEvents(elem, Event.ONMOUSEOUT | Event.ONMOUSEOVER);
+	  DOM.sinkEvents(elem, Event.ONMOUSEOVER | Event.ONMOUSEOUT);
 	  DOM.setEventListener(elem, new EventListener() {
 		  public void onBrowserEvent(Event event) {
 			  com.google.gwt.user.client.Element elem = DOM.eventGetTarget(event);
 			  switch (DOM.eventGetType(event)) {
 		      case Event.ONMOUSEOVER:
+		    	  selectionClean(elem);
 		    	  elemOver(elem);
 		        break;
 		      case Event.ONMOUSEOUT:
-		    	  elemOut(elem);
+		    	  selectionClean(elem);
 		        break;
 		    }
 		  }
