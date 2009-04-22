@@ -1,11 +1,13 @@
 package com.wtf.client;
 
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
-import com.google.gwt.dom.client.Node;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.EventListener;
@@ -18,30 +20,79 @@ import com.google.gwt.user.client.ui.RootPanel;
 public class WTF implements EntryPoint {
 
 	private com.google.gwt.user.client.Element _selected = null;
+	private HTML _status = new HTML();
+	private Queue<String> logs = new LinkedList<String>();
 	
+	public void log(String s){
+		logs.add(s);
+		if(logs.size() > 10)
+			logs.poll();
+		String out = "";
+		Iterator<String> iter = logs.iterator();
+		while(iter.hasNext()){
+			out += iter.next() + "<br>";
+		}
+		_status.setHTML(out);
+	}
 	
   /**
    * This is the entry point method.
    */
-  public void onModuleLoad() {
-    HTML status = new HTML();
-    status.setText("tutaj status wtf..");
+  public void onModuleLoad() {   
 
-    RootPanel.get("wtf_status").add(status);  
+    RootPanel.get("wtf_status").add(_status);  
     initDOM();  
     
   }
 
-  
-  public void select(com.google.gwt.user.client.Element elem){
-	  if(elem == null || _selected != null || elem == RootPanel.getBodyElement() || elem.equals(_selected)) {
-		  GWT.log("elemOver [return]" + elem.toString(), null);
-		  return;
-	  }
-	  GWT.log("elemOver" + elem.toString(), null);
-	  _selected = elem;
+  private void drawTab(com.google.gwt.user.client.Element elem){
+	 //	create 4 borders
+	  int h = 20, w = 70; 
+	  String bg_color = "#3c7bd9";
+	  String fg_color = "#000000";
+	  String label = "zaznacz";
 	  
-	  //create 4 borders
+	  String hs = Integer.toString(h + 1) + "px";
+	  String ws = Integer.toString(w) + "px";
+	  
+	  Element div = DOM.createDiv();
+	  div.setId("wtf_selection_tab");
+	  div.setInnerHTML(label);
+
+	  RootPanel.getBodyElement().appendChild(div);
+  
+	  com.google.gwt.user.client.Element div_ = (com.google.gwt.user.client.Element) div;
+	  DOM.setStyleAttribute(div_, "backgroundColor", bg_color);
+	  DOM.setStyleAttribute(div_, "color", fg_color);
+	  DOM.setStyleAttribute(div_, "position", "absolute");
+	  DOM.setStyleAttribute(div_, "fontSize", "12px");
+	  DOM.setStyleAttribute(div_, "textAlign", "center");
+ 
+	  String x = Integer.toString(elem.getAbsoluteLeft())+"px";
+	  String y = Integer.toString(elem.getAbsoluteTop() - h)+"px";
+	  
+	  DOM.setStyleAttribute(div_, "width", ws);
+	  DOM.setStyleAttribute(div_, "height", hs);
+	  DOM.setStyleAttribute(div_, "top", y);
+	  DOM.setStyleAttribute(div_, "left", x);
+	  
+	  EventListener event_listener = new EventListener() {
+		  public void onBrowserEvent(Event event) {
+			  switch (DOM.eventGetType(event)) {
+		      case Event.ONMOUSEOUT:
+		    	  remove_selection_rect();
+		        break;
+			  }
+		  }
+	  };
+	
+	  DOM.sinkEvents(div_, Event.ONMOUSEOUT);
+	  DOM.setEventListener(div_, event_listener);
+}  
+  
+  
+ private void drawRect(com.google.gwt.user.client.Element elem){
+	 //	create 4 borders
 	  int tickness_i = 2; 
 	  String color = "#3c7bd9";
 	  
@@ -60,7 +111,6 @@ public class WTF implements EntryPoint {
 	  RootPanel.getBodyElement().appendChild(divt);
 	  RootPanel.getBodyElement().appendChild(divb);
 	  
-	  
 	  com.google.gwt.user.client.Element divl_ = (com.google.gwt.user.client.Element) divl;
 	  com.google.gwt.user.client.Element divr_ = (com.google.gwt.user.client.Element) divr;
 	  com.google.gwt.user.client.Element divt_ = (com.google.gwt.user.client.Element) divt;
@@ -73,13 +123,17 @@ public class WTF implements EntryPoint {
 	  DOM.setStyleAttribute(divr_, "position", "absolute");
 	  DOM.setStyleAttribute(divt_, "position", "absolute");
 	  DOM.setStyleAttribute(divb_, "position", "absolute");
-	  
-	  String h = Integer.toString(elem.getClientHeight())+"px";
-	  String w = Integer.toString(elem.getClientWidth())+"px";  
+	  DOM.setStyleAttribute(divl_, "fontSize", "0px"); //for IE6
+	  DOM.setStyleAttribute(divr_, "fontSize", "0px"); //for IE6
+	  DOM.setStyleAttribute(divt_, "fontSize", "0px"); //for IE6
+	  DOM.setStyleAttribute(divb_, "fontSize", "0px"); //for IE6  
+
+	  String h = Integer.toString(elem.getOffsetHeight() + tickness_i)+"px";
+	  String w = Integer.toString(elem.getOffsetWidth() + tickness_i)+"px";  
 	  String y = Integer.toString(elem.getAbsoluteTop())+"px";
-	  String x = Integer.toString(elem.getAbsoluteLeft())+"px";
-	  String w_x = Integer.toString(elem.getClientWidth() + elem.getAbsoluteLeft() - tickness_i)+"px";
-	  String h_y = Integer.toString(elem.getClientHeight() + elem.getAbsoluteTop() - tickness_i)+"px";
+	  String x = Integer.toString(elem.getAbsoluteLeft() - tickness_i)+"px";
+	  String w_x = Integer.toString(elem.getOffsetWidth() + elem.getAbsoluteLeft() - tickness_i)+"px";
+	  String h_y = Integer.toString(elem.getOffsetHeight() + elem.getAbsoluteTop())+"px";
 	  
 	  DOM.setStyleAttribute(divl_, "width", tickness);
 	  DOM.setStyleAttribute(divl_, "height", h);
@@ -103,12 +157,11 @@ public class WTF implements EntryPoint {
 	  
 	  EventListener event_listener = new EventListener() {
 		  public void onBrowserEvent(Event event) {
-			 // com.google.gwt.user.client.Element elem = DOM.eventGetTarget(event);
 			  switch (DOM.eventGetType(event)) {
 		      case Event.ONMOUSEOUT:
 		    	  remove_selection_rect();
 		        break;
-		    }
+			  }
 		  }
 	  };
 	
@@ -120,6 +173,21 @@ public class WTF implements EntryPoint {
 	  DOM.setEventListener(divr_, event_listener);
 	  DOM.setEventListener(divt_, event_listener);
 	  DOM.setEventListener(divb_, event_listener);
+ }
+  
+  
+  public void select(com.google.gwt.user.client.Element elem){
+	  if(elem == null || _selected != null || elem == RootPanel.getBodyElement() || elem.equals(_selected)
+	  		|| ignore(elem)) {
+		  return;
+	  }  
+	  _selected = elem;
+	  
+	  if(elem.getTagName().toLowerCase().equals("object") || elem.getTagName().toLowerCase().equals("embed")) { //flash
+		  drawTab(elem);
+	  } else {
+		  drawRect(elem);
+	  }
   }
   
   private void remove_border(String type) {
@@ -133,6 +201,9 @@ public class WTF implements EntryPoint {
 	  remove_border("r");
 	  remove_border("t");
 	  remove_border("b");
+	  com.google.gwt.user.client.Element sel = DOM.getElementById("wtf_selection_tab");
+	  if(sel != null)
+		  RootPanel.getBodyElement().removeChild(sel);
 	  _selected = null;
   }
   
@@ -140,7 +211,8 @@ public class WTF implements EntryPoint {
 	  return elem.getId().equals("wtf_selection_l") ||
 	  		 elem.getId().equals("wtf_selection_r") ||
 	  		 elem.getId().equals("wtf_selection_t") ||
-	  		 elem.getId().equals("wtf_selection_b");
+	  		 elem.getId().equals("wtf_selection_b") ||
+	  		 elem.getId().equals("wtf_selection_tab");
   }
   
   public void selectionClean(com.google.gwt.user.client.Element elem) {
@@ -149,7 +221,6 @@ public class WTF implements EntryPoint {
 	  remove_selection_rect();
   }
   
-  
   private void addListener(com.google.gwt.user.client.Element elem){
 	  DOM.sinkEvents(elem, Event.ONMOUSEOVER | Event.ONMOUSEOUT);
 	  DOM.setEventListener(elem, new EventListener() {
@@ -157,12 +228,10 @@ public class WTF implements EntryPoint {
 			  com.google.gwt.user.client.Element elem = DOM.eventGetTarget(event);
 			  switch (DOM.eventGetType(event)) {
 		      case Event.ONMOUSEOVER:
-		 //   	  GWT.log("_over_ " + elem.toString(), null);
 		    	  selectionClean(elem);
 		    	  select(elem);
 		        break;
 		      case Event.ONMOUSEOUT:
-		 //   	  GWT.log("_out_ " + elem.toString(), null);
 		    	  selectionClean(elem);
 		        break;
 		    }
@@ -171,7 +240,6 @@ public class WTF implements EntryPoint {
   }
   
   private void initDOM(){
-
 	  Element body = RootPanel.getBodyElement();
 	  Stack<Element> stack = new Stack<Element>();
 	  stack.push(body);
@@ -188,3 +256,4 @@ public class WTF implements EntryPoint {
 	  }
   }
 }
+
