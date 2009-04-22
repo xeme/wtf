@@ -6,7 +6,6 @@ import java.util.Queue;
 import java.util.Stack;
 
 import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Event;
@@ -45,33 +44,27 @@ public class WTF implements EntryPoint {
     
   }
 
+  
   private void drawTab(com.google.gwt.user.client.Element elem){
 	 //	create 4 borders
-	  int h = 20, w = 70; 
-	  String bg_color = "#3c7bd9";
-	  String fg_color = "#000000";
+	  int h = 20; 
 	  String label = "zaznacz";
 	  
 	  String hs = Integer.toString(h + 1) + "px";
-	  String ws = Integer.toString(w) + "px";
 	  
 	  Element div = DOM.createDiv();
 	  div.setId("wtf_selection_tab");
+	  div.setClassName("wtf_selection_tab");
 	  div.setInnerHTML(label);
 
 	  RootPanel.getBodyElement().appendChild(div);
   
 	  com.google.gwt.user.client.Element div_ = (com.google.gwt.user.client.Element) div;
-	  DOM.setStyleAttribute(div_, "backgroundColor", bg_color);
-	  DOM.setStyleAttribute(div_, "color", fg_color);
 	  DOM.setStyleAttribute(div_, "position", "absolute");
-	  DOM.setStyleAttribute(div_, "fontSize", "12px");
-	  DOM.setStyleAttribute(div_, "textAlign", "center");
  
 	  String x = Integer.toString(elem.getAbsoluteLeft())+"px";
 	  String y = Integer.toString(elem.getAbsoluteTop() - h)+"px";
 	  
-	  DOM.setStyleAttribute(div_, "width", ws);
 	  DOM.setStyleAttribute(div_, "height", hs);
 	  DOM.setStyleAttribute(div_, "top", y);
 	  DOM.setStyleAttribute(div_, "left", x);
@@ -92,9 +85,8 @@ public class WTF implements EntryPoint {
   
   
  private void drawRect(com.google.gwt.user.client.Element elem){
-	 //	create 4 borders
+	 //default values
 	  int tickness_i = 2; 
-	  String color = "#3c7bd9";
 	  
 	  String tickness = Integer.toString(tickness_i) + "px";
 	  
@@ -106,19 +98,20 @@ public class WTF implements EntryPoint {
 	  divr.setId("wtf_selection_r");
 	  divt.setId("wtf_selection_t");
 	  divb.setId("wtf_selection_b");
+	  divl.setClassName("wtf_selection");
+	  divr.setClassName("wtf_selection");
+	  divt.setClassName("wtf_selection");
+	  divb.setClassName("wtf_selection");
 	  RootPanel.getBodyElement().appendChild(divl);
 	  RootPanel.getBodyElement().appendChild(divr);
 	  RootPanel.getBodyElement().appendChild(divt);
 	  RootPanel.getBodyElement().appendChild(divb);
 	  
+	  
 	  com.google.gwt.user.client.Element divl_ = (com.google.gwt.user.client.Element) divl;
 	  com.google.gwt.user.client.Element divr_ = (com.google.gwt.user.client.Element) divr;
 	  com.google.gwt.user.client.Element divt_ = (com.google.gwt.user.client.Element) divt;
 	  com.google.gwt.user.client.Element divb_ = (com.google.gwt.user.client.Element) divb;
-	  DOM.setStyleAttribute(divl_, "backgroundColor", color);
-	  DOM.setStyleAttribute(divr_, "backgroundColor", color);
-	  DOM.setStyleAttribute(divt_, "backgroundColor", color);
-	  DOM.setStyleAttribute(divb_, "backgroundColor", color);
 	  DOM.setStyleAttribute(divl_, "position", "absolute");
 	  DOM.setStyleAttribute(divr_, "position", "absolute");
 	  DOM.setStyleAttribute(divt_, "position", "absolute");
