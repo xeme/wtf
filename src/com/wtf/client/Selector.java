@@ -157,6 +157,7 @@ public class Selector {
 		} else {
 			drawRect(elem);
 		}
+		Debug.log_time("select: ");
 	}
 	  
 	private void remove_border(String type) {
@@ -188,6 +189,7 @@ public class Selector {
 		if(elem.equals(_selected) || ignore(elem))
 			return;
 		remove_selection_rect();
+		Debug.log_time("clear: ");
 	}
 	  
 	private void addListener(com.google.gwt.user.client.Element elem){

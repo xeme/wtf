@@ -4,18 +4,20 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import com.google.gwt.user.client.DOM;
+import com.google.gwt.core.client.Duration;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.RootPanel;
 
 public class Debug {
-	static private HTML _status = new HTML();
-	static private Queue<String> _logs = new LinkedList<String>();
-	static private boolean _initialized = false; 
+	private static HTML _status = new HTML();
+	private static Queue<String> _logs = new LinkedList<String>();
+	private static boolean _initialized = false; 	
+	private static Duration _timer = new Duration();
+	private static int _last_call = 0;
 	
-	public static void init() {
+	public static void init() {	
 		RootPanel.get("wtf_status_console").add(_status);
-		DOM.getElementById("wtf_status_console").setClassName("wtf_ignore");
+		_initialized = true;
 	}
 	
 	public static void log(String s) {
@@ -27,9 +29,19 @@ public class Debug {
 			_logs.poll();
 		String out = "";
 		Iterator<String> iter = _logs.iterator();
-		while(iter.hasNext()){
+		while(iter.hasNext()) {
 			out += iter.next() + "<br>";
 		}
 		_status.setHTML(out);
+	}
+	
+	/*
+	 * logs miliseconds elapsed from last log_time call (first call logs time elapsed from WTF load) 
+	 */
+	public static void log_time(String s)
+	{
+		int now = _timer.elapsedMillis();
+		log(s + Integer.toString(now - _last_call)+" ms");
+		_last_call = now;
 	}
 }

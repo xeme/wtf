@@ -35,6 +35,9 @@
 	z-index: 101;
 }
 
+
+/* *********** DEBUG TOOLS ********* */
+
 /* status console */
 #wtf_status_console
 {
@@ -45,4 +48,6 @@
 	background-color: #000;
 	color: #ddd;
 	padding: 10px;
+	text-align: left;
+	width: 300px;
 }
