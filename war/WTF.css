@@ -4,15 +4,45 @@
 .wtf_selection
 {
 	background-color: #3c7bd9;	/* selection-border color */
+	z-index: 100;
 }
 
 
 /* FLASH selection */
-.wtf_selection_tab
+#wtf_selection_tab
 {
 	background-color: #3c7bd9;	/* selection-border color */
 	color: #000000;				/* tab-text color */
 	font-size: 12px;			/* tab-text size */
 	text-align: center;			/* tab-text align */
 	width: 70px;				/* tab width */
+	z-index: 100;
+}
+
+/* status bar */
+#wtf_status_bar
+{
+	position: fixed;
+	bottom: 0px;
+	right: 0px;
+	width: 100%;
+	height: 20px;
+	font-size: 11px;
+	background-color: #ede9e3;
+	border-top: 1px solid #b1a594;
+	color: #ddd;
+	padding: 3px;	
+	z-index: 101;
+}
+
+/* status console */
+#wtf_status_console
+{
+	position: fixed;
+	top: 0px;
+	right: 0px;
+	font-size: 11px;
+	background-color: #000;
+	color: #ddd;
+	padding: 10px;
 }
