@@ -6,12 +6,9 @@ public class WTF implements EntryPoint {
 
 	public void onModuleLoad() {   
 		Debug.log(">> WTF console <<");
-		StatusBar.init();
-		
 		Selector selector_manager = new Selector();
-
-
-		selector_manager.newSelection();  
+		StatusBar.init(selector_manager);
+		StatusBar.setStatus("WTF ready");	
 	}
 }
 

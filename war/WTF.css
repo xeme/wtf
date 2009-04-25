@@ -36,9 +36,23 @@
 	margin:0px;
 }
 
-#wtf_status_field
+/* container containing status message in the status bar */
+#wtf_status_panel
 {
-	padding-top: 3px;
+	padding: 0px;
+	padding-left: 3px;
+	padding-right: 3px;
+	margin: 0px;
+	text-align: left;
+	font-size: 11px;
+	color: #000;
+}
+
+/* container containing menu options in the status bar */
+#wtf_menu_panel
+{
+	padding: 0px;
+	margin: 0px;
 	text-align: left;
 	font-size: 11px;
 }

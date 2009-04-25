@@ -21,6 +21,7 @@ public class Selector {
 			initDOM();
 			_initialized = true;
 		}
+		StatusBar.setStatus("Selection Mode");
 	}
 
 	private void drawTab(com.google.gwt.user.client.Element elem){
@@ -62,7 +63,7 @@ public class Selector {
 	}  
 
 	private void drawRect(com.google.gwt.user.client.Element elem){
-		//default values
+		//default value TODO: read from config
 		int tickness_i = 2; 
 
 		String tickness = Integer.toString(tickness_i) + "px";
@@ -152,6 +153,9 @@ public class Selector {
 		}  
 		_selected = elem;
 
+		DOM.setStyleAttribute(elem, "cursor", "hand");
+		DOM.setStyleAttribute(elem, "cursor", "pointer");		
+		
 		if(elem.getTagName().toLowerCase().equals("object") || elem.getTagName().toLowerCase().equals("embed")) { //flash
 			drawTab(elem);
 		} else {
@@ -220,14 +224,17 @@ public class Selector {
 	}
 
 	private void initDOM(){
+		StatusBar.setStatus("Initializing DOM...");	
 		Element body = RootPanel.getBodyElement();
 		Stack<Element> stack = new Stack<Element>();
 		stack.push(body);
 		Element elem = null;	  
 		while(!stack.isEmpty()) {
 			elem = stack.pop();
+			if(ignore((com.google.gwt.user.client.Element) elem))
+				continue;
+			
 			addListener((com.google.gwt.user.client.Element) elem);
-
 			Element child = elem.getFirstChildElement();
 			while(child != null) {
 				stack.push(child);
