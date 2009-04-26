@@ -1,5 +1,7 @@
 package com.wtf.client;
 
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Stack;
 
 import com.google.gwt.dom.client.Element;
@@ -14,9 +16,11 @@ import com.google.gwt.user.client.ui.RootPanel;
  * Selection Manager
  */
 public class Selector {
-	private com.google.gwt.user.client.Element _selected = null;
+	private SelectedElement _selected = null; //current highlighted element
 	private boolean _initialized = false;  
 	private boolean _selection_mode = false;
+	
+	private HashMap<Element, SelectedElement> _active_selection = new HashMap<Element, SelectedElement>();
 
 	public void startSelectionMode()
 	{
@@ -41,11 +45,36 @@ public class Selector {
 	public void endSelectionMode()
 	{
 		remove_selection();
+		for(SelectedElement sel_elem : _active_selection.values()) {
+			sel_elem.deleteSelectionBorders();
+		}
+		_active_selection.clear();
 		StatusBar.setStatus("WTF ready");
 		_selection_mode = false;
 	}
+	
+	public void commitSelected() {
+		if(_selected == null)
+			return;
+		selectionClean(_selected.getElement());
+		if(isFlash(_selected.getElement())) {
+			drawTab(_selected.getElement(), _selected);
+		} else {
+			drawRect(_selected.getElement(), _selected);
+		}
+		_active_selection.put(_selected.getElement(), _selected);
+	}
 
-	private void drawTab(com.google.gwt.user.client.Element elem){
+	public void unCommitSelected() {
+		if(_selected == null || !_active_selection.containsKey(_selected.getElement()))
+			return;
+		Debug.log("uncommiting");
+		_active_selection.get(_selected.getElement()).deleteSelectionBorders();
+		_active_selection.remove(_selected.getElement());
+	}
+	
+	//end of interface
+	private void drawTab(com.google.gwt.user.client.Element elem, SelectedElement sel){
 		//	create 4 borders
 		int h = 20; 
 		String label = "zaznacz";
@@ -53,9 +82,14 @@ public class Selector {
 		String hs = Integer.toString(h + 1) + "px";
 
 		Element div = DOM.createDiv();
-		div.setId("wtf_selection_tab");
-		div.setClassName("wtf_ignore");
-		div.setInnerHTML(label);
+		if(sel != null) {
+			div.setClassName("wtf_selection_tab_selected");
+			sel.addSelectionBorder((com.google.gwt.user.client.Element) div);
+		} else {
+			div.setClassName("wtf_selection_tab");
+			div.setId("wtf_selection_tab");
+		}
+		div.setInnerText(label);
 
 		RootPanel.getBodyElement().appendChild(div);
 
@@ -78,15 +112,22 @@ public class Selector {
 				case Event.ONMOUSEOUT:
 					remove_selection();
 					break;
+				case Event.ONCLICK:
+					if(_active_selection.containsKey(_selected.getElement())) {
+						unCommitSelected();
+					} else {
+						commitSelected();
+					}					
+					break;
 				}
 			}
 		};
 
-		DOM.sinkEvents(div_, Event.ONMOUSEOUT);
+		DOM.sinkEvents(div_, Event.ONMOUSEOUT | Event.ONCLICK);
 		DOM.setEventListener(div_, event_listener);
 	}  
 
-	private void drawRect(com.google.gwt.user.client.Element elem){
+	private void drawRect(com.google.gwt.user.client.Element elem, SelectedElement sel){
 		//default value TODO: read from config
 		int tickness_i = 2; 
 
@@ -96,14 +137,25 @@ public class Selector {
 		Element divr = DOM.createDiv();
 		Element divt = DOM.createDiv();
 		Element divb = DOM.createDiv();
-		divl.setId("wtf_selection_l");
-		divr.setId("wtf_selection_r");
-		divt.setId("wtf_selection_t");
-		divb.setId("wtf_selection_b");
-		divl.setClassName("wtf_selection");
-		divr.setClassName("wtf_selection");
-		divt.setClassName("wtf_selection");
-		divb.setClassName("wtf_selection");
+		if(sel != null) {
+			divl.setClassName("wtf_selection_selected");
+			divr.setClassName("wtf_selection_selected");
+			divt.setClassName("wtf_selection_selected");
+			divb.setClassName("wtf_selection_selected");
+			sel.addSelectionBorder((com.google.gwt.user.client.Element) divl);
+			sel.addSelectionBorder((com.google.gwt.user.client.Element) divr);
+			sel.addSelectionBorder((com.google.gwt.user.client.Element) divt);
+			sel.addSelectionBorder((com.google.gwt.user.client.Element) divb);
+		} else {
+			divl.setId("wtf_selection_l");
+			divr.setId("wtf_selection_r");
+			divt.setId("wtf_selection_t");
+			divb.setId("wtf_selection_b");
+			divl.setClassName("wtf_selection");
+			divr.setClassName("wtf_selection");
+			divt.setClassName("wtf_selection");
+			divb.setClassName("wtf_selection");
+		}
 		RootPanel.getBodyElement().appendChild(divl);
 		RootPanel.getBodyElement().appendChild(divr);
 		RootPanel.getBodyElement().appendChild(divt);
@@ -170,20 +222,24 @@ public class Selector {
 		DOM.setEventListener(divb_, event_listener);
 	}	  
 
+	private boolean isFlash(com.google.gwt.user.client.Element elem) {
+		return elem.getTagName().toLowerCase().equals("object") ||
+			elem.getTagName().toLowerCase().equals("embed");
+	}
+	
 	public void select(com.google.gwt.user.client.Element elem){
-		if(elem == null || _selected != null || elem == RootPanel.getBodyElement() || elem.equals(_selected)
-				|| ignore(elem)) {
+		if(elem == null || _selected != null || elem == RootPanel.getBodyElement() || ignore(elem)) {
 			return;
 		}  
-		_selected = elem;
+		_selected = new SelectedElement(elem);
 
-		if(elem.getTagName().toLowerCase().equals("object") || elem.getTagName().toLowerCase().equals("embed")) { //flash
-			drawTab(elem);
+		if(isFlash(elem)) {
+			drawTab(elem, null);
 		} else {
 			//only non-flash can be clicked. flash has special tab
 			DOM.setStyleAttribute(elem, "cursor", "hand");
 			DOM.setStyleAttribute(elem, "cursor", "pointer");
-			drawRect(elem);
+			drawRect(elem, null);
 		}
 		Debug.log_time("select: ");
 	}
@@ -204,7 +260,7 @@ public class Selector {
 			RootPanel.getBodyElement().removeChild(sel);
 		
 		if(_selected != null)
-			DOM.setStyleAttribute(_selected, "cursor", "default");
+			DOM.setStyleAttribute(_selected.getElement(), "cursor", "");
 		_selected = null;
 	}
 
@@ -222,23 +278,26 @@ public class Selector {
 		elem.getId().equals("wtf_selection_r") ||
 		elem.getId().equals("wtf_selection_t") ||
 		elem.getId().equals("wtf_selection_b") ||
+		elem.getId().equals("wtf_selection_tab") ||
 		parentIgnore(elem);
 	}
 
 	public void selectionClean(com.google.gwt.user.client.Element elem) {
-		if(elem.equals(_selected) || ignore(elem))
+		if(_selected == null || elem.equals(_selected.getElement()) || ignore(elem))
 			return;
 		remove_selection();
 		Debug.log_time("clear: ");
 	}
 
 	private void addListener(com.google.gwt.user.client.Element elem){
-		DOM.sinkEvents(elem, Event.ONMOUSEOVER | Event.ONMOUSEOUT);
+		DOM.sinkEvents(elem, Event.ONMOUSEOVER | Event.ONMOUSEOUT | Event.ONCLICK);
 		DOM.setEventListener(elem, new EventListener() {
 			public void onBrowserEvent(Event event) {
 				if(!_selection_mode)
 					return;
 				com.google.gwt.user.client.Element elem = DOM.eventGetTarget(event);
+				if(!DOM.eventGetCurrentTarget(event).equals(elem))
+					return;
 				switch (DOM.eventGetType(event)) {
 				case Event.ONMOUSEOVER:
 					selectionClean(elem);
@@ -247,7 +306,17 @@ public class Selector {
 				case Event.ONMOUSEOUT:
 					selectionClean(elem);
 					break;
+				case Event.ONCLICK:
+					if(isFlash(elem))
+						return;
+					if(_active_selection.containsKey(elem)) {
+						unCommitSelected();
+					} else {
+						commitSelected();
+					}					
+					break;
 				}
+				DOM.eventPreventDefault(event);
 			}
 		});
 	}

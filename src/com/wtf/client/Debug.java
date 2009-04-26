@@ -21,11 +21,13 @@ public class Debug {
 	private static int _last_call = 0;
 
 	public static void init() {	
-		GWT.setUncaughtExceptionHandler(new GWT.UncaughtExceptionHandler() {
-			public void onUncaughtException(Throwable e) {
-				Debug.log("Caught Exception: " + e.getMessage());		
-			}
-		});
+		if(GWT.isScript()) {
+			GWT.setUncaughtExceptionHandler(new GWT.UncaughtExceptionHandler() {
+				public void onUncaughtException(Throwable e) {
+					Debug.log("Caught Exception: " + e.getMessage());		
+				}
+			});
+		}
 		if(!_debug_mode)
 			return;
 		Element div = DOM.createDiv();
