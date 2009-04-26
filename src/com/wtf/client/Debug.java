@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 import com.google.gwt.core.client.Duration;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.HTML;
@@ -12,7 +13,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 
 public class Debug {
 	private static boolean _debug_mode = true;
-	
+
 	private static HTML _status = new HTML();
 	private static Queue<String> _logs = new LinkedList<String>();
 	private static boolean _initialized = false; 	
@@ -20,6 +21,11 @@ public class Debug {
 	private static int _last_call = 0;
 
 	public static void init() {	
+		GWT.setUncaughtExceptionHandler(new GWT.UncaughtExceptionHandler() {
+			public void onUncaughtException(Throwable e) {
+				Debug.log("Caught Exception: " + e.getMessage());		
+			}
+		});
 		if(!_debug_mode)
 			return;
 		Element div = DOM.createDiv();
@@ -56,7 +62,7 @@ public class Debug {
 			return;
 		if(!_initialized)
 			init();
-		
+
 		int now = _timer.elapsedMillis();
 		log(s + Integer.toString(now - _last_call)+" ms");
 		_last_call = now;

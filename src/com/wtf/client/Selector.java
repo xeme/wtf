@@ -34,6 +34,7 @@ public class Selector {
 				StatusBar.setStatus("Selection Mode");
 			}
 		});	
+
 	}
 
 	private void drawTab(com.google.gwt.user.client.Element elem){
@@ -167,7 +168,7 @@ public class Selector {
 
 		DOM.setStyleAttribute(elem, "cursor", "hand");
 		DOM.setStyleAttribute(elem, "cursor", "pointer");		
-		
+
 		if(elem.getTagName().toLowerCase().equals("object") || elem.getTagName().toLowerCase().equals("embed")) { //flash
 			drawTab(elem);
 		} else {
@@ -201,7 +202,7 @@ public class Selector {
 		}
 		return false;
 	}
-	
+
 	private boolean ignore(com.google.gwt.user.client.Element elem) {
 		return  elem.getId().equals("wtf_selection_l") ||
 		elem.getId().equals("wtf_selection_r") ||
@@ -244,7 +245,7 @@ public class Selector {
 			elem = stack.pop();
 			if(ignore((com.google.gwt.user.client.Element) elem))
 				continue;
-			
+
 			addListener((com.google.gwt.user.client.Element) elem);
 			Element child = elem.getFirstChildElement();
 			while(child != null) {
