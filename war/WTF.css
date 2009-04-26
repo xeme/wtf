@@ -1,5 +1,4 @@
 
-
 /* DOM selection */
 .wtf_selection
 {
@@ -36,6 +35,12 @@
 	margin:0px;
 }
 
+#wtf_status_bar td
+{
+	margin: 0px;
+	padding: 0px;
+}
+
 /* container containing status message in the status bar */
 #wtf_status_panel
 {
@@ -56,6 +61,7 @@
 	text-align: left;
 	font-size: 11px;
 }
+
 
 /* *********** DEBUG TOOLS ********* */
 

@@ -57,7 +57,7 @@ public class StatusBar {
 			}
 			menu_panel.getElement().setId("wtf_menu_panel");
 			status_panel.getElement().setId("wtf_status_panel");
-			v_panel.setSpacing(0);			
+			v_panel.setSpacing(0);
 
 			//compose all
 			v_panel.add(menu_panel);
