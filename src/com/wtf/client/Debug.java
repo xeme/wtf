@@ -54,7 +54,7 @@ public class Debug {
 	}
 
 	/*
-	 * logs miliseconds elapsed from last log_time call (first call logs time elapsed from WTF load) 
+	 * logs milliseconds elapsed from last log_time call (first call logs time elapsed from WTF load) 
 	 */
 	public static void log_time(String s)
 	{

@@ -34,12 +34,14 @@ public class StatusBar {
 	private static class StatusBarWidget extends Composite implements ClickHandler {
 
 		private Label _status = new Label();
+		private HorizontalPanel menu_panel = new HorizontalPanel();
 		//menu buttons
 		private Button _b_start_selection;
+		private Button _b_end_selection;
 		private Button _b_show_discussions;
 
 		public StatusBarWidget(String orientation) {		
-			HorizontalPanel menu_panel = new HorizontalPanel();
+			
 			HorizontalPanel status_panel = new HorizontalPanel();
 			VerticalPanel v_panel = new VerticalPanel();
 			// All composites must call initWidget() in their constructors.
@@ -65,9 +67,19 @@ public class StatusBar {
 			status_panel.add(_status);
 
 			//menu panel	
-			_b_start_selection = new Button("zaznacz", new ClickHandler() {
+			_b_start_selection = new Button("Select Mode ON", new ClickHandler() {
 				public void onClick(ClickEvent event) {
-					_selector_manager.newSelection();
+					_selector_manager.startSelectionMode();
+					_b_start_selection.setVisible(false);
+					_b_end_selection.setVisible(true);
+				}
+			});
+			
+			_b_end_selection = new Button("Select Mode OFF", new ClickHandler() {
+				public void onClick(ClickEvent event) {
+					_selector_manager.endSelectionMode();
+					_b_start_selection.setVisible(true);
+					_b_end_selection.setVisible(false);
 				}
 			});
 
@@ -78,6 +90,8 @@ public class StatusBar {
 			});
 
 			menu_panel.add(_b_start_selection);
+			menu_panel.add(_b_end_selection);
+			_b_end_selection.setVisible(false);
 			menu_panel.add(_b_show_discussions);
 		}
 

@@ -16,8 +16,9 @@ import com.google.gwt.user.client.ui.RootPanel;
 public class Selector {
 	private com.google.gwt.user.client.Element _selected = null;
 	private boolean _initialized = false;  
+	private boolean _selection_mode = false;
 
-	public void newSelection()
+	public void startSelectionMode()
 	{
 		//chunk operations
 		if(!_initialized){
@@ -34,7 +35,14 @@ public class Selector {
 				StatusBar.setStatus("Selection Mode");
 			}
 		});	
-
+		_selection_mode = true;
+	}
+	
+	public void endSelectionMode()
+	{
+		remove_selection();
+		StatusBar.setStatus("WTF ready");
+		_selection_mode = false;
 	}
 
 	private void drawTab(com.google.gwt.user.client.Element elem){
@@ -60,12 +68,15 @@ public class Selector {
 		DOM.setStyleAttribute(div_, "height", hs);
 		DOM.setStyleAttribute(div_, "top", y);
 		DOM.setStyleAttribute(div_, "left", x);
+		
+		DOM.setStyleAttribute(div_, "cursor", "hand");
+		DOM.setStyleAttribute(div_, "cursor", "pointer");
 
 		EventListener event_listener = new EventListener() {
 			public void onBrowserEvent(Event event) {
 				switch (DOM.eventGetType(event)) {
 				case Event.ONMOUSEOUT:
-					remove_selection_rect();
+					remove_selection();
 					break;
 				}
 			}
@@ -143,7 +154,7 @@ public class Selector {
 			public void onBrowserEvent(Event event) {
 				switch (DOM.eventGetType(event)) {
 				case Event.ONMOUSEOUT:
-					remove_selection_rect();
+					remove_selection();
 					break;
 				}
 			}
@@ -166,12 +177,12 @@ public class Selector {
 		}  
 		_selected = elem;
 
-		DOM.setStyleAttribute(elem, "cursor", "hand");
-		DOM.setStyleAttribute(elem, "cursor", "pointer");		
-
 		if(elem.getTagName().toLowerCase().equals("object") || elem.getTagName().toLowerCase().equals("embed")) { //flash
 			drawTab(elem);
 		} else {
+			//only non-flash can be clicked. flash has special tab
+			DOM.setStyleAttribute(elem, "cursor", "hand");
+			DOM.setStyleAttribute(elem, "cursor", "pointer");
 			drawRect(elem);
 		}
 		Debug.log_time("select: ");
@@ -183,7 +194,7 @@ public class Selector {
 			RootPanel.getBodyElement().removeChild(sel);
 	}
 
-	public void remove_selection_rect(){
+	public void remove_selection(){
 		remove_border("l");
 		remove_border("r");
 		remove_border("t");
@@ -191,6 +202,9 @@ public class Selector {
 		com.google.gwt.user.client.Element sel = DOM.getElementById("wtf_selection_tab");
 		if(sel != null)
 			RootPanel.getBodyElement().removeChild(sel);
+		
+		if(_selected != null)
+			DOM.setStyleAttribute(_selected, "cursor", "default");
 		_selected = null;
 	}
 
@@ -214,7 +228,7 @@ public class Selector {
 	public void selectionClean(com.google.gwt.user.client.Element elem) {
 		if(elem.equals(_selected) || ignore(elem))
 			return;
-		remove_selection_rect();
+		remove_selection();
 		Debug.log_time("clear: ");
 	}
 
@@ -222,6 +236,8 @@ public class Selector {
 		DOM.sinkEvents(elem, Event.ONMOUSEOVER | Event.ONMOUSEOUT);
 		DOM.setEventListener(elem, new EventListener() {
 			public void onBrowserEvent(Event event) {
+				if(!_selection_mode)
+					return;
 				com.google.gwt.user.client.Element elem = DOM.eventGetTarget(event);
 				switch (DOM.eventGetType(event)) {
 				case Event.ONMOUSEOVER:

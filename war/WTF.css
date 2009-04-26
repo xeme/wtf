@@ -41,6 +41,7 @@
 	padding: 0px;
 }
 
+
 /* container containing status message in the status bar */
 #wtf_status_panel
 {
@@ -60,6 +61,13 @@
 	margin: 0px;
 	text-align: left;
 	font-size: 11px;
+}
+
+/* buttons */
+#wtf_menu_panel button
+{
+	font-size: 11px;
+	padding: 1px;
 }
 
 
