@@ -65,10 +65,8 @@ public class StatusBar {
 			status_panel.add(_status);
 
 			//menu panel	
-
 			_b_start_selection = new Button("zaznacz", new ClickHandler() {
 				public void onClick(ClickEvent event) {
-					StatusBar.setStatus("CLICK");
 					_selector_manager.newSelection();
 				}
 			});

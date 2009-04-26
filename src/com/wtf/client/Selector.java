@@ -3,7 +3,9 @@ package com.wtf.client;
 import java.util.Stack;
 
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.DeferredCommand;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.EventListener;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -17,11 +19,21 @@ public class Selector {
 
 	public void newSelection()
 	{
+		//chunk operations
 		if(!_initialized){
-			initDOM();
-			_initialized = true;
+			StatusBar.setStatus("Initializing DOM...");
+			DeferredCommand.addCommand(new Command() {	//init chunk
+				public void execute() {
+					initDOM();
+					_initialized = true;
+				}
+			});
 		}
-		StatusBar.setStatus("Selection Mode");
+		DeferredCommand.addCommand(new Command() { //start_selection chunk
+			public void execute() {
+				StatusBar.setStatus("Selection Mode");
+			}
+		});	
 	}
 
 	private void drawTab(com.google.gwt.user.client.Element elem){
@@ -223,8 +235,7 @@ public class Selector {
 		});
 	}
 
-	private void initDOM(){
-		StatusBar.setStatus("Initializing DOM...");	
+	private void initDOM(){	
 		Element body = RootPanel.getBodyElement();
 		Stack<Element> stack = new Stack<Element>();
 		stack.push(body);

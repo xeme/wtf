@@ -8,7 +8,7 @@ public class WTF implements EntryPoint {
 		Debug.log(">> WTF console <<");
 		Selector selector_manager = new Selector();
 		StatusBar.init(selector_manager);
-		StatusBar.setStatus("WTF ready");	
+		StatusBar.setStatus("WTF ready");
 	}
 }
 
