@@ -33,7 +33,13 @@
 
 .wtf_selection_word
 {
+	background-color: #8ccbf9;	/* selection-border color */
+}
+
+.wtf_selection_word_selected
+{
 	background-color: #3c7bd9;	/* selection-border color */
+	color: #ddd;
 }
 
 /* status bar */

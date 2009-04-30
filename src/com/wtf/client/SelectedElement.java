@@ -22,6 +22,11 @@ public class SelectedElement {
 	private List<Node> _text_nodes = new LinkedList<Node>();
 	private HashMap<Node, List<Node> > _origin = new HashMap<Node, List<Node> >(); 
 	
+	private HashSet<Node> _selected = new HashSet<Node>();
+	private HashSet<Node> _tmp_selected = new HashSet<Node>();
+	private int _start_selection = -1;
+	private boolean _selecting = true; //false - removing selection
+	
 
 	public SelectedElement(Selector selector, Element element) {
 		_selector = selector;
@@ -61,6 +66,7 @@ public class SelectedElement {
 		if(length < 10)
 			return;
 
+		int counter = 0;
 		for(int i = 0; i < children.getLength(); i++) {
 			if(children.getItem(i).getNodeType() == Node.TEXT_NODE) {
 				Text text_node =  children.getItem(i).cast();
@@ -70,6 +76,9 @@ public class SelectedElement {
 				for(int j = 0; j < split.length; j++) {
 					String s = split[j];
 					Element span = DOM.createSpan();
+					//hashCode may differ among page views 
+					span.setId("wtf_span_" + _element.hashCode() + "_" + counter);
+					counter++;
 					if(j == split.length - 1
 						&& text_node_data.charAt(text_node_data.length() -1) != ' ') {
 						span.setInnerText(s);
@@ -107,16 +116,89 @@ public class SelectedElement {
 		_origin.clear();
 	}
 	
-	private void select(com.google.gwt.user.client.Element elem) {
-		elem.setClassName("wtf_selection_word");
+	private void over(com.google.gwt.user.client.Element elem) {
+		clearSelection();
+		drawSelection(elem);
+		if(_start_selection != -1)
+			return;
+		if(_selected.contains(elem)) {
+			elem.setClassName("");
+		} else {
+			elem.setClassName("wtf_selection_word");
+		}
 	}
 	
-	private void selectionClean(com.google.gwt.user.client.Element elem) {
-		elem.setClassName("");
+	private void out(com.google.gwt.user.client.Element elem) {
+		if(_start_selection != -1)
+			return;
+		if(_selected.contains(elem)) {
+			elem.setClassName("wtf_selection_word_selected");
+		} else {
+			elem.setClassName("");
+		}
+	}
+	
+	private void down(com.google.gwt.user.client.Element elem) {
+		_start_selection = getCounterFromId(elem);
+		if(_selected.contains(elem)) {
+			_selecting = false;
+		} else {
+			_selecting = true;
+		}
+		_tmp_selected.add(elem);
+	}
+	
+	private void up(com.google.gwt.user.client.Element elem) {
+		if(_selecting) {
+			_selected.addAll(_tmp_selected);
+			for(Node node : _tmp_selected) {
+				Element el = node.cast();
+				el.setClassName("wtf_selection_word_selected");
+			}
+		} else {			
+			_selected.removeAll(_tmp_selected);
+		}
+		clearSelection();
+		_start_selection = -1;
+	}
+	
+	private void clearSelection() {
+		for(Node node : _tmp_selected) {
+			Element el = node.cast();
+			if(_selected.contains(el)) {
+				el.setClassName("wtf_selection_word_selected");
+			} else {
+				el.setClassName("");
+			}
+		}
+		_tmp_selected.clear();
+	}
+	
+	private void drawSelection(com.google.gwt.user.client.Element elem) {
+		if(_start_selection != -1) {
+			int start = Math.min(getCounterFromId(elem), _start_selection);
+			int end = Math.max(getCounterFromId(elem), _start_selection);
+			for(int i = start; i <= end; i++) {
+				String id = "wtf_span_" + _element.hashCode() + "_" + i;
+				Element elem_i = DOM.getElementById(id);
+				if(_selecting) {
+					elem_i.setClassName("wtf_selection_word");
+				} else {
+					elem_i.setClassName("");
+				}
+				_tmp_selected.add(elem_i);
+			}
+		}
+	}
+	
+	private int getCounterFromId(com.google.gwt.user.client.Element elem) {
+		String id = elem.getId();
+		return Integer.parseInt(id.substring(id.lastIndexOf('_')+1));
 	}
 	
 	private void addListener(com.google.gwt.user.client.Element elem){
-		DOM.sinkEvents(elem, Event.ONMOUSEOVER | Event.ONMOUSEOUT | Event.ONCLICK);
+		DOM.sinkEvents(elem, Event.ONMOUSEOVER | Event.ONMOUSEOUT
+				| Event.ONMOUSEDOWN | Event.ONMOUSEUP);
 		DOM.setEventListener(elem, new EventListener() {
 			public void onBrowserEvent(Event event) {
 				if(!_selector.isSelectionMode())
@@ -126,14 +208,17 @@ public class SelectedElement {
 					return;
 				switch (DOM.eventGetType(event)) {
 				case Event.ONMOUSEOVER:
-					selectionClean(elem);
-					select(elem);
+					out(elem);
+					over(elem);
 					break;
 				case Event.ONMOUSEOUT:
-					selectionClean(elem);
+					out(elem);
 					break;
-				case Event.ONCLICK:
-							
+				case Event.ONMOUSEDOWN:
+					down(elem);
+					break;
+				case Event.ONMOUSEUP:
+					up(elem);
 					break;
 				}
 				DOM.eventPreventDefault(event);

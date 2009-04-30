@@ -311,7 +311,8 @@ public class Selector {
 	}
 
 	private void addListener(com.google.gwt.user.client.Element elem){
-		DOM.sinkEvents(elem, Event.ONMOUSEOVER | Event.ONMOUSEOUT | Event.ONCLICK);
+		DOM.sinkEvents(elem, Event.ONMOUSEOVER | Event.ONMOUSEOUT | Event.ONCLICK
+				| Event.ONMOUSEDOWN | Event.ONMOUSEUP );
 		DOM.setEventListener(elem, new EventListener() {
 			public void onBrowserEvent(Event event) {
 				if(!_selection_mode)
@@ -337,7 +338,8 @@ public class Selector {
 					}					
 					break;
 				}
-				DOM.eventPreventDefault(event);
+				if(DOM.eventGetButton(event) != Event.BUTTON_MIDDLE)
+					DOM.eventPreventDefault(event);
 			}
 		});
 	}
