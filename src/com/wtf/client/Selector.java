@@ -1,10 +1,12 @@
 package com.wtf.client;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Stack;
 
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.Node;
+import com.google.gwt.dom.client.NodeList;
+import com.google.gwt.dom.client.Text;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.DeferredCommand;
@@ -22,6 +24,10 @@ public class Selector {
 	
 	private HashMap<Element, SelectedElement> _active_selection = new HashMap<Element, SelectedElement>();
 
+	public boolean isSelectionMode() {
+		return _selection_mode;
+	}
+	
 	public void startSelectionMode()
 	{
 		//chunk operations
@@ -44,13 +50,26 @@ public class Selector {
 	
 	public void endSelectionMode()
 	{
-		remove_selection();
-		for(SelectedElement sel_elem : _active_selection.values()) {
-			sel_elem.deleteSelectionBorders();
-		}
-		_active_selection.clear();
-		StatusBar.setStatus("WTF ready");
-		_selection_mode = false;
+		Debug.log_time("endSelectionMode");
+		StatusBar.setStatus("Leaving Selection Mode...");
+		//chunk operations
+		DeferredCommand.addCommand(new Command() {
+			public void execute() {
+				remove_selection();
+				for(SelectedElement sel_elem : _active_selection.values()) {
+					sel_elem.deleteSelectionBorders();
+					sel_elem.removeNextLevel();
+				}
+				_active_selection.clear();
+				_selection_mode = false;
+			}
+		});
+		DeferredCommand.addCommand(new Command() {
+			public void execute() {
+				StatusBar.setStatus("WTF ready");
+				Debug.log_time("endSelectionMode finished ");
+			}
+		});
 	}
 	
 	public void commitSelected() {
@@ -63,14 +82,16 @@ public class Selector {
 			drawRect(_selected.getElement(), _selected);
 		}
 		_active_selection.put(_selected.getElement(), _selected);
+		_selected.createNextLevel();
 	}
 
 	public void unCommitSelected() {
 		if(_selected == null || !_active_selection.containsKey(_selected.getElement()))
 			return;
-		Debug.log("uncommiting");
 		_active_selection.get(_selected.getElement()).deleteSelectionBorders();
+		_active_selection.get(_selected.getElement()).removeNextLevel();
 		_active_selection.remove(_selected.getElement());
+		
 	}
 	
 	//end of interface
@@ -231,7 +252,7 @@ public class Selector {
 		if(elem == null || _selected != null || elem == RootPanel.getBodyElement() || ignore(elem)) {
 			return;
 		}  
-		_selected = new SelectedElement(elem);
+		_selected = new SelectedElement(this, elem);
 
 		if(isFlash(elem)) {
 			drawTab(elem, null);
@@ -320,7 +341,7 @@ public class Selector {
 			}
 		});
 	}
-
+	
 	private void initDOM(){	
 		Element body = RootPanel.getBodyElement();
 		Stack<Element> stack = new Stack<Element>();
