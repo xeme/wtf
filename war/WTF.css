@@ -65,6 +65,17 @@
 	margin:0px;
 
 }
+/* hax for IE6 */
+* html #wtf_status_bar {
+position: absolute;
+left: expression(((e=document.documentElement.scrollLeft)?e:document.body.scrollLeft)+'px');
+top:expression(eval(document.compatMode &&
+document.compatMode=='CSS1Compat') ?
+documentElement.scrollTop
++(documentElement.clientHeight-this.clientHeight) 
+: document.body.scrollTop
++(document.body.clientHeight-this.clientHeight));
+}
 
 #wtf_status_bar td
 {
@@ -174,4 +185,9 @@
 	filter:alpha(opacity=70);
   	opacity:.70;
   	z-index: 101;
+}
+* html #wtf_status_console {
+position: absolute;
+right: 0px;
+top: expression(((e=document.documentElement.scrollTop)?e:document.body.scrollTop)+'px');
 }
