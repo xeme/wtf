@@ -9,6 +9,7 @@ import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.DeferredCommand;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.EventListener;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.RootPanel;
 
 /*
@@ -67,6 +68,7 @@ public class Selector {
 				Debug.log_time("endSelectionMode finished ");
 			}
 		});
+		removeIcon();
 	}
 	
 	public void commitSelected() {
@@ -80,6 +82,7 @@ public class Selector {
 		}
 		_active_selection.put(_selected.getElement(), _selected);
 		_selected.createNextLevel();
+		drawIcon();
 	}
 
 	public void unCommitSelected() {
@@ -88,10 +91,43 @@ public class Selector {
 		_active_selection.get(_selected.getElement()).deleteSelectionBorders();
 		_active_selection.get(_selected.getElement()).removeNextLevel();
 		_active_selection.remove(_selected.getElement());
-		
+		drawIcon();
 	}
 	
 	//end of interface
+	private void drawIcon() {
+		removeIcon();
+		
+		Image icon = StatusBar.wtfImageBundle.new_discussion().createImage();
+		Element top_elem = null;
+		for(Element elem : _active_selection.keySet()) {
+			if(top_elem == null || elem.getAbsoluteTop() < top_elem.getAbsoluteTop()) {
+				top_elem = elem;
+			}
+		}
+		if(top_elem == null)
+			return;
+		int top = top_elem.getAbsoluteTop() - 20;
+		int left = top_elem.getAbsoluteLeft() - icon.getWidth();
+		left = Math.max(left, 0);
+		top = Math.max(top, 0);
+		
+		
+		
+		icon.getElement().setId("wtf_new_icon");
+		DOM.setStyleAttribute(icon.getElement(), "position", "absolute");
+		DOM.setStyleAttribute(icon.getElement(), "top", top + "px");
+		DOM.setStyleAttribute(icon.getElement(), "left", left + "px");
+		RootPanel.getBodyElement().appendChild(icon.getElement());
+	}
+	
+	private void removeIcon () {
+		Element trash = DOM.getElementById("wtf_new_icon");
+		if(trash != null) {
+			trash.getParentElement().removeChild(trash);
+		}
+	}
+	
 	private void drawTab(com.google.gwt.user.client.Element elem, SelectedElement sel){
 		//	create 4 borders
 		int h = 20; 

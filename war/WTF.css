@@ -42,12 +42,18 @@
 	color: #ddd;
 }
 
+/* new-discussion icon */
+#wtf_new_icon
+{
+	z-index: 101;
+}
+
 /* status bar */
 #wtf_status_bar
 {
 	position: fixed;
 	bottom: 0px;				/* vertival position [horizontal position (left/right) can be set in wtf_config.xml] */
-	width: 150px;
+	/*width: 150px; */
 	font-size: 11px;
 	background-color: #ede9e3;
 	border-top: 1px solid #b1a594;
@@ -55,14 +61,16 @@
 	border-right: 1px solid #b1a594;
 	color: #000;
 	padding: 4px;	
-	z-index: 101;
+	z-index: 102;
 	margin:0px;
+
 }
 
 #wtf_status_bar td
 {
 	margin: 0px;
 	padding: 0px;
+
 }
 
 
@@ -77,6 +85,10 @@
 	text-align: left;
 	font-size: 11px;
 	color: #000;
+	overflow: hidden;
+	width: 150px;
+	height: 18px;
+	display: block;
 }
 
 /* container containing menu options in the status bar */

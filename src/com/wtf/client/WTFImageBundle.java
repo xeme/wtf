@@ -15,4 +15,6 @@ public interface WTFImageBundle extends ImageBundle {
 	@Resource("com/wtf/client/icons/wtf.png")
 	public AbstractImagePrototype wtf();
 
+	@Resource("com/wtf/client/icons/new.png")
+	public AbstractImagePrototype new_discussion();
 }

@@ -14,6 +14,8 @@ import com.google.gwt.user.client.ui.ToggleButton;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class StatusBar {
+	public static WTFImageBundle wtfImageBundle = (WTFImageBundle) GWT.create(WTFImageBundle.class);
+	
 	private static StatusBarWidget _status_bar = null;
 	private static Selector _selector_manager;
 
@@ -46,7 +48,6 @@ public class StatusBar {
 
 			HorizontalPanel status_panel = new HorizontalPanel();
 			VerticalPanel v_panel = new VerticalPanel();
-			WTFImageBundle wtfImageBundle = (WTFImageBundle) GWT.create(WTFImageBundle.class);
 			// All composites must call initWidget() in their constructors.
 			initWidget(v_panel);	
 
