@@ -102,7 +102,6 @@ public class SelectedElement {
 	public void removeNextLevel() {
 		for(Node key : _origin.keySet()) {
 			List<Node> new_nodes = _origin.get(key);
-			Text tmp = key.cast();
 			boolean first = true;
 			for(Node new_node : new_nodes) {
 				if(first) {

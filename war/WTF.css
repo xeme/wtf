@@ -47,14 +47,14 @@
 {
 	position: fixed;
 	bottom: 0px;				/* vertival position [horizontal position (left/right) can be set in wtf_config.xml] */
-	width: 220px;
+	width: 150px;
 	font-size: 11px;
 	background-color: #ede9e3;
 	border-top: 1px solid #b1a594;
 	border-left: 1px solid #b1a594;
 	border-right: 1px solid #b1a594;
 	color: #000;
-	padding: 3px;	
+	padding: 4px;	
 	z-index: 101;
 	margin:0px;
 }
@@ -72,6 +72,7 @@
 	padding: 0px;
 	padding-left: 3px;
 	padding-right: 3px;
+	padding-top: 3px;
 	margin: 0px;
 	text-align: left;
 	font-size: 11px;
@@ -88,10 +89,59 @@
 }
 
 /* buttons */
-#wtf_menu_panel button
-{
-	font-size: 11px;
-	padding: 1px;
+.gwt-ToggleButton-up,
+.gwt-ToggleButton-up-hovering,
+.gwt-ToggleButton-up-disabled,
+.gwt-ToggleButton-down,
+.gwt-ToggleButton-down-hovering,
+.gwt-ToggleButton-down-disabled {
+  margin: 0;
+  margin-right: 10px;
+  text-decoration: none;
+  background: url("css_images/hborder.png") repeat-x 0px -27px;
+}
+.gwt-ToggleButton-up,
+.gwt-ToggleButton-up-hovering,
+.gwt-ToggleButton-up-disabled {
+  padding: 1px 1px 1px 1px;
+}
+.gwt-ToggleButton-up {
+  border: 1px outset #ccc;
+  cursor: pointer;
+  cursor: hand;
+}
+.gwt-ToggleButton-up-hovering {
+  border: 1px outset;
+  border-color: #9cf #69e #69e #7af;
+  cursor: pointer;
+  cursor: hand;
+}
+.gwt-ToggleButton-up-disabled {
+  border: 1px outset #ccc;
+  cursor: default;
+}
+.gwt-ToggleButton-down,
+.gwt-ToggleButton-down-hovering,
+.gwt-ToggleButton-down-disabled {
+  padding: 1px 1px 1px 1px;
+}
+.gwt-ToggleButton-down {
+  background-position: 0 -513px;
+  border: 1px inset #ccc;
+  cursor: pointer;
+  cursor: hand;
+}
+.gwt-ToggleButton-down-hovering {
+  background-position: 0 -513px;
+  border: 1px inset;
+  border-color: #9cf #69e #69e #7af;
+  cursor: pointer;
+  cursor: hand;
+}
+.gwt-ToggleButton-down-disabled {
+  background-position: 0 -513px;
+  border: 1px inset #ccc;
+  cursor: default;
 }
 
 
