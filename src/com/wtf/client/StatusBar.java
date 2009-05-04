@@ -49,7 +49,7 @@ public class StatusBar {
 			HorizontalPanel status_panel = new HorizontalPanel();
 			VerticalPanel v_panel = new VerticalPanel();
 			// All composites must call initWidget() in their constructors.
-			initWidget(v_panel);	
+			initWidget(v_panel);				
 
 			//set styles
 			getElement().setId("wtf_status_bar");

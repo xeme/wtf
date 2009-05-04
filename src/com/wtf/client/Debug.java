@@ -6,8 +6,10 @@ import java.util.Queue;
 
 import com.google.gwt.core.client.Duration;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.AnchorElement;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.RootPanel;
 
@@ -25,6 +27,10 @@ public class Debug {
 			GWT.setUncaughtExceptionHandler(new GWT.UncaughtExceptionHandler() {
 				public void onUncaughtException(Throwable e) {
 					Debug.log("Caught Exception: " + e.getMessage());		
+					StackTraceElement stack[] = e.getStackTrace();
+					for(StackTraceElement s : stack) {
+						Debug.log(s.getMethodName());
+					}
 				}
 			});
 		}
@@ -34,7 +40,6 @@ public class Debug {
 		div.setId("wtf_status_console");
 		div.setClassName("wtf_ignore");
 		RootPanel.getBodyElement().appendChild(div);
-		RootPanel.get("wtf_status_console").add(_status);
 		_initialized = true;
 	}
 
@@ -45,14 +50,13 @@ public class Debug {
 			init();
 
 		_logs.add(s);
-		if(_logs.size() > 20)
-			_logs.poll();
 		String out = "";
 		Iterator<String> iter = _logs.iterator();
 		while(iter.hasNext()) {
 			out += iter.next() + "<br>";
 		}
-		_status.setHTML(out);
+		Element div = DOM.getElementById("wtf_status_console");
+		div.setInnerHTML(out);
 	}
 
 	/*

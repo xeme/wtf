@@ -11,6 +11,10 @@ public class WTF implements EntryPoint {
 				doLoad();
 			}catch(Exception e){
 				Debug.log("[M]Caught Exception: " + e.getMessage());
+				StackTraceElement stack[] = e.getStackTrace();
+				for(StackTraceElement s : stack) {
+					Debug.log(s.getMethodName());
+				}
 			}	
 		} else {
 			doLoad();
@@ -19,7 +23,7 @@ public class WTF implements EntryPoint {
 
 	private void doLoad()
 	{
-		Debug.log(">> WTF console <<");		
+		Debug.log(">> WTF console <<");
 		Selector selector_manager = new Selector();
 		StatusBar.init(selector_manager);
 		StatusBar.setStatus("WTF ready");
