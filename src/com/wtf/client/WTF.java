@@ -11,7 +11,9 @@ public class WTF implements EntryPoint {
 				doLoad();
 			}catch(Exception e){
 				Debug.log("[M]Caught Exception: " + e.getMessage());
+				e.fillInStackTrace();
 				StackTraceElement stack[] = e.getStackTrace();
+				Debug.log("Stack Trace:" + stack.length);
 				for(StackTraceElement s : stack) {
 					Debug.log(s.getMethodName());
 				}

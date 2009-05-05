@@ -19,13 +19,13 @@ public class Selector {
 	private SelectedElement _selected = null; //current highlighted element
 	private boolean _initialized = false;  
 	private boolean _selection_mode = false;
-	
+
 	private HashMap<Element, SelectedElement> _active_selection = new HashMap<Element, SelectedElement>();
 
 	public boolean isSelectionMode() {
 		return _selection_mode;
 	}
-	
+
 	public void startSelectionMode()
 	{
 		//chunk operations
@@ -45,7 +45,7 @@ public class Selector {
 		});	
 		_selection_mode = true;
 	}
-	
+
 	public void endSelectionMode()
 	{
 		Debug.log_time("endSelectionMode");
@@ -70,7 +70,7 @@ public class Selector {
 		});
 		removeIcon();
 	}
-	
+
 	public void commitSelected() {
 		if(_selected == null)
 			return;
@@ -93,11 +93,11 @@ public class Selector {
 		_active_selection.remove(_selected.getElement());
 		drawIcon();
 	}
-	
+
 	//end of interface
 	private void drawIcon() {
 		removeIcon();
-		
+
 		Image icon = StatusBar.wtfImageBundle.new_discussion().createImage();
 		Element top_elem = null;
 		for(Element elem : _active_selection.keySet()) {
@@ -111,23 +111,23 @@ public class Selector {
 		int left = top_elem.getAbsoluteLeft() - icon.getWidth();
 		left = Math.max(left, 0);
 		top = Math.max(top, 0);
-		
-		
-		
+
+
+
 		icon.getElement().setId("wtf_new_icon");
 		DOM.setStyleAttribute(icon.getElement(), "position", "absolute");
 		DOM.setStyleAttribute(icon.getElement(), "top", top + "px");
 		DOM.setStyleAttribute(icon.getElement(), "left", left + "px");
 		RootPanel.getBodyElement().appendChild(icon.getElement());
 	}
-	
+
 	private void removeIcon () {
 		Element trash = DOM.getElementById("wtf_new_icon");
 		if(trash != null) {
 			trash.getParentElement().removeChild(trash);
 		}
 	}
-	
+
 	private void drawTab(com.google.gwt.user.client.Element elem, SelectedElement sel){
 		//	create 4 borders
 		int h = 20; 
@@ -156,7 +156,7 @@ public class Selector {
 		DOM.setStyleAttribute(div_, "height", hs);
 		DOM.setStyleAttribute(div_, "top", y);
 		DOM.setStyleAttribute(div_, "left", x);
-		
+
 		DOM.setStyleAttribute(div_, "cursor", "hand");
 		DOM.setStyleAttribute(div_, "cursor", "pointer");
 
@@ -278,9 +278,9 @@ public class Selector {
 
 	private boolean isFlash(com.google.gwt.user.client.Element elem) {
 		return elem.getTagName().toLowerCase().equals("object") ||
-			elem.getTagName().toLowerCase().equals("embed");
+		elem.getTagName().toLowerCase().equals("embed");
 	}
-	
+
 	public void select(com.google.gwt.user.client.Element elem){
 		if(elem == null || _selected != null || elem == RootPanel.getBodyElement() || ignore(elem)) {
 			return;
@@ -295,7 +295,7 @@ public class Selector {
 			DOM.setStyleAttribute(elem, "cursor", "pointer");
 			drawRect(elem, null);
 		}
-		Debug.log_time("select: ");
+		//Debug.log_time("select: ");
 	}
 
 	private void remove_border(String type) {
@@ -312,7 +312,7 @@ public class Selector {
 		com.google.gwt.user.client.Element sel = DOM.getElementById("wtf_selection_tab");
 		if(sel != null)
 			RootPanel.getBodyElement().removeChild(sel);
-		
+
 		if(_selected != null)
 			DOM.setStyleAttribute(_selected.getElement(), "cursor", "");
 		_selected = null;
@@ -340,12 +340,11 @@ public class Selector {
 		if(_selected == null || elem.equals(_selected.getElement()) || ignore(elem))
 			return;
 		remove_selection();
-		Debug.log_time("clear: ");
+		//Debug.log_time("clear: ");
 	}
 
 	private void addListener(com.google.gwt.user.client.Element elem){
-		DOM.sinkEvents(elem, Event.ONMOUSEOVER | Event.ONMOUSEOUT | Event.ONCLICK
-				| Event.ONMOUSEDOWN | Event.ONMOUSEUP );
+		DOM.sinkEvents(elem, Event.MOUSEEVENTS | Event.ONCLICK);
 		DOM.setEventListener(elem, new EventListener() {
 			public void onBrowserEvent(Event event) {
 				if(!_selection_mode)
@@ -357,12 +356,15 @@ public class Selector {
 				case Event.ONMOUSEOVER:
 					selectionClean(elem);
 					select(elem);
+					if(_selected != null) {
+						_selected._ie_fail_prevent_click_event = false;
+					}
 					break;
 				case Event.ONMOUSEOUT:
 					selectionClean(elem);
 					break;
 				case Event.ONCLICK:
-					if(isFlash(elem))
+					if(isFlash(elem) || _selected._ie_fail_prevent_click_event)
 						return;
 					if(_active_selection.containsKey(elem)) {
 						unCommitSelected();
@@ -371,12 +373,11 @@ public class Selector {
 					}					
 					break;
 				}
-				if(DOM.eventGetButton(event) != Event.BUTTON_MIDDLE)
-					DOM.eventPreventDefault(event);
+				DOM.eventPreventDefault(event);
 			}
 		});
 	}
-	
+
 	private void initDOM(){	
 		Element body = RootPanel.getBodyElement();
 		Stack<Element> stack = new Stack<Element>();

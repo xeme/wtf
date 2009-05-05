@@ -6,17 +6,13 @@ import java.util.Queue;
 
 import com.google.gwt.core.client.Duration;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.AnchorElement;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.RootPanel;
 
 public class Debug {
 	private static boolean _debug_mode = true;
 
-	private static HTML _status = new HTML();
 	private static Queue<String> _logs = new LinkedList<String>();
 	private static boolean _initialized = false; 	
 	private static Duration _timer = new Duration();
@@ -26,8 +22,10 @@ public class Debug {
 		if(GWT.isScript()) {
 			GWT.setUncaughtExceptionHandler(new GWT.UncaughtExceptionHandler() {
 				public void onUncaughtException(Throwable e) {
-					Debug.log("Caught Exception: " + e.getMessage());		
+					Debug.log("Caught Exception: " + e.getMessage());
+					e.fillInStackTrace();
 					StackTraceElement stack[] = e.getStackTrace();
+					Debug.log("Stack Trace:");
 					for(StackTraceElement s : stack) {
 						Debug.log(s.getMethodName());
 					}
@@ -50,6 +48,9 @@ public class Debug {
 			init();
 
 		_logs.add(s);
+		if(_logs.size() > 10) {
+			_logs.poll();
+		}
 		String out = "";
 		Iterator<String> iter = _logs.iterator();
 		while(iter.hasNext()) {

@@ -1,10 +1,10 @@
 package com.wtf.client;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.dom.client.Node;
 import com.google.gwt.dom.client.NodeList;
 import com.google.gwt.dom.client.Text;
@@ -19,14 +19,16 @@ public class SelectedElement {
 	private Element _element;
 	private HashSet<Element> _selection_borders = new HashSet<Element>();
 	
-	private List<Node> _text_nodes = new LinkedList<Node>();
-	private HashMap<Node, List<Node> > _origin = new HashMap<Node, List<Node> >(); 
+	private List<Pair<Node, List<Node> > > _origin = new LinkedList<Pair<Node, List<Node> > >();
 	
 	private HashSet<Node> _selected = new HashSet<Node>();
 	private HashSet<Node> _tmp_selected = new HashSet<Node>();
 	private int _start_selection = -1;
 	private boolean _selecting = true; //false - removing selection
 	
+	//in IE if onmousedown and onmouseup targets are not equal, onclick is generated
+	//(targeting common ancestor)
+	public boolean _ie_fail_prevent_click_event = false;
 
 	public SelectedElement(Selector selector, Element element) {
 		_selector = selector;
@@ -69,7 +71,8 @@ public class SelectedElement {
 		int counter = 0;
 		for(int i = 0; i < children.getLength(); i++) {
 			if(children.getItem(i).getNodeType() == Node.TEXT_NODE) {
-				Text text_node =  children.getItem(i).cast();
+				Text text_node = children.getItem(i).cast();
+
 				String text_node_data = text_node.getData();
 				String split[] = text_node_data.split(" ");
 				List<Node> new_nodes = new LinkedList<Node>();
@@ -91,17 +94,17 @@ public class SelectedElement {
 					text_node.getParentNode().insertBefore(span, text_node);
 					new_nodes.add(span);
 				}		
-				_text_nodes.add(text_node);
-				_origin.put(text_node, new_nodes);
-				text_node.getParentNode().removeChild(text_node);
+				_origin.add(new Pair<Node, List<Node> >(text_node, new_nodes));
+				text_node.getParentNode().removeChild(text_node);		
 			}
 		}
 		Debug.log_time("createNextLevel finished ");
 	}
 
 	public void removeNextLevel() {
-		for(Node key : _origin.keySet()) {
-			List<Node> new_nodes = _origin.get(key);
+		for(Pair<Node, List<Node> > pair : _origin) {
+			List<Node> new_nodes = pair.second();
+			Node key = pair.first();
 			boolean first = true;
 			for(Node new_node : new_nodes) {
 				if(first) {
@@ -111,7 +114,6 @@ public class SelectedElement {
 				new_node.getParentNode().removeChild(new_node);
 			}
 		}
-		_text_nodes.clear();
 		_origin.clear();
 	}
 	
@@ -196,8 +198,7 @@ public class SelectedElement {
 	}
 	
 	private void addListener(com.google.gwt.user.client.Element elem){
-		DOM.sinkEvents(elem, Event.ONMOUSEOVER | Event.ONMOUSEOUT
-				| Event.ONMOUSEDOWN | Event.ONMOUSEUP);
+		DOM.sinkEvents(elem, Event.MOUSEEVENTS);
 		DOM.setEventListener(elem, new EventListener() {
 			public void onBrowserEvent(Event event) {
 				if(!_selector.isSelectionMode())
@@ -208,19 +209,22 @@ public class SelectedElement {
 				switch (DOM.eventGetType(event)) {
 				case Event.ONMOUSEOVER:
 					out(elem);
-					over(elem);
+					over(elem);		
 					break;
 				case Event.ONMOUSEOUT:
 					out(elem);
 					break;
 				case Event.ONMOUSEDOWN:
 					down(elem);
+					_ie_fail_prevent_click_event = true;
 					break;
 				case Event.ONMOUSEUP:
 					up(elem);
 					break;
 				}
 				DOM.eventPreventDefault(event);
+				NativeEvent nevent = event.cast();
+				nevent.stopPropagation();
 			}
 		});
 	}
