@@ -1,9 +1,13 @@
 package com.wtf.client;
 
+import static com.google.gwt.query.client.GQuery.$;
+
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Stack;
 
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.NodeList;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.DeferredCommand;
@@ -21,6 +25,7 @@ public class Selector {
 	private boolean _selection_mode = false;
 
 	private HashMap<Element, SelectedElement> _active_selection = new HashMap<Element, SelectedElement>();
+	private HashSet<Element> _init_done = new HashSet<Element>();
 
 	public boolean isSelectionMode() {
 		return _selection_mode;
@@ -378,22 +383,34 @@ public class Selector {
 		});
 	}
 
-	private void initDOM(){	
-		Element body = RootPanel.getBodyElement();
+	private void initElementByRoot(Element root) {	
 		Stack<Element> stack = new Stack<Element>();
-		stack.push(body);
+		stack.push(root);
 		Element elem = null;	  
 		while(!stack.isEmpty()) {
 			elem = stack.pop();
 			if(ignore((com.google.gwt.user.client.Element) elem))
 				continue;
-
+			
+			if(_init_done.contains(elem))
+				continue;
+		
 			addListener((com.google.gwt.user.client.Element) elem);
+			_init_done.add(elem);
+			
 			Element child = elem.getFirstChildElement();
 			while(child != null) {
 				stack.push(child);
 				child = child.getNextSiblingElement();
 			}	  
 		}
+	}
+	
+	private void initDOM() {	
+		NodeList<Element> elems = $("p").get();
+		for(int i = 0; i < elems.getLength(); i++) {
+			initElementByRoot(elems.getItem(i));
+		}
+		_init_done.clear();
 	}
 }

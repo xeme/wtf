@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/27/trunk/gwtquery-core/src/main/java/com/google/gwt/query/client/impl
+END
+DocumentStyleImplIE.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/!svn/ver/25/trunk/gwtquery-core/src/main/java/com/google/gwt/query/client/impl/DocumentStyleImplIE.java
+END
+SelectorEngineJSIE.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/!svn/ver/25/trunk/gwtquery-core/src/main/java/com/google/gwt/query/client/impl/SelectorEngineJSIE.java
+END
+DocumentStyleImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/!svn/ver/25/trunk/gwtquery-core/src/main/java/com/google/gwt/query/client/impl/DocumentStyleImpl.java
+END
+SelectorEngineJS.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/!svn/ver/25/trunk/gwtquery-core/src/main/java/com/google/gwt/query/client/impl/SelectorEngineJS.java
+END
+SelectorEngineImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/!svn/ver/25/trunk/gwtquery-core/src/main/java/com/google/gwt/query/client/impl/SelectorEngineImpl.java
+END
+SelectorEngineXPath.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/!svn/ver/27/trunk/gwtquery-core/src/main/java/com/google/gwt/query/client/impl/SelectorEngineXPath.java
+END
+SelectorEngineNative.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/!svn/ver/25/trunk/gwtquery-core/src/main/java/com/google/gwt/query/client/impl/SelectorEngineNative.java
+END

@@ -1,0 +1,125 @@
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/40/trunk/gwtquery-core/src/main/java/com/google/gwt/query/client
+END
+Predicate.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/!svn/ver/25/trunk/gwtquery-core/src/main/java/com/google/gwt/query/client/Predicate.java
+END
+Selectors.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/!svn/ver/25/trunk/gwtquery-core/src/main/java/com/google/gwt/query/client/Selectors.java
+END
+Events.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/!svn/ver/25/trunk/gwtquery-core/src/main/java/com/google/gwt/query/client/Events.java
+END
+SelectorEngine.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/!svn/ver/25/trunk/gwtquery-core/src/main/java/com/google/gwt/query/client/SelectorEngine.java
+END
+JsClosure.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/!svn/ver/27/trunk/gwtquery-core/src/main/java/com/google/gwt/query/client/JsClosure.java
+END
+LazyBase.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/!svn/ver/30/trunk/gwtquery-core/src/main/java/com/google/gwt/query/client/LazyBase.java
+END
+EventsListener.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/!svn/ver/32/trunk/gwtquery-core/src/main/java/com/google/gwt/query/client/EventsListener.java
+END
+JSArray.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/!svn/ver/25/trunk/gwtquery-core/src/main/java/com/google/gwt/query/client/JSArray.java
+END
+GQuery.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/!svn/ver/37/trunk/gwtquery-core/src/main/java/com/google/gwt/query/client/GQuery.java
+END
+LazyGQuery.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/!svn/ver/30/trunk/gwtquery-core/src/main/java/com/google/gwt/query/client/LazyGQuery.java
+END
+DeferredGQuery.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/!svn/ver/25/trunk/gwtquery-core/src/main/java/com/google/gwt/query/client/DeferredGQuery.java
+END
+Effects.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/!svn/ver/32/trunk/gwtquery-core/src/main/java/com/google/gwt/query/client/Effects.java
+END
+Lazy.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/30/trunk/gwtquery-core/src/main/java/com/google/gwt/query/client/Lazy.java
+END
+LazyEffects.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/!svn/ver/30/trunk/gwtquery-core/src/main/java/com/google/gwt/query/client/LazyEffects.java
+END
+Selector.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/!svn/ver/25/trunk/gwtquery-core/src/main/java/com/google/gwt/query/client/Selector.java
+END
+$.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/30/trunk/gwtquery-core/src/main/java/com/google/gwt/query/client/$.java
+END
+Function.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/!svn/ver/25/trunk/gwtquery-core/src/main/java/com/google/gwt/query/client/Function.java
+END
+Regexp.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/!svn/ver/25/trunk/gwtquery-core/src/main/java/com/google/gwt/query/client/Regexp.java
+END
+Properties.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/!svn/ver/40/trunk/gwtquery-core/src/main/java/com/google/gwt/query/client/Properties.java
+END
+Plugin.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/!svn/ver/25/trunk/gwtquery-core/src/main/java/com/google/gwt/query/client/Plugin.java
+END
