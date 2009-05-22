@@ -49,7 +49,7 @@ public class Config {
 		}
 	}
 
-	public static List<String> getSelectors() {
+	public static List<String> getAddSelectors() {
 		List<String> ret = new  LinkedList<String>();
 		if(_config == null)
 			return ret;
@@ -60,6 +60,22 @@ public class Config {
 				String selector = elem.getFirstChild().getNodeValue();
 				ret.add(selector);
 				Debug.log("add_root: " + selector);
+			}
+		}
+		return ret;
+	}
+	
+	public static List<String> getExcludeSelectors() {
+		List<String> ret = new  LinkedList<String>();
+		if(_config == null)
+			return ret;
+		NodeList select_tags = _config.getElementsByTagName("exclude_root");
+		for(int i = 0; i < select_tags.getLength(); i++) {
+			Element elem = (Element)select_tags.item(i);
+			if(elem.getFirstChild() != null) {
+				String selector = elem.getFirstChild().getNodeValue();
+				ret.add(selector);
+				Debug.log("exclude_root: " + selector);
 			}
 		}
 		return ret;

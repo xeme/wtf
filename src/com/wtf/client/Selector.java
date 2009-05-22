@@ -27,6 +27,7 @@ public class Selector {
 
 	private HashMap<Element, SelectedElement> _active_selection = new HashMap<Element, SelectedElement>();
 	private HashSet<Element> _init_done = new HashSet<Element>();
+	private HashSet<Element> _exclude = new HashSet<Element>();
 
 	public boolean isSelectionMode() {
 		return _selection_mode;
@@ -393,7 +394,7 @@ public class Selector {
 			if(ignore((com.google.gwt.user.client.Element) elem))
 				continue;
 			
-			if(_init_done.contains(elem))
+			if(_init_done.contains(elem) || _exclude.contains(elem))
 				continue;
 		
 			addListener((com.google.gwt.user.client.Element) elem);
@@ -408,13 +409,22 @@ public class Selector {
 	}
 	
 	private void initDOM() {	
-		List<String> selectors = Config.getSelectors();
-		for(String str : selectors) {
+		List<String> exclude_selectors = Config.getExcludeSelectors();
+		for(String str : exclude_selectors) {
+			NodeList<Element> elems = $(str).get();
+			for(int i = 0; i < elems.getLength(); i++) {
+				_exclude.add(elems.getItem(i));
+			}
+		}
+		
+		List<String> add_selectors = Config.getAddSelectors();
+		for(String str : add_selectors) {
 			NodeList<Element> elems = $(str).get();
 			for(int i = 0; i < elems.getLength(); i++) {
 				initElementByRoot(elems.getItem(i));
 			}
 		}
 		_init_done.clear();
+		_exclude.clear();
 	}
 }

@@ -7,8 +7,9 @@
 		example:
 			<selectors>
 				<add_root>div#content *</add_root>
+				<exclude_root>a</exclude_root>
 			</selectors>	
-		(will make all children of <div id="content"> selectable)
+		(will make all but <a> children of <div id="content"> selectable)
 	 -->
 	<selectors>
 	 	<!-- wazniak.mimuw.edu.pl -->
@@ -16,5 +17,6 @@
 		
 		<!-- WTF tests -->
 		<add_root>div#wtf_test</add_root>
+		<exclude_root>a</exclude_root>
 	</selectors>
 </wtf>
