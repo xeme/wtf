@@ -4,6 +4,7 @@ import static com.google.gwt.query.client.GQuery.$;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Stack;
 
 import com.google.gwt.dom.client.Element;
@@ -407,9 +408,12 @@ public class Selector {
 	}
 	
 	private void initDOM() {	
-		NodeList<Element> elems = $("p").get();
-		for(int i = 0; i < elems.getLength(); i++) {
-			initElementByRoot(elems.getItem(i));
+		List<String> selectors = Config.getSelectors();
+		for(String str : selectors) {
+			NodeList<Element> elems = $(str).get();
+			for(int i = 0; i < elems.getLength(); i++) {
+				initElementByRoot(elems.getItem(i));
+			}
 		}
 		_init_done.clear();
 	}

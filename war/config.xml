@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wtf>
+	<!--
+		add <add_root>SELECTOR</add_root> for every selection root.
+		check http://www.w3.org/TR/css3-selectors/ to learn how to write selectors
+		
+		example:
+			<selectors>
+				<add_root>div#content *</add_root>
+			</selectors>	
+		(will make all children of <div id="content"> selectable)
+	 -->
+	<selectors>
+	 	<!-- wazniak.mimuw.edu.pl -->
+		<add_root>div#content *</add_root>
+		
+		<!-- WTF tests -->
+		<add_root>div#wtf_test</add_root>
+	</selectors>
+</wtf>

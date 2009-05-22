@@ -18,6 +18,7 @@ public class StatusBar {
 	
 	private static StatusBarWidget _status_bar = null;
 	private static Selector _selector_manager;
+	private static boolean _error = false;
 
 
 	public static void init(Selector selector_manager) {
@@ -29,7 +30,13 @@ public class StatusBar {
 	}
 
 	public static void setStatus(String s) {
-		_status_bar.setStatus(s);
+		if(!_error) 
+			_status_bar.setStatus(s);
+	}
+	
+	public static void setError(String s) {
+		_status_bar.setStatus("(!) " + s);
+		_error = true;
 	}
 
 	/*
@@ -78,6 +85,8 @@ public class StatusBar {
 			_b_start_selection = new ToggleButton(wtfImageBundle.select().createImage(),
 					new ClickHandler() {
 				public void onClick(ClickEvent event) {
+					if(_error)
+						return;
 					_b_start_selection.setFocus(false);
 					if (_b_start_selection.isDown()) {
 						_selector_manager.startSelectionMode();
@@ -91,6 +100,8 @@ public class StatusBar {
 			_b_show_discussions = new ToggleButton(wtfImageBundle.discussions().createImage(),
 					new ClickHandler() {
 				public void onClick(ClickEvent event) {
+					if(_error)
+						return;
 					_b_show_discussions.setFocus(false);
 					Debug.log("show discussions pressed");
 				}
