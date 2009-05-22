@@ -189,10 +189,9 @@ public class Selector {
 	}  
 
 	private void drawRect(com.google.gwt.user.client.Element elem, SelectedElement sel){
-		//default value TODO: read from config
-		int tickness_i = 2; 
+		int thickness_i = Config.getOptionInt("border_thickness", 2); 
 
-		String tickness = Integer.toString(tickness_i) + "px";
+		String thickness = Integer.toString(thickness_i) + "px";
 
 		Element divl = DOM.createDiv();
 		Element divr = DOM.createDiv();
@@ -236,30 +235,30 @@ public class Selector {
 		DOM.setStyleAttribute(divt_, "fontSize", "0px"); //for IE6
 		DOM.setStyleAttribute(divb_, "fontSize", "0px"); //for IE6  
 
-		String h = Integer.toString(elem.getOffsetHeight() + tickness_i)+"px";
-		String w = Integer.toString(elem.getOffsetWidth() + tickness_i)+"px";  
+		String h = Integer.toString(elem.getOffsetHeight() + thickness_i)+"px";
+		String w = Integer.toString(elem.getOffsetWidth() + thickness_i)+"px";  
 		String y = Integer.toString(elem.getAbsoluteTop())+"px";
-		String x = Integer.toString(elem.getAbsoluteLeft() - tickness_i)+"px";
-		String w_x = Integer.toString(elem.getOffsetWidth() + elem.getAbsoluteLeft() - tickness_i)+"px";
+		String x = Integer.toString(elem.getAbsoluteLeft() - thickness_i)+"px";
+		String w_x = Integer.toString(elem.getOffsetWidth() + elem.getAbsoluteLeft() - thickness_i)+"px";
 		String h_y = Integer.toString(elem.getOffsetHeight() + elem.getAbsoluteTop())+"px";
 
-		DOM.setStyleAttribute(divl_, "width", tickness);
+		DOM.setStyleAttribute(divl_, "width", thickness);
 		DOM.setStyleAttribute(divl_, "height", h);
 		DOM.setStyleAttribute(divl_, "top", y);
 		DOM.setStyleAttribute(divl_, "left", x);
 
-		DOM.setStyleAttribute(divr_, "width", tickness);
+		DOM.setStyleAttribute(divr_, "width", thickness);
 		DOM.setStyleAttribute(divr_, "height", h);
 		DOM.setStyleAttribute(divr_, "top", y);
 		DOM.setStyleAttribute(divr_, "left", w_x);
 
 		DOM.setStyleAttribute(divt_, "width", w);
-		DOM.setStyleAttribute(divt_, "height", tickness);
+		DOM.setStyleAttribute(divt_, "height", thickness);
 		DOM.setStyleAttribute(divt_, "top", y);
 		DOM.setStyleAttribute(divt_, "left", x);
 
 		DOM.setStyleAttribute(divb_, "width", w);
-		DOM.setStyleAttribute(divb_, "height", tickness);
+		DOM.setStyleAttribute(divb_, "height", thickness);
 		DOM.setStyleAttribute(divb_, "top", h_y);
 		DOM.setStyleAttribute(divb_, "left", x);
 
@@ -351,6 +350,14 @@ public class Selector {
 	}
 
 	private void addListener(com.google.gwt.user.client.Element elem){
+		if(isFlash(elem)) {
+			HashSet<String> possible = new HashSet<String>();
+			possible.add("true");
+			possible.add("false");
+			String support = Config.getOptionString("flash", possible, "false");
+			if(support.equals("false"))
+				return;
+		}
 		DOM.sinkEvents(elem, Event.MOUSEEVENTS | Event.ONCLICK);
 		DOM.setEventListener(elem, new EventListener() {
 			public void onBrowserEvent(Event event) {

@@ -19,4 +19,10 @@
 		<add_root>div#wtf_test</add_root>
 		<exclude_root>a</exclude_root>
 	</selectors>
+	<!-- selection border thickness (px) -->
+	<option name="border_thickness" value="2"/>
+	<!-- statusbar horizontal orientation (left/right) -->
+	<option name="orientation" value="left"/>
+	<!-- flash selection support -->
+	<option name="flash" value="true"/>
 </wtf>

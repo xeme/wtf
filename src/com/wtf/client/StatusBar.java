@@ -1,5 +1,7 @@
 package com.wtf.client;
 
+import java.util.HashSet;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -23,10 +25,16 @@ public class StatusBar {
 
 	public static void init(Selector selector_manager) {
 		_selector_manager = selector_manager;
-		//default value TODO: read from config
-		String horizontal = "left";
-		_status_bar = new StatusBarWidget(horizontal);
+		_status_bar = new StatusBarWidget();
 		RootPanel.get().add(_status_bar);
+	}
+	
+	public static void setOrientation() {
+		HashSet<String> possible = new HashSet<String>();
+		possible.add("left");
+		possible.add("right");
+		String horizontal = Config.getOptionString("orientation", possible, "left");
+		_status_bar.setOrientation(horizontal);
 	}
 
 	public static void setStatus(String s) {
@@ -37,6 +45,7 @@ public class StatusBar {
 	public static void setError(String s) {
 		_status_bar.setStatus("(!) " + s);
 		_error = true;
+		_status_bar.setOrientation("left");
 	}
 
 	/*
@@ -51,7 +60,7 @@ public class StatusBar {
 		private ToggleButton _b_show_discussions;
 		private Image _b_about;
 
-		public StatusBarWidget(String orientation) {		
+		public StatusBarWidget() {		
 
 			HorizontalPanel status_panel = new HorizontalPanel();
 			VerticalPanel v_panel = new VerticalPanel();
@@ -65,13 +74,7 @@ public class StatusBar {
 				DOM.setStyleAttribute(getElement(), "position", "absolute");
 			}
 			addStyleName("wtf_ignore");
-			if(orientation.equals("left")) {
-				DOM.setStyleAttribute(getElement(), "left", "0px");
-				menu_panel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-			} else {
-				DOM.setStyleAttribute(getElement(), "right", "0px");
-				menu_panel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
-			}
+			
 			menu_panel.getElement().setId("wtf_menu_panel");
 			status_panel.getElement().setId("wtf_status_panel");
 			v_panel.setSpacing(0);
@@ -116,6 +119,16 @@ public class StatusBar {
 			menu_panel.add(_b_about);
 		}
 
+		public void setOrientation(String orientation) {
+			if(orientation.equals("left")) {
+				DOM.setStyleAttribute(getElement(), "left", "0px");
+				menu_panel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+			} else {
+				DOM.setStyleAttribute(getElement(), "right", "0px");
+				menu_panel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
+			}
+		}
+		
 		public void setStatus(String s) {
 			_status.setText(s);
 		}
