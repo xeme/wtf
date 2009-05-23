@@ -9,11 +9,14 @@ import java.util.Stack;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NodeList;
+import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.DeferredCommand;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.EventListener;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.RootPanel;
 
@@ -41,6 +44,7 @@ public class Selector {
 			DeferredCommand.addCommand(new Command() {	//init chunk
 				public void execute() {
 					initDOM();
+					initResizeRefresh();
 					_initialized = true;
 				}
 			});
@@ -433,5 +437,21 @@ public class Selector {
 		}
 		_init_done.clear();
 		_exclude.clear();
+	}
+
+	private void initResizeRefresh() {
+		Window.addResizeHandler(new ResizeHandler() {
+			public void onResize(ResizeEvent event) {
+				remove_selection();
+				for(Element elem : _active_selection.keySet()) {
+					_active_selection.get(elem).deleteSelectionBorders();
+					if(isFlash((com.google.gwt.user.client.Element) elem)) {
+						drawTab((com.google.gwt.user.client.Element) elem, _active_selection.get(elem));
+					} else {
+						drawRect((com.google.gwt.user.client.Element) elem, _active_selection.get(elem));
+					}
+				}
+			}
+		});
 	}
 }
