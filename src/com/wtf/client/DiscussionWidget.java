@@ -1,11 +1,16 @@
 package com.wtf.client;
 
+import java.util.Date;
 import java.util.List;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.DomEvent;
 import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.DeferredCommand;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.FlexTable;
@@ -15,6 +20,10 @@ import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.ScrollPanel;
+import com.google.gwt.user.client.ui.TextArea;
+import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.ToggleButton;
+import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class DiscussionWidget extends Composite{
 
@@ -27,14 +36,11 @@ public class DiscussionWidget extends Composite{
 		initWidget(dock);
 		addStyleName("wtf_ignore");
 		dock.setStyleName("wtf_discussion");
-
-
 		dock.setSpacing(0);
+
 		HorizontalPanel bar = new HorizontalPanel();
 		bar.setStyleName("wtf_discussion_bar");
-
 		bar.setSpacing(0);
-
 		addPollTo(bar);
 
 		dock.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
@@ -44,19 +50,34 @@ public class DiscussionWidget extends Composite{
 		ScrollPanel scroller = new ScrollPanel();
 		scroller.setStyleName("wtf_discussion_thread");
 		scroller.setSize("450px", "200px");
-
 		scroller.add(_thread);
 		_thread.setCellSpacing(0);
 		_thread.setCellPadding(0);
-		
+		_thread.setWidth("100%");
 		DOM.setStyleAttribute(_thread.getElement(), "margin", "0px");
 
-		dock.add(scroller, DockPanel.SOUTH);
+		dock.add(scroller, DockPanel.CENTER);
+
+		final FlexTable form = new FlexTable();
+		form.setVisible(false);
+
+		final ToggleButton show_button = new ToggleButton("Add post", "Hide");
+		show_button.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				form.setVisible(!form.isVisible());
+			}
+		});	
+		dock.add(show_button, DockPanel.SOUTH);
+		show_button.setWidth("440px");
+		DOM.setStyleAttribute(show_button.getElement(), "margin", "0px");
+		DOM.setStyleAttribute(show_button.getElement(), "padding", "4px");
+
+		fillForm(form);
+		dock.add(form, DockPanel.SOUTH);
 
 		DOM.setStyleAttribute(getElement(), "position", "absolute");
 		DOM.setStyleAttribute(getElement(), "top", "20px");
 		DOM.setStyleAttribute(getElement(), "left", "20px");
-		
 		fillThread();
 	}
 
@@ -107,9 +128,44 @@ public class DiscussionWidget extends Composite{
 			cl.getElement().getParentElement().setClassName("wtf_discussion_post_odd");
 			al.getElement().getParentElement().setClassName("wtf_discussion_post_odd");
 		}
-		cl.getElement().scrollIntoView();
+		cl.getElement().getParentElement().scrollIntoView();
 	}
 
+	private void fillForm(FlexTable form) {
+		form.setCellSpacing(5);
+		form.setStyleName("wtf_discussion_form");
+		DOM.setStyleAttribute(form.getElement(), "margin", "0px");
+
+		final TextBox author = new TextBox();
+		Label author_l = new Label("Author: ");
+		form.setWidget(0, 0, author_l);
+		form.setWidget(0, 1, author);
+
+		final TextArea content = new TextArea();
+		Label content_l = new Label("Content: ");
+		content.setSize("350px", "100px");
+		form.setWidget(1, 0, content_l);
+		form.setWidget(1, 1, content);
+
+		final ToggleButton submit = new ToggleButton("Add");
+		submit.setWidth("50px");
+		submit.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				if(submit.isDown()) {
+					DeferredCommand.addCommand(new Command() {	//simulate server request
+						public void execute() {
+							Post p = new Post(author.getText(), content.getText(), new Date());
+							_discussion.addPost(p);
+							addPost(p);
+							submit.setDown(false);
+						}
+					});
+				}
+			}
+		});
+
+		form.setWidget(2, 1, submit);
+	}
 }
 
 

@@ -39,4 +39,8 @@ public class Discussion {
 	public List<Post> getThread() {
 		return _thread;
 	}
+	
+	public void addPost(Post p) {
+		_thread.add(p);
+	}
 }

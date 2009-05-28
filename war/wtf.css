@@ -50,18 +50,20 @@
 
 /* discussion window */
 .wtf_discussion {
-	background-color: #8ccbf9;
-	border: 2px solid #3c7bd9;
+	background-color: #ede9e3;
+	border: 2px solid #b1a594;
+	color: #000;
+	z-index: 103;
 }
 
 .wtf_discussion_bar {
-	background-color: #8ccbf9;
-	font-size: 11px;
+	font-size: 12px;
 	padding: 2px;
 	margin: 0px;
 }
 .wtf_discussion_thread {
-	border-top: 2px solid #3c7bd9;
+	border-top: 2px solid #b1a594;
+	border-bottom: 2px solid #b1a594;
 }
 .wtf_discussion_post_even , .wtf_discussion_post_odd {
 	font-size: 12px;
@@ -81,6 +83,10 @@
 	color: #555;
 	font-weight: normal;
 }
+.wtf_discussion_form, .wtf_discussion_form input {
+	font-size: 12px;
+	color: #000;
+}
 
 .wtf_poll_green { color: #080; }
 .wtf_poll_green:hover { text-decoration: underline; }
@@ -88,6 +94,9 @@
 .wtf_poll_gray:hover { text-decoration: underline; }
 .wtf_poll_red {	color: #d00; }
 .wtf_poll_red:hover { text-decoration: underline; }
+.wtf_poll_green, .wtf_poll_red, .wtf_poll_gray {
+	margin-left: 15px;
+}
 
 /* status bar */
 #wtf_status_bar
@@ -163,6 +172,8 @@ documentElement.scrollTop
   margin-right: 10px;
   text-decoration: none;
   background: url("css_images/hborder.png") repeat-x 0px -27px;
+  text-align: center;
+  font-size: 12px;
 }
 .gwt-ToggleButton-up,
 .gwt-ToggleButton-up-hovering,
