@@ -38,6 +38,8 @@ public class WTF implements EntryPoint {
 			}
 		};
 		Config.init("../config.xml", after_config_load);
+		Discussion d = new Discussion();
+		d.show();
 	}
 }
 

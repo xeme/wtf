@@ -48,6 +48,47 @@
 	z-index: 101;
 }
 
+/* discussion window */
+.wtf_discussion {
+	background-color: #8ccbf9;
+	border: 2px solid #3c7bd9;
+}
+
+.wtf_discussion_bar {
+	background-color: #8ccbf9;
+	font-size: 11px;
+	padding: 2px;
+	margin: 0px;
+}
+.wtf_discussion_thread {
+	border-top: 2px solid #3c7bd9;
+}
+.wtf_discussion_post_even , .wtf_discussion_post_odd {
+	font-size: 12px;
+	padding: 5px;
+}
+.wtf_discussion_post_even {
+	background-color: #dde;
+}
+.wtf_discussion_post_odd {
+	background-color: #eef;
+}
+.wtf_discussion_author {
+	font-weight: bold;
+}
+.wtf_discussion_date {
+	font-size: 10px;
+	color: #555;
+	font-weight: normal;
+}
+
+.wtf_poll_green { color: #080; }
+.wtf_poll_green:hover { text-decoration: underline; }
+.wtf_poll_gray { color: #444; }
+.wtf_poll_gray:hover { text-decoration: underline; }
+.wtf_poll_red {	color: #d00; }
+.wtf_poll_red:hover { text-decoration: underline; }
+
 /* status bar */
 #wtf_status_bar
 {
