@@ -98,6 +98,14 @@
 	margin-left: 15px;
 }
 
+.wtf_icon_text {
+	font-size: 11px;
+	text-align: center;
+	margin-top: 6px;
+	width: 32px;
+	height: 21px;
+}
+
 /* status bar */
 #wtf_status_bar
 {

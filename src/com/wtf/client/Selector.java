@@ -27,6 +27,7 @@ public class Selector {
 	private SelectedElement _selected = null; //current highlighted element
 	private boolean _initialized = false;  
 	private boolean _selection_mode = false;
+	private CloudWidget _new_cloud = new CloudWidget();
 
 	private HashMap<Element, SelectedElement> _active_selection = new HashMap<Element, SelectedElement>();
 	private HashSet<Element> _init_done = new HashSet<Element>();
@@ -79,7 +80,7 @@ public class Selector {
 				Debug.log_time("endSelectionMode finished ");
 			}
 		});
-		removeIcon();
+		_new_cloud.removeIcon();
 	}
 
 	public void commitSelected() {
@@ -107,9 +108,7 @@ public class Selector {
 
 	//end of interface
 	private void drawIcon() {
-		removeIcon();
-
-		Image icon = StatusBar.wtfImageBundle.new_discussion().createImage();
+		_new_cloud.removeIcon();
 		Element top_elem = null;
 		for(Element elem : _active_selection.keySet()) {
 			if(top_elem == null || elem.getAbsoluteTop() < top_elem.getAbsoluteTop()) {
@@ -118,25 +117,8 @@ public class Selector {
 		}
 		if(top_elem == null)
 			return;
-		int top = top_elem.getAbsoluteTop() - 20;
-		int left = top_elem.getAbsoluteLeft() - icon.getWidth();
-		left = Math.max(left, 0);
-		top = Math.max(top, 0);
-
-
-
-		icon.getElement().setId("wtf_new_icon");
-		DOM.setStyleAttribute(icon.getElement(), "position", "absolute");
-		DOM.setStyleAttribute(icon.getElement(), "top", top + "px");
-		DOM.setStyleAttribute(icon.getElement(), "left", left + "px");
-		RootPanel.getBodyElement().appendChild(icon.getElement());
-	}
-
-	private void removeIcon () {
-		Element trash = DOM.getElementById("wtf_new_icon");
-		if(trash != null) {
-			trash.getParentElement().removeChild(trash);
-		}
+		_new_cloud.setTargetElement(top_elem);
+		_new_cloud.drawNewIcon();
 	}
 
 	private void drawTab(com.google.gwt.user.client.Element elem, SelectedElement sel){
@@ -404,13 +386,13 @@ public class Selector {
 			elem = stack.pop();
 			if(ignore((com.google.gwt.user.client.Element) elem))
 				continue;
-			
+
 			if(_init_done.contains(elem) || _exclude.contains(elem))
 				continue;
-		
+
 			addListener((com.google.gwt.user.client.Element) elem);
 			_init_done.add(elem);
-			
+
 			Element child = elem.getFirstChildElement();
 			while(child != null) {
 				stack.push(child);
@@ -418,7 +400,7 @@ public class Selector {
 			}	  
 		}
 	}
-	
+
 	private void initDOM() {	
 		List<String> exclude_selectors = Config.getExcludeSelectors();
 		for(String str : exclude_selectors) {
@@ -427,7 +409,7 @@ public class Selector {
 				_exclude.add(elems.getItem(i));
 			}
 		}
-		
+
 		List<String> add_selectors = Config.getAddSelectors();
 		for(String str : add_selectors) {
 			NodeList<Element> elems = $(str).get();
