@@ -15,7 +15,6 @@ import com.google.gwt.user.client.EventListener;
 import com.google.gwt.user.client.ui.RootPanel;
 
 public class SelectedElement {
-	private Selector _selector;
 	private Element _element;
 	private HashSet<Element> _selection_borders = new HashSet<Element>();
 	
@@ -30,8 +29,7 @@ public class SelectedElement {
 	//(targeting common ancestor)
 	public boolean _ie_fail_prevent_click_event = false;
 
-	public SelectedElement(Selector selector, Element element) {
-		_selector = selector;
+	public SelectedElement(Element element) {
 		_element = element;
 	}
 
@@ -201,7 +199,7 @@ public class SelectedElement {
 		DOM.sinkEvents(elem, Event.MOUSEEVENTS);
 		DOM.setEventListener(elem, new EventListener() {
 			public void onBrowserEvent(Event event) {
-				if(!_selector.isSelectionMode())
+				if(!Selector.isSelectionMode())
 					return;
 				com.google.gwt.user.client.Element elem = DOM.eventGetTarget(event);
 				if(!DOM.eventGetCurrentTarget(event).equals(elem))

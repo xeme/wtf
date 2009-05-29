@@ -27,8 +27,7 @@ public class WTF implements EntryPoint {
 	private void doLoad()
 	{
 		Debug.log(">> WTF console <<");
-		Selector selector_manager = new Selector();
-		StatusBar.init(selector_manager);
+		StatusBar.init();
 		StatusBar.setStatus("WTF loading...");
 		Command after_config_load = new Command() {
 			public void execute() {

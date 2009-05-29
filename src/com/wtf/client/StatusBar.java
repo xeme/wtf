@@ -19,12 +19,10 @@ public class StatusBar {
 	public static WTFImageBundle wtfImageBundle = (WTFImageBundle) GWT.create(WTFImageBundle.class);
 	
 	private static StatusBarWidget _status_bar = null;
-	private static Selector _selector_manager;
 	private static boolean _error = false;
 
 
-	public static void init(Selector selector_manager) {
-		_selector_manager = selector_manager;
+	public static void init() {
 		_status_bar = new StatusBarWidget();
 		RootPanel.get().add(_status_bar);
 	}
@@ -92,9 +90,9 @@ public class StatusBar {
 						return;
 					_b_start_selection.setFocus(false);
 					if (_b_start_selection.isDown()) {
-						_selector_manager.startSelectionMode();
+						Selector.startSelectionMode();
 					} else {
-						_selector_manager.endSelectionMode();
+						Selector.endSelectionMode();
 					}
 				}
 			});	

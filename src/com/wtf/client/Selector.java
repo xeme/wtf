@@ -17,27 +17,26 @@ import com.google.gwt.user.client.DeferredCommand;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.EventListener;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.RootPanel;
 
 /*
  * Selection Manager
  */
 public class Selector {
-	private SelectedElement _selected = null; //current highlighted element
-	private boolean _initialized = false;  
-	private boolean _selection_mode = false;
-	private CloudWidget _new_cloud = new CloudWidget();
+	private static SelectedElement _selected = null; //current highlighted element
+	private static boolean _initialized = false;  
+	private static boolean _selection_mode = false;
+	private static CloudWidget _new_cloud = new CloudWidget();
 
-	private HashMap<Element, SelectedElement> _active_selection = new HashMap<Element, SelectedElement>();
-	private HashSet<Element> _init_done = new HashSet<Element>();
-	private HashSet<Element> _exclude = new HashSet<Element>();
+	private static HashMap<Element, SelectedElement> _active_selection = new HashMap<Element, SelectedElement>();
+	private static HashSet<Element> _init_done = new HashSet<Element>();
+	private static HashSet<Element> _exclude = new HashSet<Element>();
 
-	public boolean isSelectionMode() {
+	public static boolean isSelectionMode() {
 		return _selection_mode;
 	}
 
-	public void startSelectionMode()
+	public static void startSelectionMode()
 	{
 		//chunk operations
 		if(!_initialized){
@@ -58,7 +57,7 @@ public class Selector {
 		_selection_mode = true;
 	}
 
-	public void endSelectionMode()
+	public static void endSelectionMode()
 	{
 		Debug.log_time("endSelectionMode");
 		StatusBar.setStatus("Leaving Selection Mode...");
@@ -83,7 +82,7 @@ public class Selector {
 		_new_cloud.removeIcon();
 	}
 
-	public void commitSelected() {
+	public static void commitSelected() {
 		if(_selected == null)
 			return;
 		selectionClean(_selected.getElement());
@@ -97,7 +96,7 @@ public class Selector {
 		drawIcon();
 	}
 
-	public void unCommitSelected() {
+	public static void unCommitSelected() {
 		if(_selected == null || !_active_selection.containsKey(_selected.getElement()))
 			return;
 		_active_selection.get(_selected.getElement()).deleteSelectionBorders();
@@ -107,7 +106,7 @@ public class Selector {
 	}
 
 	//end of interface
-	private void drawIcon() {
+	private static void drawIcon() {
 		_new_cloud.removeIcon();
 		Element top_elem = null;
 		for(Element elem : _active_selection.keySet()) {
@@ -121,7 +120,7 @@ public class Selector {
 		_new_cloud.drawNewIcon();
 	}
 
-	private void drawTab(com.google.gwt.user.client.Element elem, SelectedElement sel){
+	private static void drawTab(com.google.gwt.user.client.Element elem, SelectedElement sel){
 		//	create 4 borders
 		int h = 20; 
 		String label = "zaznacz";
@@ -174,7 +173,7 @@ public class Selector {
 		DOM.setEventListener(div_, event_listener);
 	}  
 
-	private void drawRect(com.google.gwt.user.client.Element elem, SelectedElement sel){
+	private static void drawRect(com.google.gwt.user.client.Element elem, SelectedElement sel){
 		int thickness_i = Config.getOptionInt("border_thickness", 2); 
 
 		String thickness = Integer.toString(thickness_i) + "px";
@@ -268,16 +267,16 @@ public class Selector {
 		DOM.setEventListener(divb_, event_listener);
 	}	  
 
-	private boolean isFlash(com.google.gwt.user.client.Element elem) {
+	private static boolean isFlash(com.google.gwt.user.client.Element elem) {
 		return elem.getTagName().toLowerCase().equals("object") ||
 		elem.getTagName().toLowerCase().equals("embed");
 	}
 
-	public void select(com.google.gwt.user.client.Element elem){
+	public static void select(com.google.gwt.user.client.Element elem){
 		if(elem == null || _selected != null || elem == RootPanel.getBodyElement() || ignore(elem)) {
 			return;
 		}  
-		_selected = new SelectedElement(this, elem);
+		_selected = new SelectedElement(elem);
 
 		if(isFlash(elem)) {
 			drawTab(elem, null);
@@ -290,13 +289,13 @@ public class Selector {
 		//Debug.log_time("select: ");
 	}
 
-	private void remove_border(String type) {
+	private static void remove_border(String type) {
 		com.google.gwt.user.client.Element sel = DOM.getElementById("wtf_selection_" + type);
 		if(sel != null)
 			RootPanel.getBodyElement().removeChild(sel);
 	}
 
-	public void remove_selection(){
+	public static void remove_selection(){
 		remove_border("l");
 		remove_border("r");
 		remove_border("t");
@@ -310,7 +309,7 @@ public class Selector {
 		_selected = null;
 	}
 
-	private boolean parentIgnore(Element elem){
+	private static boolean parentIgnore(Element elem){
 		while(elem != null && elem != RootPanel.getBodyElement()) {
 			if(elem.getClassName().equals("wtf_ignore"))
 				return true;
@@ -319,7 +318,7 @@ public class Selector {
 		return false;
 	}
 
-	private boolean ignore(com.google.gwt.user.client.Element elem) {
+	private static boolean ignore(com.google.gwt.user.client.Element elem) {
 		return  elem.getId().equals("wtf_selection_l") ||
 		elem.getId().equals("wtf_selection_r") ||
 		elem.getId().equals("wtf_selection_t") ||
@@ -328,14 +327,14 @@ public class Selector {
 		parentIgnore(elem);
 	}
 
-	public void selectionClean(com.google.gwt.user.client.Element elem) {
+	public static void selectionClean(com.google.gwt.user.client.Element elem) {
 		if(_selected == null || elem.equals(_selected.getElement()) || ignore(elem))
 			return;
 		remove_selection();
 		//Debug.log_time("clear: ");
 	}
 
-	private void addListener(com.google.gwt.user.client.Element elem){
+	private static void addListener(com.google.gwt.user.client.Element elem){
 		if(isFlash(elem)) {
 			HashSet<String> possible = new HashSet<String>();
 			possible.add("true");
@@ -378,7 +377,7 @@ public class Selector {
 		});
 	}
 
-	private void initElementByRoot(Element root) {	
+	private static void initElementByRoot(Element root) {	
 		Stack<Element> stack = new Stack<Element>();
 		stack.push(root);
 		Element elem = null;	  
@@ -401,7 +400,7 @@ public class Selector {
 		}
 	}
 
-	private void initDOM() {	
+	private static void initDOM() {	
 		List<String> exclude_selectors = Config.getExcludeSelectors();
 		for(String str : exclude_selectors) {
 			NodeList<Element> elems = $(str).get();
@@ -421,7 +420,7 @@ public class Selector {
 		_exclude.clear();
 	}
 
-	private void initResizeRefresh() {
+	private static void initResizeRefresh() {
 		Window.addResizeHandler(new ResizeHandler() {
 			public void onResize(ResizeEvent event) {
 				remove_selection();
