@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Poll {
-	public class Answer {
+	public static class Answer {
 		public String _label;
 		public String _id;
 		public String _class_attr;
@@ -40,10 +40,8 @@ public class Poll {
 	
 	private List<Answer> _answers = new LinkedList<Answer>();
 	
-	public Poll() {
-		_answers.add(new Answer("OK", "a1", "wtf_poll_green", 23));
-		_answers.add(new Answer("NIEJASNE", "a2", "wtf_poll_gray", 3));
-		_answers.add(new Answer("BLAD", "a3", "wtf_poll_red", 56));
+	public Poll(List<Answer> answers) {
+		_answers = answers;
 	}
 	
 	public List<Answer> getAnswers() {

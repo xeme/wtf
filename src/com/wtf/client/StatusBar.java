@@ -5,7 +5,9 @@ import java.util.HashSet;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.DeferredCommand;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -90,6 +92,10 @@ public class StatusBar {
 						return;
 					_b_start_selection.setFocus(false);
 					if (_b_start_selection.isDown()) {
+						if(_b_show_discussions.isDown()) {
+							_b_show_discussions.setDown(false);
+							DiscussionManager.removeIcons();
+						}
 						Selector.startSelectionMode();
 					} else {
 						Selector.endSelectionMode();
@@ -104,7 +110,15 @@ public class StatusBar {
 					if(_error)
 						return;
 					_b_show_discussions.setFocus(false);
-					Debug.log("show discussions pressed");
+					if (_b_show_discussions.isDown()) {
+						if(_b_start_selection.isDown()) {
+							_b_start_selection.setDown(false);
+							Selector.endSelectionMode();
+						}
+						DiscussionManager.showIcons();
+					} else {
+						DiscussionManager.removeIcons();
+					}
 				}
 			});
 			_b_show_discussions.setTitle("Show Discussions");
@@ -132,8 +146,6 @@ public class StatusBar {
 		}
 
 		public void onClick(ClickEvent event) {
-			/*	Object sender = event.getSource();
-			if (sender == )*/
 		}
 	}
 

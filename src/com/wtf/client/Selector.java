@@ -432,6 +432,7 @@ public class Selector {
 						drawRect((com.google.gwt.user.client.Element) elem, _active_selection.get(elem));
 					}
 				}
+				drawIcon();
 			}
 		});
 	}

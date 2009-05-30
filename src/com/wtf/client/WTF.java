@@ -3,6 +3,8 @@ package com.wtf.client;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Command;
+import com.google.gwt.user.client.DeferredCommand;
+import com.google.gwt.user.client.IncrementalCommand;
 
 public class WTF implements EntryPoint {
 
@@ -33,12 +35,11 @@ public class WTF implements EntryPoint {
 			public void execute() {
 				//things that need configuration file
 				StatusBar.setOrientation();
+				DiscussionManager.init();
 				StatusBar.setStatus("WTF ready");
 			}
 		};
 		Config.init("../config.xml", after_config_load);
-	//	Discussion d = new Discussion();
-	//	d.show();
 	}
 }
 

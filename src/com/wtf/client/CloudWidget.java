@@ -41,6 +41,26 @@ public class CloudWidget extends Composite {
 		_icon = icon.getElement();
 		drawValue(left, top, "?");
 	}
+	
+	public void drawIcon(Element elem, int thread_size) {
+		if(elem == null)
+			return;
+
+		Image icon = StatusBar.wtfImageBundle.new_discussion().createImage();
+
+		int top = elem.getAbsoluteTop() - 20;
+		int left = elem.getAbsoluteLeft() - icon.getWidth();
+		left = Math.max(left, 0);
+		top = Math.max(top, 0);
+
+		DOM.setStyleAttribute(icon.getElement(), "position", "absolute");
+		DOM.setStyleAttribute(icon.getElement(), "top", top + "px");
+		DOM.setStyleAttribute(icon.getElement(), "left", left + "px");
+
+		RootPanel.getBodyElement().appendChild(icon.getElement());
+		_icon = icon.getElement();
+		drawValue(left, top, Integer.toString(thread_size));
+	}
 
 	public void removeIcon() {
 		if(_icon != null) {
