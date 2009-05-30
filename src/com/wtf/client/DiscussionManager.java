@@ -141,6 +141,7 @@ public class DiscussionManager {
 			return;
 		for(Discussion elem : _discussions) {
 			elem.removeIcon();
+			elem.hide();
 		}
 		_icons_visible = false;
 	}

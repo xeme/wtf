@@ -101,14 +101,16 @@ public class Discussion {
 					RootPanel.get().add(_discussion_widget);
 				}
 				_discussion_widget.setVisible(true);
+				_discussion_widget.setFormVisibility(false);
 				_discussion_widget.position(_selection.getTopElement());
 			}
 		};
 		DiscussionManager.fetchDiscussionDetails(this, show_discussion);
 	}
-	
+
 	public void hide() {
-		_discussion_widget.setVisible(false);
+		if(_discussion_widget != null)
+			_discussion_widget.setVisible(false);
 	}
 
 	public void showIcon() {
@@ -119,12 +121,12 @@ public class Discussion {
 	public void removeIcon() {
 		_icon.removeIcon();
 	}
-	
+
 	public void reposition() {
 		if(_discussion_widget != null)
 			_discussion_widget.position(_selection.getTopElement());
 	}
-	
+
 	private void updateThreadSize() {
 		_thread_size = _thread.size();
 		_icon.updateValue(_thread_size);

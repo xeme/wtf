@@ -28,6 +28,8 @@ public class DiscussionWidget extends Composite{
 
 	private Discussion _discussion;
 	private FlexTable _thread = new FlexTable();
+	final FlexTable _form = new FlexTable();
+	ToggleButton _show_button;
 
 	public DiscussionWidget(Discussion discusion) {
 		_discussion = discusion;
@@ -58,27 +60,31 @@ public class DiscussionWidget extends Composite{
 
 		dock.add(scroller, DockPanel.CENTER);
 
-		final FlexTable form = new FlexTable();
-		form.setVisible(false);
+		_form.setVisible(false);
 
-		final ToggleButton show_button = new ToggleButton("Add post", "Hide");
-		show_button.addClickHandler(new ClickHandler() {
+		_show_button = new ToggleButton("Add post", "Hide");
+		_show_button.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				form.setVisible(!form.isVisible());
+				_form.setVisible(!_form.isVisible());
 			}
 		});	
-		dock.add(show_button, DockPanel.SOUTH);
-		show_button.setWidth("440px");
-		DOM.setStyleAttribute(show_button.getElement(), "margin", "0px");
-		DOM.setStyleAttribute(show_button.getElement(), "padding", "4px");
+		dock.add(_show_button, DockPanel.SOUTH);
+		_show_button.setWidth("440px");
+		DOM.setStyleAttribute(_show_button.getElement(), "margin", "0px");
+		DOM.setStyleAttribute(_show_button.getElement(), "padding", "4px");
 
-		fillForm(form);
-		dock.add(form, DockPanel.SOUTH);
+		fillForm(_form);
+		dock.add(_form, DockPanel.SOUTH);
 
 		DOM.setStyleAttribute(getElement(), "position", "absolute");
 		//call also position(topElement) to set coordinates
 		
 		fillThread();
+	}
+	
+	public void setFormVisibility(boolean b) {
+		_form.setVisible(b);
+		_show_button.setDown(b);
 	}
 
 	public void position(Element elem) {
