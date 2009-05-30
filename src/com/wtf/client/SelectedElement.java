@@ -50,6 +50,16 @@ public class SelectedElement {
 		_selection_borders.clear();
 	}
 
+	public void showSelection() {
+		if(!isSupported())
+			return;
+		if(Selector.isFlash(_element)) {
+			Selector.drawTab(_element, this);
+		} else {
+			Selector.drawRect(_element, this);
+		}
+	}
+
 	public void createNextLevel() {
 		Debug.log_time("createNextLevel ");
 		Node node = _element;
@@ -114,6 +124,14 @@ public class SelectedElement {
 			}
 		}
 		_origin.clear();
+	}
+	
+	public boolean isSupported() {
+		HashSet<String> possible = new HashSet<String>();
+		possible.add("true");
+		possible.add("false");
+		String support = Config.getOptionString("flash", possible, "false");
+		return !Selector.isFlash(_element) || support.equals("true"); 
 	}
 
 	private void over(com.google.gwt.user.client.Element elem) {

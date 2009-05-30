@@ -1,6 +1,7 @@
 package com.wtf.client;
 
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.EventListener;
@@ -12,8 +13,15 @@ public class CloudWidget extends Composite {
 	private Element _target_element = null;
 	private Element _icon = null;
 	private Element _value = null;
+	
+	private Command _on_click = null;
+	private Command _on_mouse_over = null;
+	private Command _on_mouse_out = null;
 
-	public void CludWidget() {
+	public CloudWidget(Command on_click, Command on_mouse_over, Command on_mous_out) {
+		_on_click = on_click;
+		_on_mouse_over = on_mouse_over;
+		_on_mouse_out = on_mous_out;
 	}
 
 	public void setTargetElement(Element terget_element) {
@@ -36,6 +44,7 @@ public class CloudWidget extends Composite {
 		DOM.setStyleAttribute(icon.getElement(), "position", "absolute");
 		DOM.setStyleAttribute(icon.getElement(), "top", top + "px");
 		DOM.setStyleAttribute(icon.getElement(), "left", left + "px");
+		icon.getElement().setClassName("wtf_icon");
 
 		RootPanel.getBodyElement().appendChild(icon.getElement());
 		_icon = icon.getElement();
@@ -56,6 +65,7 @@ public class CloudWidget extends Composite {
 		DOM.setStyleAttribute(icon.getElement(), "position", "absolute");
 		DOM.setStyleAttribute(icon.getElement(), "top", top + "px");
 		DOM.setStyleAttribute(icon.getElement(), "left", left + "px");
+		icon.getElement().setClassName("wtf_icon");
 
 		RootPanel.getBodyElement().appendChild(icon.getElement());
 		_icon = icon.getElement();
@@ -70,6 +80,12 @@ public class CloudWidget extends Composite {
 		if(_value != null) {
 			_value.getParentElement().removeChild(_value);
 			_value = null;
+		}
+	}
+	
+	public void updateValue(int val) {
+		if(_value != null) {
+			_value.setInnerText(Integer.toString(val));
 		}
 	}
 
@@ -88,10 +104,27 @@ public class CloudWidget extends Composite {
 		RootPanel.getBodyElement().appendChild(val);
 		_value = val;
 
-		DOM.sinkEvents(val_, Event.ONCLICK);
+		DOM.sinkEvents(val_, Event.MOUSEEVENTS | Event.ONCLICK);
 		DOM.setEventListener(val_, new EventListener() {
 			public void onBrowserEvent(Event event) {
-				Debug.log("? clicked");
+				switch (DOM.eventGetType(event)) {
+				case Event.ONMOUSEOVER:
+					if(_on_mouse_over == null)
+						return;
+					_on_mouse_over.execute();
+					break;
+				case Event.ONMOUSEOUT:
+					if(_on_mouse_out == null)
+						return;
+					_on_mouse_out.execute();
+					break;
+				case Event.ONCLICK:
+					if(_on_click == null)
+						return;
+					_on_click.execute();
+					break;
+				}
+				DOM.eventPreventDefault(event);
 			}
 		});
 	}

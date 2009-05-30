@@ -9,6 +9,8 @@ import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.DeferredCommand;
+import com.google.gwt.user.client.Element;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.FlexTable;
@@ -39,6 +41,7 @@ public class DiscussionWidget extends Composite{
 		bar.setStyleName("wtf_discussion_bar");
 		bar.setSpacing(0);
 		addPollTo(bar);
+		addCloseTo(bar);
 
 		dock.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
 		dock.add(bar, DockPanel.NORTH);
@@ -73,11 +76,24 @@ public class DiscussionWidget extends Composite{
 		dock.add(form, DockPanel.SOUTH);
 
 		DOM.setStyleAttribute(getElement(), "position", "absolute");
-		DOM.setStyleAttribute(getElement(), "top", "20px");
-		DOM.setStyleAttribute(getElement(), "left", "20px");
+		//call also position(topElement) to set coordinates
+		
 		fillThread();
 	}
 
+	public void position(Element elem) {
+		int top = elem.getAbsoluteTop() - this.getOffsetHeight();
+		int left = elem.getAbsoluteLeft();
+		left = Math.max(left, 0);
+		top = Math.max(top, 0);
+		
+		if(left + this.getOffsetWidth() > Window.getClientWidth())
+			left = Window.getClientWidth() - this.getOffsetWidth();
+	
+		DOM.setStyleAttribute(getElement(), "top", top + "px");
+		DOM.setStyleAttribute(getElement(), "left", left + "px");
+	}
+	
 	private void addPollTo(Panel parent) {
 		Poll poll = _discussion.getPoll();
 		for(final Poll.Answer a : poll.getAnswers()) {
@@ -93,6 +109,21 @@ public class DiscussionWidget extends Composite{
 				}
 			});	
 		}
+	}
+
+	private void addCloseTo(Panel parent) {
+		InlineLabel close = new InlineLabel("X");
+		close.setStyleName("wtf_discussion_close");
+		DOM.setStyleAttribute(close.getElement(), "padding", "2px");
+		DOM.setStyleAttribute(close.getElement(), "cursor", "hand");
+		DOM.setStyleAttribute(close.getElement(), "cursor", "pointer");
+		parent.add(close);
+		close.addClickHandler(new ClickHandler() { 
+			public void onClick(ClickEvent event) {
+				_discussion.hide();
+			}
+		});	
+
 	}
 
 	private void fillThread() {

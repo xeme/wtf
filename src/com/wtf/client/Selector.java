@@ -26,7 +26,7 @@ public class Selector {
 	private static SelectedElement _selected = null; //current highlighted element
 	private static boolean _initialized = false;  
 	private static boolean _selection_mode = false;
-	private static CloudWidget _new_cloud = new CloudWidget();
+	private static CloudWidget _new_cloud;
 
 	private static HashMap<Element, SelectedElement> _active_selection = new HashMap<Element, SelectedElement>();
 	private static HashSet<Element> _init_done = new HashSet<Element>();
@@ -45,6 +45,7 @@ public class Selector {
 				public void execute() {
 					initDOM();
 					initResizeRefresh();
+					initNewCloud();
 					_initialized = true;
 				}
 			});
@@ -105,25 +106,10 @@ public class Selector {
 		drawIcon();
 	}
 
-	//end of interface
-	private static void drawIcon() {
-		_new_cloud.removeIcon();
-		Element top_elem = null;
-		for(Element elem : _active_selection.keySet()) {
-			if(top_elem == null || elem.getAbsoluteTop() < top_elem.getAbsoluteTop()) {
-				top_elem = elem;
-			}
-		}
-		if(top_elem == null)
-			return;
-		_new_cloud.setTargetElement(top_elem);
-		_new_cloud.drawNewIcon();
-	}
-
-	private static void drawTab(com.google.gwt.user.client.Element elem, SelectedElement sel){
+	public static void drawTab(com.google.gwt.user.client.Element elem, SelectedElement sel){
 		//	create 4 borders
 		int h = 20; 
-		String label = "zaznacz";
+		String label = "selection";
 
 		String hs = Integer.toString(h + 1) + "px";
 
@@ -173,7 +159,7 @@ public class Selector {
 		DOM.setEventListener(div_, event_listener);
 	}  
 
-	private static void drawRect(com.google.gwt.user.client.Element elem, SelectedElement sel){
+	public static void drawRect(com.google.gwt.user.client.Element elem, SelectedElement sel){
 		int thickness_i = Config.getOptionInt("border_thickness", 2); 
 
 		String thickness = Integer.toString(thickness_i) + "px";
@@ -266,12 +252,40 @@ public class Selector {
 		DOM.setEventListener(divt_, event_listener);
 		DOM.setEventListener(divb_, event_listener);
 	}	  
-
-	private static boolean isFlash(com.google.gwt.user.client.Element elem) {
+	
+	public static boolean isFlash(com.google.gwt.user.client.Element elem) {
 		return elem.getTagName().toLowerCase().equals("object") ||
 		elem.getTagName().toLowerCase().equals("embed");
 	}
+	
+	//end of interface
+	private static void drawIcon() {
+		_new_cloud.removeIcon();
+		Element top_elem = null;
+		for(Element elem : _active_selection.keySet()) {
+			if(top_elem == null || elem.getAbsoluteTop() < top_elem.getAbsoluteTop()) {
+				top_elem = elem;
+			}
+		}
+		if(top_elem == null)
+			return;
+		_new_cloud.setTargetElement(top_elem);
+		_new_cloud.drawNewIcon();
+	}
+	public static void remove_selection(){
+		remove_border("l");
+		remove_border("r");
+		remove_border("t");
+		remove_border("b");
+		com.google.gwt.user.client.Element sel = DOM.getElementById("wtf_selection_tab");
+		if(sel != null)
+			RootPanel.getBodyElement().removeChild(sel);
 
+		if(_selected != null)
+			DOM.setStyleAttribute(_selected.getElement(), "cursor", "");
+		_selected = null;
+	}
+	
 	public static void select(com.google.gwt.user.client.Element elem){
 		if(elem == null || _selected != null || elem == RootPanel.getBodyElement() || ignore(elem)) {
 			return;
@@ -293,20 +307,6 @@ public class Selector {
 		com.google.gwt.user.client.Element sel = DOM.getElementById("wtf_selection_" + type);
 		if(sel != null)
 			RootPanel.getBodyElement().removeChild(sel);
-	}
-
-	public static void remove_selection(){
-		remove_border("l");
-		remove_border("r");
-		remove_border("t");
-		remove_border("b");
-		com.google.gwt.user.client.Element sel = DOM.getElementById("wtf_selection_tab");
-		if(sel != null)
-			RootPanel.getBodyElement().removeChild(sel);
-
-		if(_selected != null)
-			DOM.setStyleAttribute(_selected.getElement(), "cursor", "");
-		_selected = null;
 	}
 
 	private static boolean parentIgnore(Element elem){
@@ -435,5 +435,14 @@ public class Selector {
 				drawIcon();
 			}
 		});
+	}
+	
+	public static void initNewCloud() {
+		Command on_click = new Command() {
+			public void execute() {
+				Debug.log("click");
+			}
+		};
+		_new_cloud = new CloudWidget(on_click, null, null);
 	}
 }

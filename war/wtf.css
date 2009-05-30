@@ -43,7 +43,7 @@
 }
 
 /* new-discussion icon */
-#wtf_new_icon
+.wtf_icon
 {
 	z-index: 101;
 }
@@ -87,6 +87,12 @@
 	font-size: 12px;
 	color: #000;
 }
+.wtf_discussion_close {
+	font-size: 12px;
+	color: #000;
+	margin-left: 15px;
+	font-weight: bold;
+}
 
 .wtf_poll_green { color: #080; }
 .wtf_poll_green:hover { text-decoration: underline; }
@@ -104,6 +110,7 @@
 	margin-top: 6px;
 	width: 32px;
 	height: 21px;
+	z-index: 102;
 }
 
 /* status bar */

@@ -23,6 +23,7 @@ public class DiscussionManager {
 		Window.addResizeHandler(new ResizeHandler() {
 			public void onResize(ResizeEvent event) {				
 				DiscussionManager.redrawIcons();
+				DiscussionManager.redrawDiscussions();
 			}
 		});
 	}
@@ -40,6 +41,7 @@ public class DiscussionManager {
 		//simulator
 		HashSet<SelectedElement> elements1 = new HashSet<SelectedElement>();
 		HashSet<SelectedElement> elements2 = new HashSet<SelectedElement>();
+		HashSet<SelectedElement> elements3 = new HashSet<SelectedElement>();
 		Element body = RootPanel.getBodyElement();
 		elements1.add(new SelectedElement(
 				(com.google.gwt.user.client.Element) body.getElementsByTagName("img").getItem(0)
@@ -51,12 +53,18 @@ public class DiscussionManager {
 		elements2.add(new SelectedElement(
 				(com.google.gwt.user.client.Element) body.getElementsByTagName("p").getItem(1)
 		));
-
+		
+		elements3.add(new SelectedElement(
+				(com.google.gwt.user.client.Element) body.getElementsByTagName("p").getItem(2)
+		));
+		
 		Selection sel1 = new Selection(elements1);
 		Selection sel2 = new Selection(elements2);
+		Selection sel3 = new Selection(elements3);
 
 		_discussions.add(new Discussion(sel1, 23));
 		_discussions.add(new Discussion(sel2, 4));
+		_discussions.add(new Discussion(sel3, 42));
 
 		//after fetching do this:
 		StatusBar.setStatus("Discussions fetched");
@@ -66,9 +74,16 @@ public class DiscussionManager {
 	}
 
 	public static void fetchDiscussionDetails(final Discussion discussion, Command callback) {
+		//do we want to fetch every time discussion is viewed??
+		if(discussion.isFetched()) {
+			callback.execute();
+			return;
+		}
+		
 		if(discussion.isFetching())
 			return;
-		discussion.setFetching(true);
+		discussion.setFetching(true);		
+		
 		StatusBar.setStatus("Fetching discussion's details...");
 		
 		//simulator
@@ -90,10 +105,10 @@ public class DiscussionManager {
 		thread.add(new Post("iwonka", "Twoja stara jest zbanowana...", new Date()));
 		thread.add(new Post("dlugi_nick_ktory_jest_dlugi", "ale nie mam co powiedziec", new Date()));
 
+		//after fetching do this:
 		discussion.setPoll(poll);
 		discussion.setThread(thread);
 
-		//after fetching do this:
 		StatusBar.setStatus("Discussion's details fetched");
 		discussion.setFetching(false);
 		discussion.setFetched(true);		
@@ -134,6 +149,12 @@ public class DiscussionManager {
 		if(_icons_visible) {
 			removeIcons();
 			showIcons();
+		}
+	}
+	
+	public static void redrawDiscussions() {
+		for(Discussion d : _discussions) {
+			d.reposition();
 		}
 	}
 }
