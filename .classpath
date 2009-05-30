@@ -1,26 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
+	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER"/>
 	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
-	<classpathentry kind="lib" path="/home/xeme/eclipse/plugins/com.google.appengine.eclipse.sdkbundle_1.2.0.v200904062334/appengine-java-sdk-1.2.0/lib/shared/appengine-local-runtime-shared.jar"/>
-	<classpathentry kind="lib" path="/home/xeme/eclipse/plugins/com.google.appengine.eclipse.sdkbundle_1.2.0.v200904062334/appengine-java-sdk-1.2.0/lib/shared/geronimo-servlet_2.5_spec-1.2.jar"/>
-	<classpathentry kind="lib" path="/home/xeme/eclipse/plugins/com.google.appengine.eclipse.sdkbundle_1.2.0.v200904062334/appengine-java-sdk-1.2.0/lib/shared/geronimo-jsp_2.1_spec-1.0.1.jar"/>
-	<classpathentry kind="lib" path="/home/xeme/eclipse/plugins/com.google.appengine.eclipse.sdkbundle_1.2.0.v200904062334/appengine-java-sdk-1.2.0/lib/shared/jsp/ant-launcher-1.6.5.jar"/>
-	<classpathentry kind="lib" path="/home/xeme/eclipse/plugins/com.google.appengine.eclipse.sdkbundle_1.2.0.v200904062334/appengine-java-sdk-1.2.0/lib/shared/jsp/ant-1.6.5.jar"/>
-	<classpathentry kind="lib" path="/home/xeme/eclipse/plugins/com.google.appengine.eclipse.sdkbundle_1.2.0.v200904062334/appengine-java-sdk-1.2.0/lib/shared/jsp/commons-logging-1.1.1.jar"/>
-	<classpathentry kind="lib" path="/home/xeme/eclipse/plugins/com.google.appengine.eclipse.sdkbundle_1.2.0.v200904062334/appengine-java-sdk-1.2.0/lib/shared/jsp/jasper-runtime-5.0.28.jar"/>
-	<classpathentry kind="lib" path="/home/xeme/eclipse/plugins/com.google.appengine.eclipse.sdkbundle_1.2.0.v200904062334/appengine-java-sdk-1.2.0/lib/shared/jsp/jasper-compiler-5.0.28.jar"/>
-	<classpathentry kind="lib" path="/home/xeme/eclipse/plugins/com.google.appengine.eclipse.sdkbundle_1.2.0.v200904062334/appengine-java-sdk-1.2.0/lib/shared/jsp/commons-el-1.0.jar"/>
-	<classpathentry kind="lib" path="/home/xeme/eclipse/plugins/com.google.appengine.eclipse.sdkbundle_1.2.0.v200904062334/appengine-java-sdk-1.2.0/lib/shared/geronimo-el_1.0_spec-1.0.1.jar"/>
-	<classpathentry kind="lib" path="/home/xeme/eclipse/plugins/com.google.appengine.eclipse.sdkbundle_1.2.0.v200904062334/appengine-java-sdk-1.2.0/lib/user/orm/geronimo-jta_1.1_spec-1.1.1.jar"/>
-	<classpathentry kind="lib" path="/home/xeme/eclipse/plugins/com.google.appengine.eclipse.sdkbundle_1.2.0.v200904062334/appengine-java-sdk-1.2.0/lib/user/orm/datanucleus-core-1.1.0.jar"/>
-	<classpathentry kind="lib" path="/home/xeme/eclipse/plugins/com.google.appengine.eclipse.sdkbundle_1.2.0.v200904062334/appengine-java-sdk-1.2.0/lib/user/orm/datanucleus-appengine-1.0.0.final.jar"/>
-	<classpathentry kind="lib" path="/home/xeme/eclipse/plugins/com.google.appengine.eclipse.sdkbundle_1.2.0.v200904062334/appengine-java-sdk-1.2.0/lib/user/orm/datanucleus-jpa-1.1.0.jar"/>
-	<classpathentry kind="lib" path="/home/xeme/eclipse/plugins/com.google.appengine.eclipse.sdkbundle_1.2.0.v200904062334/appengine-java-sdk-1.2.0/lib/user/orm/jdo2-api-2.3-SNAPSHOT.jar"/>
-	<classpathentry kind="lib" path="/home/xeme/eclipse/plugins/com.google.appengine.eclipse.sdkbundle_1.2.0.v200904062334/appengine-java-sdk-1.2.0/lib/user/orm/geronimo-jpa_3.0_spec-1.1.1.jar"/>
-	<classpathentry kind="lib" path="/home/xeme/eclipse/plugins/com.google.appengine.eclipse.sdkbundle_1.2.0.v200904062334/appengine-java-sdk-1.2.0/lib/user/appengine-api-1.0-sdk-1.2.0.jar"/>
-	<classpathentry kind="lib" path="/home/xeme/eclipse/plugins/com.google.appengine.eclipse.sdkbundle_1.2.0.v200904062334/appengine-java-sdk-1.2.0/lib/appengine-tools-api.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

@@ -4,10 +4,21 @@
     "http://java.sun.com/dtd/web-app_2_3.dtd">
 
 <web-app>
-
+  
+  <!-- Servlets -->
+  <servlet>
+    <servlet-name>greetServlet</servlet-name>
+    <servlet-class>com.wtf.server.GreetingServiceImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>greetServlet</servlet-name>
+    <url-pattern>/wtf/greet</url-pattern>
+  </servlet-mapping>
+  
   <!-- Default page to serve -->
   <welcome-file-list>
-    <welcome-file>WTF.html</welcome-file>
+    <welcome-file>Wtf.html</welcome-file>
   </welcome-file-list>
 
 </web-app>
