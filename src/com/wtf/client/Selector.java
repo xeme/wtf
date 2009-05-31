@@ -53,15 +53,16 @@ public class Selector {
 		DeferredCommand.addCommand(new Command() { //start_selection chunk
 			public void execute() {
 				initNewCloud();
-				StatusBar.setStatus("Selection Mode");
+				StatusBar.setStatus("Selection Mode");	
 			}
 		});	
+		StatusBar.setSelectionMode(true);
 		_selection_mode = true;
 	}
 
 	public static void endSelectionMode()
 	{
-		Debug.log_time("endSelectionMode");
+		//Debug.log_time("endSelectionMode");
 		StatusBar.setStatus("Leaving Selection Mode...");
 		//chunk operations
 		DeferredCommand.addCommand(new Command() {
@@ -78,13 +79,14 @@ public class Selector {
 		DeferredCommand.addCommand(new Command() {
 			public void execute() {
 				StatusBar.setStatus("WTF ready");
-				Debug.log_time("endSelectionMode finished ");
+				//Debug.log_time("endSelectionMode finished ");
 			}
 		});
 		if(_new_cloud != null)
 			_new_cloud.removeIcon();
 		if(_new_discussion != null && _new_discussion.isNew())
 			_new_discussion.deleteDiscussionWidget();
+		StatusBar.setSelectionMode(false);
 	}
 
 	public static void commitSelected() {
@@ -459,6 +461,8 @@ public class Selector {
 					_new_discussion.setSelection(sel);
 					Command cmd = new Command() { 
 						public void execute() {
+							if(!StatusBar.isSelectionMode())
+								return;
 							_new_discussion.setPoll(DiscussionManager.getNewPoll());
 							_selection_mode = false;
 							remove_selection();

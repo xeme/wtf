@@ -128,14 +128,17 @@ public class Discussion {
 					setNew(false);
 					DiscussionManager.addDiscussion(this_ref);
 
-					//toggle modes
 					Selector.endSelectionMode();
-
-					DiscussionManager.showIcons();
-					StatusBar.setButtons(false, true);
 					_discussion_widget.setOnClose(getNormalOnClose());
 
 					add_post.execute();
+					
+					DiscussionManager.showIcons();
+					StatusBar.setButtons(false, true);
+					
+					if(!StatusBar.isDiscussionMode())
+						return;
+					
 					show();
 					_discussion_widget.setFormVisibility(true);
 					//this must be after ending selection mode
@@ -155,6 +158,8 @@ public class Discussion {
 		final Discussion this_ref = this;
 		Command show_discussion = new Command () {
 			public void execute() {
+				if(!isNew() && !StatusBar.isDiscussionMode())
+					return;
 				if(_discussion_widget == null) {
 					_discussion_widget = new DiscussionWidget(this_ref, _on_close);
 					RootPanel.get().add(_discussion_widget);

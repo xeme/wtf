@@ -22,6 +22,31 @@ public class StatusBar {
 
 	private static StatusBarWidget _status_bar = null;
 	private static boolean _error = false;
+	
+	private static boolean _selection_mode = false;
+	private static boolean _discussion_mode = false;
+	
+	public static void setSelectionMode(boolean b) {
+		_selection_mode = b;
+		if(b)
+			_discussion_mode = false;
+	}
+	
+	public static void setDiscussionMode(boolean b) {
+		_discussion_mode = b;
+		if(b)
+			_selection_mode = false;
+	}
+	
+	public static boolean isSelectionMode() {
+		Debug.log("s " + _selection_mode);
+		return _selection_mode;
+	}
+	
+	public static boolean isDiscussionMode() {
+		Debug.log("d " + _discussion_mode);
+		return _discussion_mode;
+	}
 
 	//blocks interface
 	public static void blockWTF() {

@@ -41,6 +41,7 @@ public class DiscussionManager {
 		}
 		_fetching = true;
 		StatusBar.setStatus("Fetching discussions...");	
+		Debug.log("Fetching discussions...");
 		
 		//simulator
 		HashSet<SelectedElement> elements1 = new HashSet<SelectedElement>();
@@ -89,6 +90,7 @@ public class DiscussionManager {
 		discussion.setFetching(true);		
 		
 		StatusBar.setStatus("Fetching details...");
+		Debug.log("Fetching details...");
 		
 		//simulator
 		List<Answer> answers = new LinkedList<Answer>();	
@@ -126,6 +128,8 @@ public class DiscussionManager {
 		}
 		_poll_fetching = true;
 		StatusBar.setStatus("Fetching poll...");
+		Debug.log("Fetching poll...");
+		
 		//fetch poll info here
 		//simulator
 		List<Answer> answers = new LinkedList<Answer>();	
@@ -142,6 +146,7 @@ public class DiscussionManager {
 	
 	public static void createDiscussion(Discussion discussion, Command callback) {
 		StatusBar.setStatus("Creating discussion...");
+		Debug.log("Creating discussion...");
 		//create discussion in the backend and update it's id
 		
 		
@@ -152,6 +157,7 @@ public class DiscussionManager {
 	
 	public static void addPost(Discussion discussion, Post post, Command callback) {
 		StatusBar.setStatus("Adding post...");
+		Debug.log("Adding post...");
 		//add post
 		
 		
@@ -161,12 +167,15 @@ public class DiscussionManager {
 	}
 	
 	public static void showIcons() {
+		StatusBar.setDiscussionMode(true);
 		final Command cmd = new Command() {
 			public void execute() {
+				if(!StatusBar.isDiscussionMode())
+					return;
 				for(Discussion elem : _discussions) {
 					elem.showIcon();
 				}
-				_icons_visible = true;
+				_icons_visible = true;	
 			}
 		};
 		if(!_fetched) {
@@ -188,6 +197,7 @@ public class DiscussionManager {
 			elem.hide();
 		}
 		_icons_visible = false;
+		StatusBar.setDiscussionMode(false);
 	}
 	
 	public static void redrawIcons() {
