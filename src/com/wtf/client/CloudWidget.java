@@ -17,6 +17,8 @@ public class CloudWidget extends Composite {
 	private Command _on_click = null;
 	private Command _on_mouse_over = null;
 	private Command _on_mouse_out = null;
+	
+	private int _offset = -1;
 
 	public CloudWidget(Command on_click, Command on_mouse_over, Command on_mous_out) {
 		_on_click = on_click;
@@ -61,6 +63,10 @@ public class CloudWidget extends Composite {
 		int left = elem.getAbsoluteLeft() - icon.getWidth();
 		left = Math.max(left, 0);
 		top = Math.max(top, 0);
+		
+		if(_offset == -1)
+			setOffset(elem, icon.getHeight());
+		top += _offset;
 
 		DOM.setStyleAttribute(icon.getElement(), "position", "absolute");
 		DOM.setStyleAttribute(icon.getElement(), "top", top + "px");
@@ -127,5 +133,12 @@ public class CloudWidget extends Composite {
 				DOM.eventPreventDefault(event);
 			}
 		});
+	}
+	
+	private void setOffset(Element elem, int height) {
+		if(elem == null)
+			_offset = 0;
+		_offset = DiscussionManager.getCloudsNumber(elem) * height;
+		DiscussionManager.addCloud(elem);
 	}
 }

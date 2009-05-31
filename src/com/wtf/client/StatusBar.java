@@ -39,12 +39,10 @@ public class StatusBar {
 	}
 	
 	public static boolean isSelectionMode() {
-		Debug.log("s " + _selection_mode);
 		return _selection_mode;
 	}
 	
 	public static boolean isDiscussionMode() {
-		Debug.log("d " + _discussion_mode);
 		return _discussion_mode;
 	}
 

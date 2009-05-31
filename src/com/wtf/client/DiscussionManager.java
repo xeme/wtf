@@ -1,6 +1,7 @@
 package com.wtf.client;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -20,6 +21,9 @@ public class DiscussionManager {
 	private static Poll _poll = null;
 	private static boolean _poll_fetching = false;
 	private static HashSet<Discussion> _discussions = new HashSet<Discussion>();
+	
+	//number of clouds attached to element
+	private static HashMap<Element, Integer> _clouds_attached = new HashMap<Element, Integer>();
 
 	public static void init() {
 		Window.addResizeHandler(new ResizeHandler() {
@@ -220,5 +224,20 @@ public class DiscussionManager {
 	public static void addDiscussion(Discussion d) {
 		_discussions.add(d);
 		d.setFetched(true);
+	}
+	
+	public static void addCloud(Element elem) {
+		int old_val = 0;
+		if(_clouds_attached.containsKey(elem)) {
+			old_val = _clouds_attached.get(elem);
+			_clouds_attached.remove(elem);
+		}
+		_clouds_attached.put(elem, old_val + 1);
+	}
+	
+	public static int getCloudsNumber(Element elem) {
+		if(!_clouds_attached.containsKey(elem))
+			return 0;
+		return _clouds_attached.get(elem);
 	}
 }
