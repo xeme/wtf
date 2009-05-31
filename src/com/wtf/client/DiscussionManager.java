@@ -17,6 +17,8 @@ public class DiscussionManager {
 	private static boolean _fetched = false;
 	private static boolean _fetching = false;
 	private static boolean _icons_visible = false;
+	private static Poll _poll = null;
+	private static boolean _poll_fetching = false;
 	private static HashSet<Discussion> _discussions = new HashSet<Discussion>();
 
 	public static void init() {
@@ -33,8 +35,10 @@ public class DiscussionManager {
 	}
 
 	public static void fetchDiscussionsList(Command callback) {
-		if(_fetching)
+		if(_fetching) {
+			callback.execute();
 			return;
+		}
 		_fetching = true;
 		StatusBar.setStatus("Fetching discussions...");	
 		
@@ -62,9 +66,9 @@ public class DiscussionManager {
 		Selection sel2 = new Selection(elements2);
 		Selection sel3 = new Selection(elements3);
 
-		_discussions.add(new Discussion(sel1, 23));
-		_discussions.add(new Discussion(sel2, 4));
-		_discussions.add(new Discussion(sel3, 42));
+		_discussions.add(new Discussion(sel1, 23, null));
+		_discussions.add(new Discussion(sel2, 4, null));
+		_discussions.add(new Discussion(sel3, 42, null));
 
 		//after fetching do this:
 		StatusBar.setStatus("Discussions fetched");
@@ -73,7 +77,7 @@ public class DiscussionManager {
 		callback.execute();
 	}
 
-	public static void fetchDiscussionDetails(final Discussion discussion, Command callback) {
+	public static void fetchDiscussionDetails(Discussion discussion, Command callback) {
 		//do we want to fetch every time discussion is viewed??
 		if(discussion.isFetched()) {
 			callback.execute();
@@ -84,7 +88,7 @@ public class DiscussionManager {
 			return;
 		discussion.setFetching(true);		
 		
-		StatusBar.setStatus("Fetching discussion's details...");
+		StatusBar.setStatus("Fetching details...");
 		
 		//simulator
 		List<Answer> answers = new LinkedList<Answer>();	
@@ -109,12 +113,53 @@ public class DiscussionManager {
 		discussion.setPoll(poll);
 		discussion.setThread(thread);
 
-		StatusBar.setStatus("Discussion's details fetched");
+		StatusBar.setStatus("Details fetched");
 		discussion.setFetching(false);
 		discussion.setFetched(true);		
 		callback.execute();
 	}
-
+	
+	public static void fetchPollInfo(Command callback) {
+		if(_poll_fetching || _poll != null) {
+			callback.execute();
+			return;
+		}
+		_poll_fetching = true;
+		StatusBar.setStatus("Fetching poll...");
+		//fetch poll info here
+		//simulator
+		List<Answer> answers = new LinkedList<Answer>();	
+		answers.add(new Answer("OK", "a1", "wtf_poll_green"));
+		answers.add(new Answer("NIEJASNE", "a2", "wtf_poll_gray"));
+		answers.add(new Answer("BLAD", "a3", "wtf_poll_red"));
+			
+		_poll = new Poll(answers);
+		//after creating do this:
+		StatusBar.setStatus("Poll fetched");
+		_poll_fetching = false;
+		callback.execute();
+	}	
+	
+	public static void createDiscussion(Discussion discussion, Command callback) {
+		StatusBar.setStatus("Creating discussion...");
+		//create discussion in the backend and update it's id
+		
+		
+		//after creating do this:
+		StatusBar.setStatus("Discussion created");
+		callback.execute();
+	}
+	
+	public static void addPost(Discussion discussion, Post post, Command callback) {
+		StatusBar.setStatus("Adding post...");
+		//add post
+		
+		
+		//after adding do this:
+		StatusBar.setStatus("Post added");
+		callback.execute();
+	}
+	
 	public static void showIcons() {
 		final Command cmd = new Command() {
 			public void execute() {
@@ -157,5 +202,14 @@ public class DiscussionManager {
 		for(Discussion d : _discussions) {
 			d.reposition();
 		}
+	}
+	
+	public static Poll getNewPoll() {
+		return _poll;
+	}
+	
+	public static void addDiscussion(Discussion d) {
+		_discussions.add(d);
+		d.setFetched(true);
 	}
 }

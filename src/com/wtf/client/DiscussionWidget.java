@@ -30,9 +30,12 @@ public class DiscussionWidget extends Composite{
 	private FlexTable _thread = new FlexTable();
 	final FlexTable _form = new FlexTable();
 	ToggleButton _show_button;
+	private Command _on_close;
 
-	public DiscussionWidget(Discussion discusion) {
+	public DiscussionWidget(Discussion discusion, Command on_close) {
 		_discussion = discusion;
+		_on_close = on_close;
+		
 		DockPanel dock = new DockPanel();
 		initWidget(dock);
 		addStyleName("wtf_ignore");
@@ -116,6 +119,10 @@ public class DiscussionWidget extends Composite{
 			});	
 		}
 	}
+	
+	public void setOnClose(Command on_close) {
+		_on_close = on_close;
+	}
 
 	private void addCloseTo(Panel parent) {
 		InlineLabel close = new InlineLabel("X");
@@ -126,7 +133,7 @@ public class DiscussionWidget extends Composite{
 		parent.add(close);
 		close.addClickHandler(new ClickHandler() { 
 			public void onClick(ClickEvent event) {
-				_discussion.hide();
+				_on_close.execute();
 			}
 		});	
 

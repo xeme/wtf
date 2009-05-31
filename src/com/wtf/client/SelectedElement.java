@@ -25,6 +25,8 @@ public class SelectedElement {
 	private HashSet<Node> _tmp_selected = new HashSet<Node>();
 	private int _start_selection = -1;
 	private boolean _selecting = true; //false - removing selection
+	
+	private boolean _visible_borders = false;
 
 	//in IE if onmousedown and onmouseup targets are not equal, onclick is generated
 	//(targeting common ancestor)
@@ -48,9 +50,12 @@ public class SelectedElement {
 				RootPanel.getBodyElement().removeChild(elem);
 		}
 		_selection_borders.clear();
+		_visible_borders = false;
 	}
 
 	public void showSelection() {
+		if(_visible_borders)
+			return;
 		if(!isSupported())
 			return;
 		if(Selector.isFlash(_element)) {
@@ -58,6 +63,7 @@ public class SelectedElement {
 		} else {
 			Selector.drawRect(_element, this);
 		}
+		_visible_borders = true;
 	}
 
 	public void createNextLevel() {

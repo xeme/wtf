@@ -5,9 +5,7 @@ import java.util.HashSet;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.DeferredCommand;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -47,6 +45,11 @@ public class StatusBar {
 		_error = true;
 		_status_bar.setOrientation("left");
 	}
+	
+	public static void setButtons(boolean select, boolean discussions) {
+		_status_bar._b_start_selection.setDown(select);
+		_status_bar._b_show_discussions.setDown(discussions);
+	}
 
 	/*
 	 *  Status Bar Widget
@@ -56,8 +59,8 @@ public class StatusBar {
 		private Label _status = new Label();
 		private HorizontalPanel menu_panel = new HorizontalPanel();
 		//menu buttons
-		private ToggleButton _b_start_selection;
-		private ToggleButton _b_show_discussions;
+		public ToggleButton _b_start_selection;
+		public ToggleButton _b_show_discussions;
 		private Image _b_about;
 
 		public StatusBarWidget() {		
@@ -99,6 +102,7 @@ public class StatusBar {
 						Selector.startSelectionMode();
 					} else {
 						Selector.endSelectionMode();
+						StatusBar.setStatus("WTF ready");
 					}
 				}
 			});	
@@ -118,6 +122,7 @@ public class StatusBar {
 						DiscussionManager.showIcons();
 					} else {
 						DiscussionManager.removeIcons();
+						StatusBar.setStatus("WTF ready");
 					}
 				}
 			});

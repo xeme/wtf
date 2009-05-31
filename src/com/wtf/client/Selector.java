@@ -27,6 +27,7 @@ public class Selector {
 	private static boolean _initialized = false;  
 	private static boolean _selection_mode = false;
 	private static CloudWidget _new_cloud;
+	private static Discussion _new_discussion;
 
 	private static HashMap<Element, SelectedElement> _active_selection = new HashMap<Element, SelectedElement>();
 	private static HashSet<Element> _init_done = new HashSet<Element>();
@@ -45,13 +46,13 @@ public class Selector {
 				public void execute() {
 					initDOM();
 					initResizeRefresh();
-					initNewCloud();
 					_initialized = true;
 				}
 			});
 		}
 		DeferredCommand.addCommand(new Command() { //start_selection chunk
 			public void execute() {
+				initNewCloud();
 				StatusBar.setStatus("Selection Mode");
 			}
 		});	
@@ -81,6 +82,8 @@ public class Selector {
 			}
 		});
 		_new_cloud.removeIcon();
+		if(_new_discussion.isNew())
+			_new_discussion.deleteDiscussionWidget();
 	}
 
 	public static void commitSelected() {
@@ -252,12 +255,12 @@ public class Selector {
 		DOM.setEventListener(divt_, event_listener);
 		DOM.setEventListener(divb_, event_listener);
 	}	  
-	
+
 	public static boolean isFlash(com.google.gwt.user.client.Element elem) {
 		return elem.getTagName().toLowerCase().equals("object") ||
 		elem.getTagName().toLowerCase().equals("embed");
 	}
-	
+
 	//end of interface
 	private static void drawIcon() {
 		_new_cloud.removeIcon();
@@ -285,7 +288,7 @@ public class Selector {
 			DOM.setStyleAttribute(_selected.getElement(), "cursor", "");
 		_selected = null;
 	}
-	
+
 	public static void select(com.google.gwt.user.client.Element elem){
 		if(elem == null || _selected != null || elem == RootPanel.getBodyElement() || ignore(elem)) {
 			return;
@@ -433,14 +436,39 @@ public class Selector {
 					}
 				}
 				drawIcon();
+				_new_discussion.reposition();
 			}
 		});
 	}
-	
+
 	public static void initNewCloud() {
+		//create empty selection
+		Command on_close = new Command() {
+			public void execute() {
+				_selection_mode = true;
+				_new_discussion.hide();
+			}
+		};
+		_new_discussion = new Discussion(new Selection(new HashSet<SelectedElement>()), 0, on_close);
+		_new_discussion.setNew(true);
 		Command on_click = new Command() {
 			public void execute() {
-				Debug.log("click");
+				if(_selection_mode) {
+					Selection sel = new Selection(new HashSet<SelectedElement>(_active_selection.values()));
+					_new_discussion.setSelection(sel);
+					Command cmd = new Command() { 
+						public void execute() {
+							_new_discussion.setPoll(DiscussionManager.getNewPoll());
+							_selection_mode = false;
+							remove_selection();
+							_new_discussion.show();
+						}
+					};
+					DiscussionManager.fetchPollInfo(cmd);
+				} else {
+					_selection_mode = true;
+					_new_discussion.hide();
+				}
 			}
 		};
 		_new_cloud = new CloudWidget(on_click, null, null);

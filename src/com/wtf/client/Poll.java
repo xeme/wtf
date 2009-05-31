@@ -16,6 +16,13 @@ public class Poll {
 			_class_attr = class_attr;
 			_votes = votes;
 		}
+		
+		public Answer(String label, String id, String class_attr) {
+			_label = label;
+			_id = id;
+			_class_attr = class_attr;
+			_votes = 0;
+		}
 
 		public String getLabel() {
 			return _label;
