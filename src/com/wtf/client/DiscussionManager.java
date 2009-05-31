@@ -178,7 +178,6 @@ public class DiscussionManager {
 		} else {
 			cmd.execute();
 		}
-
 	}
 	
 	public static void removeIcons() {

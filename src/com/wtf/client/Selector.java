@@ -26,7 +26,7 @@ public class Selector {
 	private static SelectedElement _selected = null; //current highlighted element
 	private static boolean _initialized = false;  
 	private static boolean _selection_mode = false;
-	private static CloudWidget _new_cloud;
+	private static CloudWidget _new_cloud = null;
 	private static Discussion _new_discussion;
 
 	private static HashMap<Element, SelectedElement> _active_selection = new HashMap<Element, SelectedElement>();
@@ -81,8 +81,9 @@ public class Selector {
 				Debug.log_time("endSelectionMode finished ");
 			}
 		});
-		_new_cloud.removeIcon();
-		if(_new_discussion.isNew())
+		if(_new_cloud != null)
+			_new_cloud.removeIcon();
+		if(_new_discussion != null && _new_discussion.isNew())
 			_new_discussion.deleteDiscussionWidget();
 	}
 
