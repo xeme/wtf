@@ -324,7 +324,7 @@ public class Selector {
 		return false;
 	}
 
-	private static boolean ignore(com.google.gwt.user.client.Element elem) {
+	public static boolean ignore(com.google.gwt.user.client.Element elem) {
 		return  elem.getId().equals("wtf_selection_l") ||
 		elem.getId().equals("wtf_selection_r") ||
 		elem.getId().equals("wtf_selection_t") ||

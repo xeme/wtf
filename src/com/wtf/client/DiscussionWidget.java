@@ -38,7 +38,7 @@ public class DiscussionWidget extends Composite{
 		
 		DockPanel dock = new DockPanel();
 		initWidget(dock);
-		addStyleName("wtf_ignore");
+		getElement().setClassName("wtf_ignore");
 		dock.setStyleName("wtf_discussion");
 		dock.setSpacing(0);
 

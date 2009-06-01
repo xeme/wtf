@@ -49,8 +49,9 @@ public class CloudWidget extends Composite {
 		icon.getElement().setClassName("wtf_icon");
 
 		RootPanel.getBodyElement().appendChild(icon.getElement());
+		icon.getElement().setClassName("wtf_ignore");
 		_icon = icon.getElement();
-		drawValue(left, top, "?");
+		drawValue(left, top, "?", _target_element);
 	}
 	
 	public void drawIcon(Element elem, int thread_size) {
@@ -74,18 +75,19 @@ public class CloudWidget extends Composite {
 		icon.getElement().setClassName("wtf_icon");
 
 		RootPanel.getBodyElement().appendChild(icon.getElement());
+		icon.getElement().setClassName("wtf_ignore");
 		_icon = icon.getElement();
-		drawValue(left, top, Integer.toString(thread_size));
+		drawValue(left, top, Integer.toString(thread_size), elem);
 	}
 
 	public void removeIcon() {
-		if(_icon != null) {
-			_icon.getParentElement().removeChild(_icon);
-			_icon = null;
-		}
 		if(_value != null) {
 			_value.getParentElement().removeChild(_value);
 			_value = null;
+		}
+		if(_icon != null) {
+			_icon.getParentElement().removeChild(_icon);
+			_icon = null;
 		}
 	}
 	
@@ -95,7 +97,7 @@ public class CloudWidget extends Composite {
 		}
 	}
 
-	private void drawValue(int x, int y, String value) {
+	private void drawValue(int x, int y, String value, Element parent) {
 		Element val = DOM.createDiv();
 		val.setInnerText(value);
 		val.setClassName("wtf_icon_text");
@@ -107,7 +109,7 @@ public class CloudWidget extends Composite {
 		DOM.setStyleAttribute(val_, "cursor", "hand");
 		DOM.setStyleAttribute(val_, "cursor", "pointer");
 
-		RootPanel.getBodyElement().appendChild(val);
+		parent.appendChild(val);
 		_value = val;
 
 		DOM.sinkEvents(val_, Event.MOUSEEVENTS | Event.ONCLICK);

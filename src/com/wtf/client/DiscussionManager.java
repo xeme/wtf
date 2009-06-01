@@ -10,6 +10,7 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.user.client.Command;
+import com.google.gwt.user.client.DeferredCommand;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.wtf.client.Poll.Answer;
@@ -21,7 +22,7 @@ public class DiscussionManager {
 	private static Poll _poll = null;
 	private static boolean _poll_fetching = false;
 	private static HashSet<Discussion> _discussions = new HashSet<Discussion>();
-	
+
 	//number of clouds attached to element
 	private static HashMap<Element, Integer> _clouds_attached = new HashMap<Element, Integer>();
 
@@ -33,7 +34,7 @@ public class DiscussionManager {
 			}
 		});
 	}
-	
+
 	public static HashSet<Discussion> getDiscussions() {
 		return _discussions;
 	}
@@ -46,7 +47,7 @@ public class DiscussionManager {
 		_fetching = true;
 		StatusBar.setStatus("Fetching discussions...");	
 		Debug.log("Fetching discussions...");
-		
+
 		//simulator
 		HashSet<SelectedElement> elements1 = new HashSet<SelectedElement>();
 		HashSet<SelectedElement> elements2 = new HashSet<SelectedElement>();
@@ -62,11 +63,11 @@ public class DiscussionManager {
 		elements2.add(new SelectedElement(
 				(com.google.gwt.user.client.Element) body.getElementsByTagName("p").getItem(1)
 		));
-		
+
 		elements3.add(new SelectedElement(
 				(com.google.gwt.user.client.Element) body.getElementsByTagName("p").getItem(2)
 		));
-		
+
 		Selection sel1 = new Selection(elements1);
 		Selection sel2 = new Selection(elements2);
 		Selection sel3 = new Selection(elements3);
@@ -88,14 +89,14 @@ public class DiscussionManager {
 			callback.execute();
 			return;
 		}
-		
+
 		if(discussion.isFetching())
 			return;
 		discussion.setFetching(true);		
-		
+
 		StatusBar.setStatus("Fetching details...");
 		Debug.log("Fetching details...");
-		
+
 		//simulator
 		List<Answer> answers = new LinkedList<Answer>();	
 		answers.add(new Answer("OK", "a1", "wtf_poll_green", 23));
@@ -124,7 +125,7 @@ public class DiscussionManager {
 		discussion.setFetched(true);		
 		callback.execute();
 	}
-	
+
 	public static void fetchPollInfo(Command callback) {
 		if(_poll_fetching || _poll != null) {
 			callback.execute();
@@ -133,43 +134,43 @@ public class DiscussionManager {
 		_poll_fetching = true;
 		StatusBar.setStatus("Fetching poll...");
 		Debug.log("Fetching poll...");
-		
+
 		//fetch poll info here
 		//simulator
 		List<Answer> answers = new LinkedList<Answer>();	
 		answers.add(new Answer("OK", "a1", "wtf_poll_green"));
 		answers.add(new Answer("NIEJASNE", "a2", "wtf_poll_gray"));
 		answers.add(new Answer("BLAD", "a3", "wtf_poll_red"));
-			
+
 		_poll = new Poll(answers);
 		//after creating do this:
 		StatusBar.setStatus("Poll fetched");
 		_poll_fetching = false;
 		callback.execute();
 	}	
-	
+
 	public static void createDiscussion(Discussion discussion, Command callback) {
 		StatusBar.setStatus("Creating discussion...");
 		Debug.log("Creating discussion...");
 		//create discussion in the backend and update it's id
-		
-		
+
+
 		//after creating do this:
 		StatusBar.setStatus("Discussion created");
 		callback.execute();
 	}
-	
+
 	public static void addPost(Discussion discussion, Post post, Command callback) {
 		StatusBar.setStatus("Adding post...");
 		Debug.log("Adding post...");
 		//add post
-		
-		
+
+
 		//after adding do this:
 		StatusBar.setStatus("Post added");
 		callback.execute();
 	}
-	
+
 	public static void showIcons() {
 		StatusBar.setDiscussionMode(true);
 		final Command cmd = new Command() {
@@ -186,13 +187,24 @@ public class DiscussionManager {
 			fetchDiscussionsList(new Command() {
 				public void execute() {
 					cmd.execute();
+
+					if(!DOMMagic.isComputed()) {
+						StatusBar.setStatus("DOMMagic...");
+
+						DeferredCommand.addCommand(new Command() {
+							public void execute() {
+								DOMMagic.computeRowFormat();
+								StatusBar.setStatus("DOMMagic done");
+							}
+						});
+					}
 				}
 			});
 		} else {
 			cmd.execute();
 		}
 	}
-	
+
 	public static void removeIcons() {
 		if(!_fetched)
 			return;
@@ -203,29 +215,29 @@ public class DiscussionManager {
 		_icons_visible = false;
 		StatusBar.setDiscussionMode(false);
 	}
-	
+
 	public static void redrawIcons() {
 		if(_icons_visible) {
 			removeIcons();
 			showIcons();
 		}
 	}
-	
+
 	public static void redrawDiscussions() {
 		for(Discussion d : _discussions) {
 			d.reposition();
 		}
 	}
-	
+
 	public static Poll getNewPoll() {
 		return _poll;
 	}
-	
+
 	public static void addDiscussion(Discussion d) {
 		_discussions.add(d);
 		d.setFetched(true);
 	}
-	
+
 	public static void addCloud(Element elem) {
 		int old_val = 0;
 		if(_clouds_attached.containsKey(elem)) {
@@ -234,7 +246,7 @@ public class DiscussionManager {
 		}
 		_clouds_attached.put(elem, old_val + 1);
 	}
-	
+
 	public static int getCloudsNumber(Element elem) {
 		if(!_clouds_attached.containsKey(elem))
 			return 0;
