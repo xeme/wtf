@@ -3,6 +3,7 @@ package com.wtf.client;
 import java.util.HashSet;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Command;
@@ -13,9 +14,11 @@ import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.ToggleButton;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
 
 public class StatusBar {
 	public static WTFImageBundle wtfImageBundle = (WTFImageBundle) GWT.create(WTFImageBundle.class);
@@ -97,6 +100,11 @@ public class StatusBar {
 	public static void setButtons(boolean select, boolean discussions) {
 		_status_bar._b_start_selection.setDown(select);
 		_status_bar._b_show_discussions.setDown(discussions);
+	}
+	
+	//if you want to be ignored element be child of this element
+	public static Element getIgnoredParent() {
+		return _status_bar.getElement();
 	}
 
 	/*

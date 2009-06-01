@@ -42,12 +42,6 @@
 	color: #ddd;
 }
 
-/* new-discussion icon */
-.wtf_icon
-{
-	z-index: 101;
-}
-
 /* discussion window */
 .wtf_discussion {
 	background-color: #ede9e3;
@@ -102,6 +96,11 @@
 .wtf_poll_red:hover { text-decoration: underline; }
 .wtf_poll_green, .wtf_poll_red, .wtf_poll_gray {
 	margin-left: 15px;
+}
+
+/* new-discussion icon */
+.wtf_icon {
+	z-index: 101;
 }
 
 .wtf_icon_text {

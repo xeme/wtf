@@ -41,6 +41,7 @@ public class Debug {
 		_initialized = true;
 	}
 
+	//kind of slow with big _logs list
 	public static void log(String s) {
 		if(!_debug_mode)
 			return;

@@ -9,6 +9,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 public class DOMMagic {
 	private static String _row_format = "";
 	private static boolean _computed = false;
+	private static int _line_counter;
 	
 	public static boolean isComputed() {
 		return _computed;
@@ -16,6 +17,9 @@ public class DOMMagic {
 
 	public static void computeRowFormat() {
 		Debug.log_time("start computiong Row Format ");
+		
+		_line_counter = 0;
+		
 		//Pair(node, is_closing_tag)
 		Stack<Pair<Node, Boolean> > stack = new Stack<Pair<Node, Boolean> >();
 		stack.push(new Pair<Node, Boolean>(RootPanel.getBodyElement(), false));
@@ -43,20 +47,32 @@ public class DOMMagic {
 		debug();
 	}
 
-	private static void translateNode(Pair<Node, Boolean> node) {
+	private static void translateNode(Pair<Node, Boolean> node) {		
 		if(node.first().getNodeType() == Node.TEXT_NODE) {
 			String words[] = node.first().getNodeValue().split("\\s"); //whitespace
 			for(String word : words) {
 				if(word.length() == 0)
 					continue;
+				
+				/* debug only */
+				_row_format += _line_counter + ": "; 
+				/* debug only */
+				
 				_row_format += word + "\n";
+				_line_counter++;
 			}
 			
 		} else {
+			/* debug only */
+			_row_format += _line_counter + ": "; 
+			/* debug only */
+			
 			_row_format += "<";
 			if(node.second())
 				_row_format += "/";
 			_row_format += node.first().getNodeName() + ">\n";
+			
+			_line_counter++;
 		}
 	}
 

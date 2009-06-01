@@ -7,7 +7,6 @@ import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.EventListener;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.RootPanel;
 
 public class CloudWidget extends Composite {
 	private Element _target_element = null;
@@ -48,10 +47,10 @@ public class CloudWidget extends Composite {
 		DOM.setStyleAttribute(icon.getElement(), "left", left + "px");
 		icon.getElement().setClassName("wtf_icon");
 
-		RootPanel.getBodyElement().appendChild(icon.getElement());
-		icon.getElement().setClassName("wtf_ignore");
+		StatusBar.getIgnoredParent().appendChild(icon.getElement());
+
 		_icon = icon.getElement();
-		drawValue(left, top, "?", _target_element);
+		drawValue(left, top, "?");
 	}
 	
 	public void drawIcon(Element elem, int thread_size) {
@@ -74,10 +73,10 @@ public class CloudWidget extends Composite {
 		DOM.setStyleAttribute(icon.getElement(), "left", left + "px");
 		icon.getElement().setClassName("wtf_icon");
 
-		RootPanel.getBodyElement().appendChild(icon.getElement());
-		icon.getElement().setClassName("wtf_ignore");
+		StatusBar.getIgnoredParent().appendChild(icon.getElement());
+
 		_icon = icon.getElement();
-		drawValue(left, top, Integer.toString(thread_size), elem);
+		drawValue(left, top, Integer.toString(thread_size));
 	}
 
 	public void removeIcon() {
@@ -97,7 +96,7 @@ public class CloudWidget extends Composite {
 		}
 	}
 
-	private void drawValue(int x, int y, String value, Element parent) {
+	private void drawValue(int x, int y, String value) {
 		Element val = DOM.createDiv();
 		val.setInnerText(value);
 		val.setClassName("wtf_icon_text");
@@ -109,7 +108,7 @@ public class CloudWidget extends Composite {
 		DOM.setStyleAttribute(val_, "cursor", "hand");
 		DOM.setStyleAttribute(val_, "cursor", "pointer");
 
-		parent.appendChild(val);
+		StatusBar.getIgnoredParent().appendChild(val);
 		_value = val;
 
 		DOM.sinkEvents(val_, Event.MOUSEEVENTS | Event.ONCLICK);
