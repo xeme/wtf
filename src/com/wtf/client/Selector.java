@@ -196,11 +196,6 @@ public class Selector {
 			divt.setClassName("wtf_selection");
 			divb.setClassName("wtf_selection");
 		}
-		RootPanel.getBodyElement().appendChild(divl);
-		RootPanel.getBodyElement().appendChild(divr);
-		RootPanel.getBodyElement().appendChild(divt);
-		RootPanel.getBodyElement().appendChild(divb);
-
 
 		com.google.gwt.user.client.Element divl_ = (com.google.gwt.user.client.Element) divl;
 		com.google.gwt.user.client.Element divr_ = (com.google.gwt.user.client.Element) divr;
@@ -260,6 +255,11 @@ public class Selector {
 		DOM.setEventListener(divr_, event_listener);
 		DOM.setEventListener(divt_, event_listener);
 		DOM.setEventListener(divb_, event_listener);
+		
+		RootPanel.getBodyElement().appendChild(divl);
+		RootPanel.getBodyElement().appendChild(divr);
+		RootPanel.getBodyElement().appendChild(divt);
+		RootPanel.getBodyElement().appendChild(divb);
 	}	  
 
 	public static boolean isFlash(com.google.gwt.user.client.Element elem) {
