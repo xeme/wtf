@@ -200,6 +200,7 @@ public class StatusBar {
 
 		public void setStatus(String s) {
 			_status.setText(s);
+			_status.setTitle(s);
 		}
 
 		public void onClick(ClickEvent event) {
