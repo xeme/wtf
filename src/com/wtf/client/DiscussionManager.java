@@ -12,7 +12,6 @@ import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DeferredCommand;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.RootPanel;
 import com.wtf.client.Poll.Answer;
 
 public class DiscussionManager {
@@ -47,10 +46,10 @@ public class DiscussionManager {
 		_fetching = true;
 		StatusBar.setStatus("Fetching discussions...");	
 		Debug.log("Fetching discussions...");
-		
+
 		//TODO (peper): to z RPC: zbior par (obiekt LineNumbers, liczba postow w watku)
 		final HashSet<Pair<LineNumbers, Integer> > discussions = new HashSet<Pair<LineNumbers, Integer> >();
-		
+
 		//simulator
 		LineNumbers lines1 = new LineNumbers();
 		LineNumbers lines2 = new LineNumbers();
@@ -62,16 +61,17 @@ public class DiscussionManager {
 
 		discussions.add(new Pair<LineNumbers, Integer>(lines1, 22));
 		discussions.add(new Pair<LineNumbers, Integer>(lines2, 45));
-		
-		
+
+
 		//after fetching do this:
 		Command after_fetching = new Command() {
 			public void execute() {
 				for(Pair<LineNumbers, Integer> d : discussions) {
 					Selection sel = DOMMagic.getSelectionFromLineNumbers(d.first());
-					_discussions.add(new Discussion(sel, d.second(), null));
+					if(sel != null)
+						_discussions.add(new Discussion(sel, d.second(), null));
 				}
-				
+
 				StatusBar.setStatus("Discussions fetched");
 				_fetching = false;
 				_fetched = true;
@@ -104,7 +104,7 @@ public class DiscussionManager {
 		//TODO (peper): to z RPC: ankieta z wynikami i tresc dyskusji
 		List<Answer> answers = new LinkedList<Answer>();
 		List<Post> thread = new LinkedList<Post>();
-		
+
 		//simulator	
 		answers.add(new Answer("OK", "a1", "wtf_poll_green", 23));
 		answers.add(new Answer("NIEJASNE", "a2", "wtf_poll_gray", 3));
@@ -143,7 +143,7 @@ public class DiscussionManager {
 
 		//TODO (peper): to z RPC: zbior odpowiedzi (same dane potrzebne do wyswietlenia - bez wynikow)
 		List<Answer> answers = new LinkedList<Answer>();
-		
+
 		//simulator	
 		answers.add(new Answer("OK", "a1", "wtf_poll_green"));
 		answers.add(new Answer("NIEJASNE", "a2", "wtf_poll_gray"));
@@ -156,15 +156,20 @@ public class DiscussionManager {
 		callback.execute();
 	}	
 
-	public static void createDiscussion(Discussion discussion, Command callback) {
+	public static void createDiscussion(final Discussion discussion, final Command callback) {
 		StatusBar.setStatus("Creating discussion...");
 		Debug.log("Creating discussion...");
 		//create discussion in the backend and update it's id
-		
+
+		//create LineNumbres object
+		LineNumbers line_numbers = DOMMagic.getLineNumbersFromSelection(discussion.getSelection());
+
+		//debug
+		line_numbers.debug();
+
 		//TODO (peper): tutaj utworzenie nowej dyskusji w backendzie i sciagniecie jej id
-		//wyslac trzeba jej LineNumbers i tresc dyskusji
-		
-		//TODO (filip): ogarnij tworzenie LineNumbers z nowego zaznaczenia 
+		//wyslac trzeba jej line_numbers i tresc dyskusji
+
 		//TODO (filip): dodac id do dyskusji
 
 		//after creating do this:
@@ -198,7 +203,7 @@ public class DiscussionManager {
 			}
 		};
 		if(!_fetched) {
-			//Fetch Discussions
+			//Fetch Discussions (it triggers computing Row Format)
 			fetchDiscussionsList(new Command() {
 				public void execute() {
 					cmd.execute();

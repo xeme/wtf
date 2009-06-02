@@ -30,4 +30,10 @@ public class LineNumbers implements IsSerializable {
 	public HashSet<Pair<Pair<Integer, Integer>, HashSet<Integer> > > getNextLevelWords() {
 		return _next_level;
 	}
+	
+	public void debug() {
+		for(Pair<Integer, Integer> e : _elements) {
+			Debug.log("(" + e.first() + "," + e.second() + ")");
+		}
+	}
 }

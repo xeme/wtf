@@ -36,21 +36,37 @@ public class DOMMagic {
 				} else {
 					Debug.log("Error: There is no element in relation with lines: " + element_lines.first()
 							+ " and " + element_lines.second());
-					StatusBar.setError("Incorect server response");
+					StatusBar.setError("Incorect discussion location");
+					return null;
 				}
 			}
 
 			com.google.gwt.user.client.Element element = (com.google.gwt.user.client.Element) _line_to_elem.get(line);
-
-			if(element == null) {
-				Debug.log("no kurwa...");
-			}
 
 			SelectedElement selected_element = new SelectedElement(element);
 			selected_elements.add(selected_element);
 		}
 
 		return new Selection(selected_elements);
+	}
+	
+	public static LineNumbers getLineNumbersFromSelection(Selection selection) {
+		LineNumbers line_numbers = new LineNumbers();
+		
+		HashSet<SelectedElement> elements = selection.getElements();
+		for(SelectedElement s_elem : elements) {
+			Element elem = s_elem.getElement();
+			
+			if(!_elem_to_lines.containsKey(elem)) {
+				//this can happen if Row Format is not computed
+				Debug.log("Error in getLineNumbersFromSelection");
+				StatusBar.setError("Internal Error");
+				return null;
+			}
+			
+			line_numbers.addElement(_elem_to_lines.get(elem));
+		}		
+		return line_numbers;
 	}
 
 
@@ -90,8 +106,9 @@ public class DOMMagic {
 				if(!node.second()) {
 					_elem_to_lines.put((Element) node.first(), new Pair<Integer, Integer>(_line_counter - 1, -1));
 				} else {
-					Pair<Integer, Integer> start_trash = _elem_to_lines.remove((Element) node.first());
-					start_trash.setSecond(_line_counter - 1);
+					Pair<Integer, Integer> tmp = _elem_to_lines.remove((Element) node.first());
+					tmp.setSecond(_line_counter - 1);
+					_elem_to_lines.put((Element) node.first(), tmp);
 				}
 			}
 

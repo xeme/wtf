@@ -50,6 +50,9 @@ public class Selector {
 				}
 			});
 		}
+		
+		DOMMagic.requestComputingRowFormat();
+		
 		DeferredCommand.addCommand(new Command() { //start_selection chunk
 			public void execute() {
 				initNewCloud();
