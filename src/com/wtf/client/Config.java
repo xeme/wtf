@@ -35,11 +35,23 @@ public class Config {
 
 		try {
 			_file_name = params.get("config_path");
-			return true;
 		}catch(java.util.MissingResourceException e) {
 			StatusBar.setError("config_path not defined");
 			return false;
 		}
+		
+		try {
+			String orientation = params.get("statusbar_orientation");
+			if(orientation.equals("left") || orientation.equals("right")) {
+				StatusBar.setOrientation(orientation);
+			} else {
+				StatusBar.setOrientation("left");
+			}
+		}catch(java.util.MissingResourceException e) {
+			StatusBar.setOrientation("left");
+		}
+		
+		return true;
 	}
 
 	public static void init(Command after_config_load) {

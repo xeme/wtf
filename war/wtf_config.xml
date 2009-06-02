@@ -21,8 +21,6 @@
 	<option name="border_thickness" value="2"/>
 	<!-- minimum number of words to start next-level selection -->
 	<option name="min_words" value="10"/>
-	<!-- statusbar horizontal orientation (left/right) -->
-	<option name="orientation" value="left"/>
 	<!-- flash selection support -->
 	<option name="flash" value="false"/>
 </wtf>

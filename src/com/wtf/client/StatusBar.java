@@ -77,12 +77,8 @@ public class StatusBar {
 		RootPanel.get().add(_status_bar);
 	}
 
-	public static void setOrientation() {
-		HashSet<String> possible = new HashSet<String>();
-		possible.add("left");
-		possible.add("right");
-		String horizontal = Config.getOptionString("orientation", possible, "left");
-		_status_bar.setOrientation(horizontal);
+	public static void setOrientation(String o) {
+		_status_bar.setOrientation(o);
 	}
 
 	public static void setStatus(String s) {

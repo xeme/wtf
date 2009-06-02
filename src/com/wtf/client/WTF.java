@@ -31,7 +31,6 @@ public class WTF implements EntryPoint {
 		Command after_config_load = new Command() {
 			public void execute() {
 				//things that need configuration file
-				StatusBar.setOrientation();
 				DiscussionManager.init();
 				StatusBar.setStatus("WTF ready");
 				Debug.log(">> WTF console <<");

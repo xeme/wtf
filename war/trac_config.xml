@@ -19,8 +19,6 @@
 	<option name="border_thickness" value="2"/>
 	<!-- number of words within DOM element to start next-level selection -->
 	<option name="min_words" value="2"/>
-	<!-- statusbar horizontal orientation (left/right) -->
-	<option name="orientation" value="right"/>
 	<!-- show debug console -->
 	<option name="debug" value="false"/>
 </wtf>
