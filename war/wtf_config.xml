@@ -23,4 +23,5 @@
 	<option name="min_words" value="10"/>
 	<!-- flash selection support -->
 	<option name="flash" value="false"/>
+	<option name="debug" value="true"/>
 </wtf>

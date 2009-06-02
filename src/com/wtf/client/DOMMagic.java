@@ -25,6 +25,7 @@ public class DOMMagic {
 		HashSet<SelectedElement> selected_elements = new HashSet<SelectedElement>();
 
 		HashSet<Pair<Integer, Integer> > elements_lines = line_numbers.getElements();
+		HashMap<Pair<Integer, Integer>, SelectedElement> tmp = new HashMap<Pair<Integer, Integer>, SelectedElement>();
 
 		for(Pair<Integer, Integer> element_lines : elements_lines) {
 			int line = 0;
@@ -44,9 +45,23 @@ public class DOMMagic {
 			com.google.gwt.user.client.Element element = (com.google.gwt.user.client.Element) _line_to_elem.get(line);
 
 			SelectedElement selected_element = new SelectedElement(element);
+			tmp.put(element_lines, selected_element);
 			selected_elements.add(selected_element);
 		}
-
+		
+		//next level
+		HashSet<Pair<Pair<Integer, Integer>, HashSet<Integer> > > next_levels = line_numbers.getNextLevelWords();
+		for(Pair<Pair<Integer, Integer>, HashSet<Integer> > next_level : next_levels) {
+			SelectedElement selected_element = tmp.get(next_level.first());
+			if(selected_element == null) {
+				Debug.log("Error: Incorrect next level description");
+				StatusBar.setError("Incorect discussion location");
+				return null;
+			}
+			selected_element.setSelectedWords(next_level.second());
+		}
+		
+		Debug.log("LineNumbers->Selection");
 		return new Selection(selected_elements);
 	}
 	
@@ -65,7 +80,9 @@ public class DOMMagic {
 			}
 			
 			line_numbers.addElement(_elem_to_lines.get(elem));
-		}		
+			line_numbers.addNextLevelWords(_elem_to_lines.get(elem), s_elem.getSelectedWords());
+		}	
+		Debug.log("Selection->LineNumbers");
 		return line_numbers;
 	}
 
@@ -75,12 +92,11 @@ public class DOMMagic {
 	}
 
 	public static void requestComputingRowFormat() {
-		StatusBar.setStatus("DOMMagic...");
 		DeferredCommand.addCommand(new Command() {
 			public void execute() {
 				if(!isComputed()) {
+					StatusBar.setStatus("DOMMagic...");
 					DOMMagic.computeRowFormat();
-					StatusBar.setStatus("DOMMagic done");
 				}
 			}
 		});

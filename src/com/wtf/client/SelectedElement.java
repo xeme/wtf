@@ -24,8 +24,11 @@ public class SelectedElement {
 	private HashSet<Node> _tmp_selected = new HashSet<Node>();
 	private int _start_selection = -1;
 	private boolean _selecting = true; //false - removing selection
-	
+
 	private boolean _visible_borders = false;
+
+	private HashSet<Integer> _selected_words = new HashSet<Integer>();
+	private boolean _next_level_commited = false;
 
 	//in IE if onmousedown and onmouseup targets are not equal, onclick is generated
 	//(targeting common ancestor)
@@ -41,6 +44,17 @@ public class SelectedElement {
 
 	public void addSelectionBorder(Element elem) {
 		_selection_borders.add(elem);
+	}
+
+	public HashSet<Integer> getSelectedWords() {
+		if(!_next_level_commited)
+			commitNextLevel();
+		return _selected_words;
+	}
+
+	public void setSelectedWords(HashSet<Integer> selected_words) {
+		_selected_words = selected_words;
+		_next_level_commited = true;
 	}
 
 	public void deleteSelectionBorders() {
@@ -66,13 +80,13 @@ public class SelectedElement {
 	}
 
 	public void createNextLevel() {
-		Debug.log_time("createNextLevel ");
+		//Debug.log_time("createNextLevel ");
 		Node node = _element;
 		NodeList<Node> children = node.getChildNodes();
-		
+
 		int min_words = Config.getOptionInt("min_words", 10);
 		min_words = Math.max(2, min_words);
-		
+
 		//check if its enough text to add spans
 		int length = 0;
 		for(int i = 0; i < children.getLength(); i++) {
@@ -116,10 +130,12 @@ public class SelectedElement {
 				text_node.getParentNode().removeChild(text_node);		
 			}
 		}
-		Debug.log_time("createNextLevel finished ");
+		//Debug.log_time("createNextLevel finished ");
 	}
 
 	public void removeNextLevel() {
+		if(!_next_level_commited)
+			commitNextLevel();
 		for(Pair<Node, List<Node> > pair : _origin) {
 			List<Node> new_nodes = pair.second();
 			Node key = pair.first();
@@ -134,7 +150,43 @@ public class SelectedElement {
 		}
 		_origin.clear();
 	}
-	
+
+	private void commitNextLevel() {
+		if(_next_level_commited)
+			return;
+		int word_counter = 0;
+		for(Pair<Node, List<Node> > pair : _origin) {
+			List<Node> spans = pair.second();
+			for(Node span : spans) {
+				if(_selected.contains(span)) {
+					_selected_words.add(word_counter);			
+				}
+				word_counter++;
+			}
+		}
+		_next_level_commited = true;
+	}
+
+	public void showNextLevelSelection() {
+		removeNextLevel();
+		createNextLevel();
+		
+		int word_counter = 0;
+		for(Pair<Node, List<Node> > pair : _origin) {
+			List<Node> spans = pair.second();
+			for(Node span : spans) {
+				if(_selected_words.contains(word_counter)) {
+					((com.google.gwt.user.client.Element) span).setClassName("wtf_selection_word_selected");		
+				}
+				word_counter++;
+			}
+		}
+	}
+
+	public void hideNextLevelSelection() {
+		removeNextLevel();
+	}
+
 	public boolean isSupported() {
 		HashSet<String> possible = new HashSet<String>();
 		possible.add("true");

@@ -132,13 +132,13 @@ public class Discussion {
 					_discussion_widget.setOnClose(getNormalOnClose());
 
 					add_post.execute();
-					
+
 					DiscussionManager.showIcons();
 					StatusBar.setButtons(false, true);
-					
+
 					if(!StatusBar.isDiscussionMode())
 						return;
-					
+
 					show();
 					_discussion_widget.setFormVisibility(true);
 					//this must be after ending selection mode
@@ -219,15 +219,32 @@ public class Discussion {
 	}
 
 	public void showSelection() {
-		for(SelectedElement elem : _selection.getElements()) {
-			elem.showSelection();
+		DeferredCommand.addCommand(new Command() {
+			public void execute() {
+				for(final SelectedElement elem : _selection.getElements()) {
+					elem.showSelection();
+				}
+			}
+		});
+		for(final SelectedElement elem : _selection.getElements()) {
+			DeferredCommand.addCommand(new Command() {
+				public void execute() {
+					elem.showNextLevelSelection();
+				}
+			});		
 		}
 	}
 
 	public void hideSelection() {
-		for(SelectedElement elem : _selection.getElements()) {
-			elem.deleteSelectionBorders();
-		}
+		DeferredCommand.addCommand(new Command() {
+			public void execute() {
+				for(final SelectedElement elem : _selection.getElements()) {
+					elem.hideNextLevelSelection();
+					elem.deleteSelectionBorders();
+				}
+			}
+		});		
+
 	}
 
 	private boolean isVisible() {
