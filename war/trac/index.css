@@ -1,0 +1,343 @@
+
+/* ::::: http://trac.symfony-project.org/chrome/common/css/trac.css ::::: */
+
+body { margin: 10px; padding: 0pt; background: rgb(255, 255, 255) none repeat scroll 0% 0%; color: rgb(0, 0, 0); }
+body, th, td { font-family: verdana,arial,'Bitstream Vera Sans',helvetica,sans-serif; font-style: normal; font-variant: normal; font-weight: normal; font-size: 13px; line-height: normal; font-size-adjust: none; font-stretch: normal; -x-system-font: none; }
+h1, h2, h3, h4 { font-family: arial,verdana,'Bitstream Vera Sans',helvetica,sans-serif; font-weight: bold; letter-spacing: -0.018em; }
+h1 { margin: 0.15em 1em 0pt 0pt; font-size: 19px; }
+h2 { font-size: 16px; }
+h3 { font-size: 14px; }
+hr { border-style: solid none none; border-color: rgb(204, 204, 187) -moz-use-text-color -moz-use-text-color; border-width: 1px medium medium; margin: 2em 0pt; }
+address { font-style: normal; }
+img { border: medium none ; }
+tt { white-space: pre; }
+.underline { text-decoration: underline; }
+ol.loweralpha { list-style-type: lower-alpha; }
+ol.upperalpha { list-style-type: upper-alpha; }
+ol.lowerroman { list-style-type: lower-roman; }
+ol.upperroman { list-style-type: upper-roman; }
+ol.arabic { list-style-type: decimal; }
+:link, :visited { border-bottom: 1px dotted rgb(187, 187, 187); text-decoration: none; color: rgb(187, 0, 0); }
+:link:hover, :visited:hover { background-color: rgb(238, 238, 238); color: rgb(85, 85, 85); }
+h1 :link, h1 :visited, h2 :link, h2 :visited, h3 :link, h3 :visited, h4 :link, h4 :visited, h5 :link, h5 :visited, h6 :link, h6 :visited { color: inherit; }
+.anchor:link, .anchor:visited { border: medium none ; color: rgb(215, 215, 215); font-size: 0.8em; vertical-align: text-top; }
+* > .anchor:link, * > .anchor:visited { visibility: hidden; }
+h1:hover .anchor, h2:hover .anchor, h3:hover .anchor, h4:hover .anchor, h5:hover .anchor, h6:hover .anchor { visibility: visible; }
+@media screen {
+  a.ext-link .icon { background: transparent url('extlink.gif') no-repeat scroll left center; padding-left: 16px; }
+  * html a.ext-link .icon { display: inline-block; }
+}
+input, textarea, select { margin: 2px; }
+input, select { vertical-align: middle; }
+input[type="button"], input[type="submit"], input[type="reset"] { border: 1px outset rgb(204, 204, 204); padding: 0.1em 0.5em; background: rgb(238, 238, 238) none repeat scroll 0% 0%; color: rgb(34, 34, 34); }
+input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover { background: rgb(204, 204, 187) none repeat scroll 0% 0%; }
+input[type="button"][disabled], input[type="submit"][disabled], input[type="reset"][disabled] { border-style: solid; background: rgb(246, 246, 246) none repeat scroll 0% 0%; color: rgb(153, 153, 153); }
+input[type="text"], input.textwidget, textarea { border: 1px solid rgb(215, 215, 215); }
+input[type="text"], input.textwidget { padding: 0.25em 0.5em; }
+input[type="text"]:focus, input.textwidget:focus, textarea:focus { border: 1px solid rgb(136, 136, 102); }
+option { border-bottom: 1px dotted rgb(215, 215, 215); }
+fieldset { border: 1px solid rgb(215, 215, 215); margin: 0pt; padding: 0.5em; }
+fieldset.iefix { border: medium none ; margin: 0pt; padding: 0pt; background: transparent none repeat scroll 0% 0%; }
+* html fieldset.iefix { width: 98%; }
+fieldset.iefix p { margin: 0pt; }
+legend { padding: 0pt 0.25em; color: rgb(153, 153, 153); font-size: 90%; font-weight: bold; }
+label.disabled { color: rgb(215, 215, 215); }
+.buttons { margin: 0.5em 0.5em 0.5em 0pt; }
+.buttons form, .buttons form div { display: inline; }
+.buttons input { margin: 1em 0.5em 0.1em 0pt; }
+.inlinebuttons input { border-style: dotted; border-width: 1px; margin: 0pt; padding: 0.1em; background: transparent none repeat scroll 0% 0%; font-size: 70%; }
+#header hr { display: none; }
+#header h1 { margin: 1.5em 0pt -1.5em; }
+#header img { border: medium none ; margin: 0pt 0pt -3em; }
+#header :link, #header :visited, #header :link:hover, #header :visited:hover { border: medium none ; background: transparent none repeat scroll 0% 0%; color: rgb(85, 85, 85); margin-bottom: 2px; }
+#header h1 :link:hover, #header h1 :visited:hover { color: rgb(0, 0, 0); }
+#search { margin: 0pt 0pt 1em; clear: both; font-size: 10px; height: 2.2em; text-align: right; }
+#search input { font-size: 10px; }
+#search label { display: none; }
+.nav h2, .nav hr { display: none; }
+.nav ul { margin: 0pt; font-size: 10px; list-style-type: none; list-style-image: none; list-style-position: outside; text-align: right; }
+.nav li { border-right: 1px solid rgb(215, 215, 215); padding: 0pt 0.75em; display: inline; white-space: nowrap; }
+.nav li.last { border-right: medium none; }
+#mainnav { border: 1px solid rgb(0, 0, 0); margin: 0.66em 0pt 0.33em; padding: 0.2em 0pt; background: rgb(247, 247, 247) url('topbar_gradient.png') repeat scroll 0pt 0pt; font-family: verdana,'Bitstream Vera Sans',helvetica,arial,sans-serif; font-style: normal; font-variant: normal; font-weight: normal; font-size: 10px; line-height: normal; font-size-adjust: none; font-stretch: normal; -x-system-font: none; }
+#mainnav li { border-right: medium none; padding: 0.25em 0pt; }
+#mainnav :link, #mainnav :visited { border-left: 1px solid rgb(85, 85, 85); border-right: 1px solid rgb(255, 255, 255); border-bottom: medium none; padding: 0.2em 20px; background: transparent url('dots.gif') no-repeat scroll 0pt 0pt; color: rgb(0, 0, 0); }
+* html #mainnav :link, * html #mainnav :visited { background-position: 1px 0pt; }
+#mainnav :link:hover, #mainnav :visited:hover { border-right: 1px solid rgb(221, 221, 221); background-color: rgb(204, 204, 204); }
+#mainnav .active :link, #mainnav .active :visited { border-top: medium none; border-right: 1px solid rgb(0, 0, 0); background: rgb(51, 51, 51) url('topbar_gradient2.png') repeat-x scroll 0pt 0pt; color: rgb(238, 238, 238); font-weight: bold; }
+#mainnav .active :link:hover, #mainnav .active :visited:hover { border-right: 1px solid rgb(0, 0, 0); }
+#ctxtnav { height: 1em; }
+#ctxtnav li ul { border: 1px solid ; margin: 0pt; padding: 0pt; background: rgb(247, 247, 247) none repeat scroll 0% 0%; color: rgb(204, 204, 204); display: inline; }
+#ctxtnav li li { padding: 0pt; }
+#ctxtnav li li :link, #ctxtnav li li :visited { padding: 0pt 1em; }
+#ctxtnav li li :link:hover, #ctxtnav li li :visited:hover { background: rgb(187, 187, 170) none repeat scroll 0% 0%; color: rgb(255, 255, 255); }
+#altlinks { clear: both; text-align: center; }
+#altlinks h3 { margin: 0pt; font-size: 12px; letter-spacing: normal; }
+#altlinks ul { margin: 0pt; padding: 0pt 0pt 1em; list-style-type: none; list-style-image: none; list-style-position: outside; }
+#altlinks li { border-right: 1px solid rgb(215, 215, 215); padding: 0pt 1em; display: inline; font-size: 11px; line-height: 16px; white-space: nowrap; }
+#altlinks li.last { border-right: medium none; }
+#altlinks li :link, #altlinks li :visited { border: medium none ; background-position: 0pt -1px; background-repeat: no-repeat; }
+#altlinks li a.ics { background-image: url('ics.png'); padding-left: 22px; }
+#altlinks li a.rss { background-image: url('xml.png'); padding-left: 42px; }
+#footer { border-top: 1px solid; padding: 0.25em 0pt; clear: both; color: rgb(187, 187, 187); font-size: 10px; height: 31px; }
+#footer :link, #footer :visited { color: rgb(187, 187, 187); }
+#footer hr { display: none; }
+#footer #tracpowered { border: 0pt none ; float: left; }
+#footer #tracpowered:hover { background: transparent none repeat scroll 0% 0%; }
+#footer p { margin: 0pt; }
+#footer p.left { border-left: 1px solid rgb(215, 215, 215); border-right: 1px solid rgb(215, 215, 215); padding: 0pt 1em; float: left; margin-left: 1em; }
+#footer p.right { float: right; text-align: right; }
+#content { padding-bottom: 2em; position: relative; }
+#help { margin: 1em; clear: both; color: rgb(153, 153, 153); font-size: 90%; text-align: right; }
+#help :link, #help :visited { cursor: help; }
+#help hr { display: none; }
+#prefs { border: 1px outset rgb(153, 153, 136); margin: 0pt 1em 1em; padding: 0.8em; background: rgb(247, 247, 240) none repeat scroll 0% 0%; float: right; font-size: 9px; position: relative; }
+* html #prefs { width: 26em; }
+#prefs input, #prefs select { font-size: 9px; vertical-align: middle; }
+#prefs fieldset { border: medium none ; margin: 0.5em; padding: 0pt; background: transparent none repeat scroll 0% 0%; }
+#prefs fieldset legend { margin: 0pt 0pt 0pt -1.5em; padding: 0pt; background: transparent none repeat scroll 0% 0%; color: rgb(0, 0, 0); font-size: 9px; font-weight: normal; }
+#prefs .buttons { text-align: right; }
+#info { border: 1px solid rgb(215, 215, 215); margin: 1em 0pt 0pt; background: rgb(247, 247, 240) none repeat scroll 0% 0%; border-collapse: collapse; border-spacing: 0pt; clear: both; width: 100%; }
+#info th, #info td { padding: 2px 0.5em; font-size: 85%; vertical-align: top; }
+#info th { font-weight: bold; text-align: left; white-space: nowrap; }
+#info td.message { width: 100%; }
+#info .message ul { margin: 0pt 2em; padding: 0pt; }
+#info .message p { margin: 0pt; padding: 0pt; }
+.wikipage { padding-left: 18px; }
+.wikipage h1, .wikipage h2, .wikipage h3 { margin-left: -18px; }
+a.missing:link, a.missing:visited, span.missing { color: rgb(153, 153, 136); }
+a.missing:link, a.missing:visited { background: rgb(250, 250, 240) none repeat scroll 0% 0%; }
+a.missing:hover { color: rgb(0, 0, 0); }
+a.closed:link, a.closed:visited { text-decoration: line-through; }
+dl.wiki dt { font-weight: bold; }
+dl.compact dt { float: left; padding-right: 0.5em; }
+dl.compact dd { margin: 0pt; padding: 0pt; }
+pre.wiki, pre.literal-block { border: 1px solid rgb(215, 215, 215); margin: 1em 1.75em; padding: 0.25em; background: rgb(247, 247, 247) none repeat scroll 0% 0%; overflow: auto; }
+blockquote.citation { border-style: solid; border-color: rgb(187, 68, 68); border-width: 0pt 0pt 0pt 2px; margin: -0.6em 0pt; padding-left: 0.5em; }
+.citation blockquote.citation { border-color: rgb(68, 187, 68); }
+.citation .citation blockquote.citation { border-color: rgb(68, 68, 187); }
+.citation .citation .citation blockquote.citation { border-color: rgb(204, 85, 85); }
+table.wiki { border: 2px solid rgb(204, 204, 204); border-collapse: collapse; border-spacing: 0pt; }
+table.wiki td { border: 1px solid rgb(204, 204, 204); padding: 0.1em 0.25em; }
+.wikitoolbar { border-style: solid; border-color: rgb(215, 215, 215); border-width: 1px 1px 1px 0pt; height: 18px; width: 208px; }
+.wikitoolbar :link, .wikitoolbar :visited { border-style: solid; border-color: rgb(255, 255, 255) rgb(255, 255, 255) rgb(255, 255, 255) rgb(215, 215, 215); border-width: 1px; background: transparent url('edit_toolbar.png') no-repeat scroll 0% 0%; cursor: default; display: block; float: left; width: 24px; height: 16px; }
+.wikitoolbar :link:hover, .wikitoolbar :visited:hover { border: 1px solid rgb(255, 187, 34); background-color: transparent; }
+.wikitoolbar a#em { background-position: 0pt 0pt; }
+.wikitoolbar a#strong { background-position: 0pt -16px; }
+.wikitoolbar a#heading { background-position: 0pt -32px; }
+.wikitoolbar a#link { background-position: 0pt -48px; }
+.wikitoolbar a#code { background-position: 0pt -64px; }
+.wikitoolbar a#hr { background-position: 0pt -80px; }
+.wikitoolbar a#np { background-position: 0pt -96px; }
+.wikitoolbar a#br { background-position: 0pt -112px; }
+#attachment .field { margin-top: 1.3em; }
+#attachment label { padding-left: 0.2em; }
+#attachment fieldset { margin-top: 2em; }
+#attachment fieldset .field { margin: 0pt 1em 0.5em 0pt; float: left; }
+#attachment .options { padding: 0pt 0pt 1em 1em; float: left; }
+#attachment br { clear: left; }
+.attachment #preview { margin-top: 1em; }
+#attachments { border: 1px outset rgb(153, 153, 102); padding: 1em; }
+#attachments .attachments { padding: 0pt; margin-left: 2em; }
+#attachments dt { display: list-item; list-style-type: square; list-style-image: none; list-style-position: outside; }
+#attachments dd { font-style: italic; margin-left: 0pt; padding-left: 0pt; }
+table.listing { border-bottom: 1px solid rgb(215, 215, 215); clear: both; border-collapse: collapse; border-spacing: 0pt; margin-top: 1em; width: 100%; }
+table.listing th { padding: 0pt 1em 0.1em 0pt; text-align: left; font-size: 12px; }
+table.listing thead { background: rgb(247, 247, 240) none repeat scroll 0% 0%; }
+table.listing thead th { border-style: solid; border-color: rgb(215, 215, 215) rgb(215, 215, 215) rgb(153, 153, 153); border-width: 1px; padding: 2px 0.5em; font-size: 11px; font-weight: bold; vertical-align: bottom; }
+table.listing thead th :link:hover, table.listing thead th :visited:hover { background-color: transparent; }
+table.listing thead th a { border: medium none ; padding-right: 12px; }
+table.listing th.asc a, table.listing th.desc a { font-weight: bold; }
+table.listing th.asc a, table.listing th.desc a { background-position: 100% 50%; background-repeat: no-repeat; }
+table.listing th.asc a { background-image: url('asc.png'); }
+table.listing th.desc a { background-image: url('desc.png'); }
+table.listing tbody td, table.listing tbody th { border: 1px dotted rgb(221, 221, 221); padding: 0.33em 0.5em; vertical-align: top; }
+table.listing tbody td a:hover, table.listing tbody th a:hover { background-color: transparent; }
+table.listing tbody tr { border-top: 1px solid rgb(221, 221, 221); }
+table.listing tbody tr.even { background-color: rgb(252, 252, 252); }
+table.listing tbody tr.odd { background-color: rgb(247, 247, 247); }
+table.listing tbody tr:hover { background: rgb(238, 238, 221) none repeat scroll 0% 0% ! important; }
+#content.error .message, div.system-message { border: 2px solid rgb(221, 0, 0); margin: 1em 0pt; padding: 0.5em; background: rgb(255, 221, 204) none repeat scroll 0% 0%; color: rgb(85, 0, 0); }
+#content.error pre, div.system-message pre { overflow: auto; margin-left: 1em; }
+div.system-message p { margin: 0pt; }
+div.system-message p.system-message-title { font-weight: bold; }
+@media screen {
+  .searchword0 { background: rgb(255, 255, 153) none repeat scroll 0% 0%; }
+  .searchword1 { background: rgb(204, 255, 204) none repeat scroll 0% 0%; }
+  .searchword2 { background: rgb(204, 255, 255) none repeat scroll 0% 0%; }
+  .searchword3 { background: rgb(204, 204, 255) none repeat scroll 0% 0%; }
+  .searchword4 { background: rgb(255, 204, 255) none repeat scroll 0% 0%; }
+}
+@media print {
+  #header, #altlinks, #footer, #help { display: none; }
+  .nav, form, .buttons form, form .buttons, form .inlinebuttons { display: none; }
+  form.printableform { display: block; }
+}
+
+/* ::::: http://trac.symfony-project.org/chrome/common/css/diff.css ::::: */
+
+#prefs fieldset { margin: 1em 0.5em 0.5em; padding: 0.5em 1em 0pt; }
+#overview { padding: 0.5em; line-height: 130%; margin-top: 1em; }
+#overview dt.property { font-weight: bold; padding-right: 0.25em; position: absolute; left: 0pt; text-align: right; width: 7.75em; }
+#overview dd { margin-left: 8em; }
+#overview .message { padding: 1em 0pt 1px; }
+#overview dd.message p, #overview dd.message ul, #overview dd.message ol, #overview dd.message pre { margin-bottom: 1em; margin-top: 0pt; }
+#chglist .edit, #overview .mod, .diff #legend .mod { background: rgb(255, 221, 136) none repeat scroll 0% 0%; }
+#chglist .delete, #overview .rem, .diff #legend .rem { background: rgb(255, 136, 136) none repeat scroll 0% 0%; }
+#chglist .add, #overview .add, .diff #legend .add { background: rgb(187, 255, 187) none repeat scroll 0% 0%; }
+#chglist .copy, #overview .cp, .diff #legend .cp { background: rgb(136, 136, 255) none repeat scroll 0% 0%; }
+#chglist .move, #overview .mv, .diff #legend .mv { background: rgb(204, 204, 204) none repeat scroll 0% 0%; }
+#chglist .unknown { background: rgb(255, 255, 255) none repeat scroll 0% 0%; }
+.diff #legend { margin: 1em 0pt; padding: 0.5em; float: left; font-size: 9px; line-height: 1em; }
+.diff #legend h3 { display: none; }
+.diff #legend dt { border: 1px solid rgb(153, 153, 153); margin: 0.1em 0.5em 0.1em 2em; background: rgb(255, 255, 255) none repeat scroll 0% 0%; overflow: hidden; float: left; width: 0.8em; height: 0.8em; }
+.diff #legend dl, .diff #legend dd { margin: 0pt 0.5em 0pt 0pt; padding: 0pt; display: inline; float: left; }
+.diff ul.entries { margin: 0pt; padding: 0pt; clear: both; }
+.diff ul.entries ul.props li { overflow: auto; }
+.diff li.entry { border: 1px solid rgb(215, 215, 215); margin: 0pt 0pt 2em; padding: 2px; background: rgb(247, 247, 247) none repeat scroll 0% 0%; list-style-type: none; position: relative; width: 100%; }
+.diff h2 { margin: 0pt auto; padding: 0.1em 0pt 0.25em 0.5em; color: rgb(51, 51, 51); font-size: 14px; letter-spacing: normal; }
+.diff table { border-style: none solid solid; border-color: -moz-use-text-color rgb(221, 221, 221) rgb(221, 221, 221); border-width: 0pt 1px 1px; margin: 0pt auto; padding: 0pt; border-spacing: 0pt; empty-cells: show; font-size: 12px; line-height: 130%; table-layout: fixed; width: 100%; }
+.diff table col.lineno { width: 4em; }
+.diff table th { border-right: 1px solid rgb(215, 215, 215); border-bottom: 1px solid rgb(153, 153, 136); font-size: 11px; }
+.diff table thead th { border-top: 1px solid rgb(215, 215, 215); padding: 0pt 0.25em; background: rgb(238, 238, 238) none repeat scroll 0% 0%; color: rgb(153, 153, 153); text-align: center; white-space: nowrap; }
+.diff table tbody th { padding: 0pt 0.5em; background: rgb(238, 238, 221) none repeat scroll 0% 0%; color: rgb(136, 136, 102); font-weight: normal; text-align: right; vertical-align: top; }
+.diff table tbody td { padding: 1px 2px; background: rgb(255, 255, 255) none repeat scroll 0% 0%; overflow: visible; font-family: monospace; font-style: normal; font-variant: normal; font-weight: normal; font-size: 11px; line-height: normal; font-size-adjust: none; font-stretch: normal; -x-system-font: none; vertical-align: top; }
+.diff table tbody.skipped td { border: 1px solid rgb(215, 215, 215); background: rgb(247, 247, 247) none repeat scroll 0% 0%; }
+.diff td ins, .diff td del { text-decoration: none; }
+.diff table.inline tbody.mod td.l, .diff table.inline tbody.rem td.l { border-style: solid; border-color: rgb(204, 0, 0); border-width: 0pt 1px; background: rgb(255, 221, 221) none repeat scroll 0% 0%; }
+.diff table.inline tbody.mod td.r, .diff table.inline tbody.add td.r { border-style: solid; border-color: rgb(0, 170, 0); border-width: 0pt 1px; background: rgb(221, 255, 221) none repeat scroll 0% 0%; }
+.diff table.inline tbody.mod tr.first td.l, .diff table.inline tbody.rem tr.first td.l { border-top-width: 1px; }
+.diff table.inline tbody.mod tr.last td.l, .diff table.inline tbody.rem tr.last td.l { border-bottom-width: 1px; }
+.diff table.inline tbody.mod tr.first td.r, .diff table.inline tbody.add tr.first td.r { border-top-width: 1px; }
+.diff table.inline tbody.mod tr.last td.r, .diff table.inline tbody.add tr.last td.r { border-bottom-width: 1px; }
+.diff table.inline tbody.mod td del { background: rgb(238, 153, 153) none repeat scroll 0% 0%; color: rgb(0, 0, 0); }
+.diff table.inline tbody.mod td ins { background: rgb(153, 238, 153) none repeat scroll 0% 0%; color: rgb(0, 0, 0); }
+.diff table.sidebyside colgroup.content { width: 50%; }
+.diff table.sidebyside tbody.mod td.l { background: rgb(255, 238, 153) none repeat scroll 0% 0%; }
+.diff table.sidebyside tbody.mod td.r { background: rgb(255, 221, 136) none repeat scroll 0% 0%; }
+.diff table.sidebyside tbody.add td.l { background: rgb(221, 255, 221) none repeat scroll 0% 0%; }
+.diff table.sidebyside tbody.add td.r { background: rgb(204, 255, 204) none repeat scroll 0% 0%; }
+.diff table.sidebyside tbody.rem td.l { background: rgb(255, 136, 136) none repeat scroll 0% 0%; }
+.diff table.sidebyside tbody.rem td.r { background: rgb(255, 170, 170) none repeat scroll 0% 0%; }
+.diff table.sidebyside tbody.mod del, .diff table.sidebyside tbody.mod ins { background: rgb(255, 204, 0) none repeat scroll 0% 0%; }
+
+/* ::::: http://trac.symfony-project.org/chrome/common/css/code.css ::::: */
+
+div.code { border: 1px solid rgb(215, 215, 215); margin: 1em 1.75em; padding: 0.25em; background: rgb(247, 247, 247) none repeat scroll 0% 0%; overflow: auto; }
+div.code pre { margin: 0pt; }
+table.code { border-style: none solid solid; border-color: -moz-use-text-color rgb(221, 221, 221) rgb(221, 221, 221); border-width: 0pt 1px 1px; margin: 0pt auto; padding: 0pt; border-spacing: 0pt; empty-cells: show; font-size: 12px; line-height: 130%; table-layout: fixed; width: 100%; }
+table.code th { border-right: 1px solid rgb(215, 215, 215); border-bottom: 1px solid rgb(153, 153, 136); font-size: 11px; }
+table.code th.lineno { width: 4em; }
+table.code thead th { border-top: 1px solid rgb(215, 215, 215); padding: 0pt 0.25em; background: rgb(238, 238, 238) none repeat scroll 0% 0%; color: rgb(153, 153, 153); text-align: center; white-space: nowrap; }
+table.code tbody th { padding: 0pt 0.5em; background: rgb(238, 238, 221) none repeat scroll 0% 0%; color: rgb(136, 136, 102); font-weight: normal; text-align: right; vertical-align: top; }
+table.code tbody th :link, table.code tbody th :visited { border: medium none ; color: rgb(136, 136, 102); text-decoration: none; }
+table.code tbody th :link:hover, table.code tbody th :visited:hover { color: rgb(0, 0, 0); }
+table.code tbody td { padding: 1px 2px; background: rgb(255, 255, 255) none repeat scroll 0% 0%; overflow: hidden; font-family: monospace; font-style: normal; font-variant: normal; font-weight: normal; font-size: 11px; line-height: normal; font-size-adjust: none; font-stretch: normal; -x-system-font: none; vertical-align: top; }
+.image-file { padding: 0.3em; background: rgb(238, 238, 238) none repeat scroll 0% 0%; }
+.image-file img { background: transparent url('imggrid.png') repeat scroll 0% 0%; }
+.code-block span { font-family: monospace; }
+.code-comment, .css_comment, .c_comment, .c_commentdoc, .c_commentline, .c_commentlinedoc, .h_comment, .pl_commentline, .p_commentblock, .p_commentline, .hphp_comment, .hphp_commentblock, .hphp_commentline, .yaml_comment { color: rgb(153, 153, 136); font-style: italic; }
+.code-keyword, .pl_word { color: rgb(119, 136, 153); font-weight: bold; }
+.code-type, .c_word, .c_word2, .p_classname, .hphp_classname { color: rgb(68, 102, 136); font-weight: bold; }
+.code-func, .p_defname { border-bottom: medium none; color: rgb(153, 0, 0); font-weight: bold; }
+.code-prep, .c_preprocessor, .pl_preprocessor, .yaml_identifier { color: rgb(153, 153, 153); font-weight: bold; }
+.code-lang, .p_word { color: rgb(0, 0, 0); font-weight: bold; }
+.code-string, .c_string, .c_stringeol, .css_doublestring, .css_singlestring, .h_singlestring, .h_doublestring, .pl_string, .pl_string_q, .pl_string_qq, .pl_string_qr, .pl_string_qw, .pl_string_qx, .pl_backticks, .pl_character, .p_string, .p_stringeol, .hphp_string, .hphp_stringeol, .hphp_triple, .hphp_tripledouble, .p_character, .p_triple, .p_tripledouble { color: rgb(187, 136, 68); font-weight: normal; }
+.code-var { color: rgb(255, 153, 255); }
+.css_id, .css_class, .css_pseudoclass, .css_tag { color: rgb(144, 0, 0); }
+.css_directive { color: rgb(0, 144, 0); font-weight: bold; }
+.css_important { color: blue; }
+.css_operator { color: rgb(0, 0, 144); font-weight: bold; }
+.css_tag { font-weight: bold; }
+.css_unknown_identifier, .css_unknown_pseudoclass { color: red; }
+.css_value { color: navy; }
+.c_commentdockeyword { color: navy; font-weight: bold; }
+.c_commentdockeyworderror { color: red; font-weight: bold; }
+.c_character, .c_regex, .c_uuid, .c_verbatim { color: olive; }
+.c_number { color: rgb(0, 153, 153); }
+.h_asp { color: rgb(255, 255, 0); }
+.h_aspat { color: rgb(255, 223, 0); }
+.h_attribute { color: teal; }
+.h_attributeunknown { color: red; }
+.h_cdata { color: rgb(51, 119, 51); }
+.h_entity { color: purple; }
+.h_number { color: rgb(0, 153, 153); }
+.h_other { color: purple; }
+.h_script, .h_tag, .h_tagend { color: navy; }
+.h_tagunknown { color: red; }
+.h_xmlend, .h_xmlstart { color: blue; }
+.pl_datasection { color: olive; }
+.pl_error { color: red; font-weight: bold; }
+.pl_hash { color: rgb(0, 0, 0); }
+.pl_here_delim, .pl_here_q, .pl_here_qq, .pl_here_qx, .pl_longquote { color: olive; }
+.pl_number { color: rgb(0, 153, 153); }
+.pl_pod { font-style: italic; }
+.pl_regex, .pl_regsubst { color: olive; }
+.p_number { color: rgb(0, 153, 153); }
+.hphp_character { color: olive; }
+.hphp_defname { color: rgb(0, 153, 153); font-weight: bold; }
+.hphp_number { color: rgb(0, 153, 153); }
+.hphp_word { color: navy; font-weight: bold; }
+.yaml_document { color: gray; font-style: italic; }
+.yaml_keyword { color: rgb(136, 0, 136); }
+.yaml_number { color: rgb(136, 0, 0); }
+.yaml_reference { color: rgb(0, 136, 136); }
+.v_comment { color: gray; font-style: italic; }
+.v_commentline, .v_commentlinebang { color: red; font-style: italic; }
+.v_number, .v_preprocessor { color: rgb(0, 153, 153); }
+.v_string, .v_stringeol { color: olive; }
+.v_user { color: blue; font-weight: bold; }
+.v_word, .v_word3 { color: navy; font-weight: bold; }
+.v_word2 { color: green; font-weight: bold; }
+
+/* ::::: http://www.symfony-project.com/css/trac.css ::::: */
+
+body { margin: 0pt; }
+#content { margin: 10px; }
+#topbar { margin: 0pt; background: rgb(104, 59, 0) none repeat scroll 0% 0%; font-family: Verdana,sans-serif; font-style: normal; font-variant: normal; font-weight: normal; font-size: 11px; line-height: normal; font-size-adjust: none; font-stretch: normal; -x-system-font: none; }
+#topbar a img { text-decoration: none; }
+#navig { background: rgb(104, 59, 0) none repeat scroll 0% 0%; font-size: 1.2em; white-space: nowrap; }
+#navig ul { margin: 0pt; padding: 0pt; }
+#navig li { margin: 0pt 0.5em; display: inline; padding-right: 1em; }
+#navig li.last { border-right: medium none; }
+#navig li a:link { border-bottom: medium none; text-decoration: none; color: rgb(255, 255, 188); }
+#navig li a:visited { border-bottom: medium none; text-decoration: none; color: rgb(255, 255, 188); }
+#navig li a:hover { text-decoration: underline; background-color: transparent; }
+#topseparator { background: rgb(199, 150, 75) url('bar_background.gif') repeat-x scroll 0% 0%; height: 15px; }
+#topbar h1 { margin: 0pt; padding: 0pt 10px 0pt 15px; background: rgb(116, 122, 137) none repeat scroll 0% 0%; font-family: arial,sans-serif; font-size: 25px; line-height: 1em; font-weight: normal; color: rgb(255, 255, 255); }
+#topbar h1.only { padding-bottom: 15px; }
+#topbar h1 a { color: rgb(255, 255, 255); text-decoration: none; }
+#topbar h2 { margin: 0pt; padding: 0pt 1em 0.5em 15px; background: rgb(116, 122, 137) none repeat scroll 0% 0%; font-family: arial,sans-serif; line-height: 1em; font-size: 22px; font-weight: normal; color: rgb(255, 255, 188); }
+
+/* ::::: http://www.sensiolabs.com/network/sensiolabs.css ::::: */
+
+.sensiolabs html { background: rgb(255, 255, 255) none repeat scroll 0% 0%; color: rgb(0, 0, 0); }
+.sensiolabs body, .sensiolabs div, .sensiolabs dl, .sensiolabs dt, .sensiolabs dd, .sensiolabs ul, .sensiolabs ol, .sensiolabs li, .sensiolabs h1, .sensiolabs h2, .sensiolabs h3, .sensiolabs h4, .sensiolabs h5, .sensiolabs h6, .sensiolabs pre, .sensiolabs code, .sensiolabs form, .sensiolabs fieldset, .sensiolabs legend, .sensiolabs input, .sensiolabs textarea, .sensiolabs p, .sensiolabs blockquote, .sensiolabs th, .sensiolabs td { margin: 0pt; padding: 0pt; }
+.sensiolabs table { border-collapse: collapse; border-spacing: 0pt; }
+.sensiolabs fieldset, .sensiolabs img { border: 0pt none ; }
+.sensiolabs address, .sensiolabs caption, .sensiolabs cite, .sensiolabs code, .sensiolabs dfn, .sensiolabs em, .sensiolabs strong, .sensiolabs th, .sensiolabs var { font-style: normal; font-weight: normal; }
+.sensiolabs li { list-style-type: none; list-style-image: none; list-style-position: outside; }
+.sensiolabs caption, .sensiolabs th { text-align: left; }
+.sensiolabs h1, .sensiolabs h2, .sensiolabs h3, .sensiolabs h4, .sensiolabs h5, .sensiolabs h6 { font-size: 100%; font-weight: normal; }
+.sensiolabs q:before, .sensiolabs q:after { content: ''; }
+.sensiolabs abbr, .sensiolabs acronym { border: 0pt none ; font-variant: normal; }
+.sensiolabs sup { vertical-align: text-top; }
+.sensiolabs sub { vertical-align: text-bottom; }
+.sensiolabs input, .sensiolabs textarea, .sensiolabs select { font-family: inherit; font-size: inherit; font-weight: inherit; }
+.sensiolabs input, .sensiolabs textarea, .sensiolabs select {  }
+.sensiolabs legend { color: rgb(0, 0, 0); }
+.sensiolabs del, .sensiolabs ins { text-decoration: none; }
+.sensiolabs { margin: 0pt; padding: 20px 0pt 40px; background-color: rgb(139, 194, 104); color: rgb(255, 255, 255); font-family: Arial,Helvetica,sans-serif; font-size: 16px; text-align: left; line-height: 1.1em; }
+.sensiolabs a { border: 0pt none ; color: rgb(255, 255, 255); text-decoration: none; }
+.sensiolabs a:hover { border: 0pt none ; text-decoration: underline; background-color: transparent; color: rgb(255, 255, 255); }
+.sensiolabs li { margin: 0pt; padding: 0pt; list-style-type: none; list-style-image: none; list-style-position: outside; font-size: 0.875em; line-height: 1.43em; }
+.sensiolabs .more { font-size: 0.875em; text-align: right; }
+.sensiolabs .id_content { margin: 0pt auto; width: 952px; padding-left: 47px; }
+.sensiolabs h2 { border: 0pt none ; padding: 0pt; background: transparent none repeat scroll 0% 0%; margin-bottom: 20px; }
+.sensiolabs .column { float: left; margin-bottom: 22px; padding-right: 20px; }
+.sensiolabs .column_01 { width: 304px; }
+.sensiolabs .introduction { font-family: Georgia,serif; font-size: 0.875em; padding-right: 10px; }
+.sensiolabs .column_02, .sensiolabs .column_03 { width: 304px; }
+.sensiolabs .box { padding: 0pt 12px; background-color: rgb(129, 183, 94); height: 153px; position: relative; -moz-border-radius-topleft: 5px; -moz-border-radius-topright: 5px; -moz-border-radius-bottomright: 5px; -moz-border-radius-bottomleft: 5px; }
+.sensiolabs .column_03 { padding-right: 0pt; }
+.sensiolabs h3 { border-bottom: 1px solid rgb(173, 208, 150); font-size: 1.188em; font-family: Arial,Helvetica,sans-serif; height: 43px; line-height: 2.264em; margin-bottom: 12px; color: rgb(255, 255, 255); }
+.sensiolabs .logo { text-align: right; }

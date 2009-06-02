@@ -39,6 +39,8 @@ public class Selector {
 
 	public static void startSelectionMode()
 	{
+		DOMMagic.requestComputingRowFormat();
+		
 		//chunk operations
 		if(!_initialized){
 			StatusBar.setStatus("Initializing DOM...");
@@ -50,8 +52,6 @@ public class Selector {
 				}
 			});
 		}
-		
-		DOMMagic.requestComputingRowFormat();
 		
 		DeferredCommand.addCommand(new Command() { //start_selection chunk
 			public void execute() {

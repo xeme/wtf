@@ -1,5 +1,6 @@
 package com.wtf.client;
 
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -32,6 +33,13 @@ public class Debug {
 				}
 			});
 		}
+		//check whether debug mode is on
+		HashSet<String> possible = new HashSet<String>();
+		possible.add("true");
+		possible.add("false");
+		String support = Config.getOptionString("debug", possible, "false");
+		_debug_mode = support.equals("true");		
+		
 		if(!_debug_mode)
 			return;
 		Element div = DOM.createDiv();

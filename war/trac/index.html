@@ -1,0 +1,203 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+ <title>#2304: sfDomPDFPlugin.diff - symfony - Trac</title><link rel="start" href="http://trac.symfony-project.org/wiki"><link rel="search" href="http://trac.symfony-project.org/search"><link rel="help" href="http://trac.symfony-project.org/wiki/TracGuide"><link rel="icon" href="favicon.ico" type="image/x-icon"><link rel="shortcut icon" href="favicon.ico" type="image/x-icon"><link rel="up" href="http://trac.symfony-project.org/ticket/2304" title="Ticket #2304"><link rel="alternate" href="http://trac.symfony-project.org/attachment/ticket/2304/sfDomPDFPlugin.diff?format=raw" title="Original Format" type="text/x-diff; charset=utf-8">
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+
+
+
+<!-- WTF INCLUDE -->
+<link type="text/css" rel="stylesheet" href="../wtf.css">
+<script type="text/javascript" language="javascript" src="../wtf/wtf.nocache.js"></script>
+<script type="text/javascript" language="javascript">
+    var wtf_params = {
+    	config_path: "../trac_config.xml"
+    }
+</script>
+<!-- /WTF INCLUDE -->
+
+
+
+</head>
+<body>
+
+<table id="topbar" width="100%" cellpadding="0" cellspacing="0">
+  <tbody><tr>
+    <td width="176" bgcolor="#000000" height="37"><a href="http://www.symfony-project.com/" style="border-bottom: medium none;"><img src="symfony_logo.gif" width="176" border="0" height="37"></a></td>
+    <td id="navig" valign="middle" width="100%" align="right" height="37">
+        <ul>
+          <li><a href="http://www.symfony-project.org/about">About</a></li>
+          <li><a href="http://www.symfony-project.org/installation">Installation</a></li>
+          <li><a href="http://www.symfony-project.org/doc">Documentation</a></li>
+          <li><a href="http://www.symfony-project.org/plugins/">Plugins</a></li>
+          <li><a href="http://www.symfony-project.org/community">Community</a></li>
+          <li><a href="http://www.symfony-project.org/blog">Blog</a></li>
+          <li class="last"><a href="http://trac.symfony-project.com/timeline">Development</a></li>
+        </ul>
+    </td>
+  </tr>
+  <tr><td id="topseparator" colspan="2"></td></tr>
+  <tr>
+    <td colspan="2">
+      <h1>Development</h1>
+      
+        <h2>#2304: sfDomPDFPlugin.diff</h2>
+      
+    </td>
+  </tr>
+
+  <tr>
+    <td colspan="2" style="background: rgb(253, 242, 171) none repeat scroll 0% 0%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
+      <center><p><strong>
+You must first <a href="http://www.symfony-project.com/user/new">sign up</a> to be able to contribute.
+</strong></p></center>
+    </td>
+  </tr>
+
+</tbody></table>
+
+
+
+<div id="banner">
+
+<form id="search" action="http://trac.symfony-project.org/search" method="get">
+ <div>
+  <label for="proj-search">Search:</label>
+  <input id="proj-search" name="q" size="10" accesskey="f" value="" type="text">
+  <input value="Search" type="submit">
+  <input name="wiki" value="on" type="hidden">
+  <input name="changeset" value="on" type="hidden">
+  <input name="ticket" value="on" type="hidden">
+ </div>
+</form>
+
+
+
+<div id="metanav" class="nav"><ul><li class="first"><a href="http://trac.symfony-project.org/login">Login</a></li><li><a href="http://trac.symfony-project.org/settings">Settings</a></li><li><a accesskey="6" href="http://trac.symfony-project.org/wiki/TracGuide">Help/Guide</a></li><li class="last"><a href="http://trac.symfony-project.org/about">About Trac</a></li></ul></div>
+</div>
+
+<div id="mainnav" class="nav"><ul><li class="first"><a accesskey="1" href="http://trac.symfony-project.org/wiki">Wiki</a></li><li><a accesskey="2" href="http://trac.symfony-project.org/timeline">Timeline</a></li><li><a accesskey="3" href="http://trac.symfony-project.org/roadmap">Roadmap</a></li><li><a href="http://trac.symfony-project.org/browser">Browse Source</a></li><li><a href="http://trac.symfony-project.org/report">View Tickets</a></li><li class="last"><a accesskey="4" href="http://trac.symfony-project.org/search">Search</a></li></ul></div>
+<div id="main">
+
+
+
+
+<div id="ctxtnav" class="nav"></div>
+
+<div id="content" class="attachment">
+
+
+ <h1><a href="http://trac.symfony-project.org/ticket/2304">Ticket #2304</a>: sfDomPDFPlugin.diff</h1>
+ <table id="info" summary="Description"><tbody><tr>
+   <th scope="col">
+    File sfDomPDFPlugin.diff, 8.0 kB 
+    (added by temsse79,  1 year ago)
+   </th></tr><tr>
+   <td class="message"></td>
+  </tr>
+ </tbody></table>
+ <div id="preview">
+   
+
+
+<div class="diff"><ul class="entries"><li class="entry">
+  <h2>lib/sfDomPDFPlugin.class.php</h2>
+  <table class="inline" summary="Differences" cellspacing="0">
+   <colgroup><col class="lineno"><col class="lineno"><col class="content"></colgroup>
+   <thead><tr>
+    <th>old</th>
+    <th>new</th>
+    <th>&nbsp;</th>
+   </tr></thead><tbody><tr><th>11</th><th>11</th><td class="l"><span>&nbsp; &nbsp;*</span>&nbsp;</td></tr><tr><th>12</th><th>12</th><td class="l"><span>&nbsp; &nbsp;* @var string</span>&nbsp;</td></tr><tr><th>13</th><th>13</th><td class="l"><span>&nbsp; &nbsp;*/</span>&nbsp;</td></tr></tbody><tbody class="mod"><tr class="first"><th>14</th><th>&nbsp;</th><td class="l">&nbsp; private $config_file = '<del>lib/</del>dompdf/dompdf_config.inc.php';&nbsp;</td></tr><tr><th>15</th><th>&nbsp;</th><td class="l">&nbsp; &nbsp;</td></tr><tr><th>&nbsp;</th><th>14</th><td class="r">&nbsp; private $config_file = '<ins></ins>dompdf/dompdf_config.inc.php';&nbsp;</td></tr><tr class="last"><th>&nbsp;</th><th>15</th><td class="r">&nbsp;</td></tr></tbody><tbody><tr><th>16</th><th>16</th><td class="l"><span>&nbsp; /**</span>&nbsp;</td></tr><tr><th>17</th><th>17</th><td class="l"><span>&nbsp; &nbsp;* The variable that will hold our dompdf object</span>&nbsp;</td></tr><tr><th>18</th><th>18</th><td class="l"><span>&nbsp; &nbsp;*</span>&nbsp;</td></tr><tr><th>19</th><th>19</th><td class="l"><span>&nbsp; &nbsp;* @var object</span>&nbsp;</td></tr><tr><th>20</th><th>20</th><td class="l"><span>&nbsp; &nbsp;*/</span>&nbsp;</td></tr><tr><th>21</th><th>21</th><td class="l"><span>&nbsp; private $dompdf = null;</span>&nbsp;</td></tr></tbody><tbody class="mod"><tr class="first"><th>22</th><th>&nbsp;</th><td class="l">&nbsp; &nbsp; &nbsp; &nbsp;</td></tr><tr class="last"><th>&nbsp;</th><th>22</th><td class="r">&nbsp;</td></tr></tbody><tbody><tr><th>23</th><th>23</th><td class="l"><span>&nbsp; /**</span>&nbsp;</td></tr></tbody><tbody class="mod"><tr class="first"><th>24</th><th>&nbsp;</th><td class="l">&nbsp; &nbsp;* Instantiates our domPDF class.<del>&nbsp; </del>&nbsp;</td></tr><tr class="last"><th>&nbsp;</th><th>24</th><td class="r">&nbsp; &nbsp;* Instantiates our domPDF class.<ins></ins>&nbsp;</td></tr></tbody><tbody><tr><th>25</th><th>25</th><td class="l"><span>&nbsp; &nbsp;* This constructor will check for the presence of domPDF</span>&nbsp;</td></tr><tr><th>26</th><th>26</th><td class="l"><span>&nbsp; &nbsp;* You can optionally pass your HTML to this constructor</span>&nbsp;</td></tr><tr><th>27</th><th>27</th><td class="l"><span>&nbsp; &nbsp;*</span>&nbsp;</td></tr></tbody>
+     <tbody class="skipped">
+      <tr><th>…</th><th>…</th><td>&nbsp;</td></tr>
+     </tbody><tbody><tr><th>33</th><th>33</th><td class="l"><span>&nbsp; &nbsp; if (!file_exists($this-&gt;getConfigFile()))</span>&nbsp;</td></tr><tr><th>34</th><th>34</th><td class="l"><span>&nbsp; &nbsp; {</span>&nbsp;</td></tr><tr><th>35</th><th>35</th><td class="l"><span>&nbsp; &nbsp; &nbsp; throw new sfException('The domPDF configuration file could not be found in ' . $this-&gt;getConfigFile());</span>&nbsp;</td></tr></tbody><tbody class="mod"><tr class="first"><th>36</th><th>&nbsp;</th><td class="l">&nbsp; &nbsp; }<del>&nbsp; </del>&nbsp;</td></tr><tr><th>37</th><th>&nbsp;</th><td class="l">&nbsp; &nbsp; &nbsp;</td></tr><tr><th>&nbsp;</th><th>36</th><td class="r">&nbsp; &nbsp; }<ins></ins>&nbsp;</td></tr><tr class="last"><th>&nbsp;</th><th>37</th><td class="r">&nbsp;</td></tr></tbody><tbody><tr><th>38</th><th>38</th><td class="l"><span>&nbsp; &nbsp; // Include the configuration file</span>&nbsp;</td></tr><tr><th>39</th><th>39</th><td class="l"><span>&nbsp; &nbsp; require_once ($this-&gt;getConfigFile());</span>&nbsp;</td></tr></tbody><tbody class="mod"><tr class="first"><th>40</th><th>&nbsp;</th><td class="l">&nbsp; &nbsp; &nbsp;</td></tr><tr class="last"><th>&nbsp;</th><th>40</th><td class="r">&nbsp;</td></tr></tbody><tbody><tr><th>41</th><th>41</th><td class="l"><span>&nbsp; &nbsp; // Instantiate the new DOMPDF class</span>&nbsp;</td></tr><tr><th>42</th><th>42</th><td class="l"><span>&nbsp; &nbsp; $this-&gt;setPDF(new DOMPDF());</span>&nbsp;</td></tr></tbody><tbody class="mod"><tr class="first"><th>43</th><th>&nbsp;</th><td class="l">&nbsp; &nbsp; &nbsp;</td></tr><tr class="last"><th>&nbsp;</th><th>43</th><td class="r">&nbsp;</td></tr></tbody><tbody><tr><th>44</th><th>44</th><td class="l"><span>&nbsp; &nbsp; // If input is passed in the constructor, set it here</span>&nbsp;</td></tr><tr><th>45</th><th>45</th><td class="l"><span>&nbsp; &nbsp; if (!empty($input)) $this-&gt;setInput($input);</span>&nbsp;</td></tr></tbody><tbody class="mod"><tr class="first"><th>46</th><th>&nbsp;</th><td class="l">&nbsp; &nbsp; &nbsp;</td></tr><tr class="last"><th>&nbsp;</th><th>46</th><td class="r">&nbsp;</td></tr></tbody><tbody><tr><th>47</th><th>47</th><td class="l"><span>&nbsp; &nbsp; // Set the initial paper settings</span>&nbsp;</td></tr><tr><th>48</th><th>48</th><td class="l"><span>&nbsp; &nbsp; $this-&gt;setPaper();</span>&nbsp;</td></tr><tr><th>49</th><th>49</th><td class="l"><span>&nbsp; }</span>&nbsp;</td></tr></tbody>
+     <tbody class="skipped">
+      <tr><th>…</th><th>…</th><td>&nbsp;</td></tr>
+     </tbody><tbody><tr><th>57</th><th>57</th><td class="l"><span>&nbsp; {</span>&nbsp;</td></tr><tr><th>58</th><th>58</th><td class="l"><span>&nbsp; &nbsp; $this-&gt;config_file = $config_file;</span>&nbsp;</td></tr><tr><th>59</th><th>59</th><td class="l"><span>&nbsp; }</span>&nbsp;</td></tr></tbody><tbody class="mod"><tr class="first"><th>60</th><th>&nbsp;</th><td class="l">&nbsp; &nbsp;</td></tr><tr class="last"><th>&nbsp;</th><th>60</th><td class="r">&nbsp;</td></tr></tbody><tbody><tr><th>61</th><th>61</th><td class="l"><span>&nbsp; /**</span>&nbsp;</td></tr><tr><th>62</th><th>62</th><td class="l"><span>&nbsp; &nbsp;* Check to see if this system is running a Windows platform</span>&nbsp;</td></tr><tr><th>63</th><th>63</th><td class="l"><span>&nbsp; &nbsp;*</span>&nbsp;</td></tr></tbody>
+     <tbody class="skipped">
+      <tr><th>…</th><th>…</th><td>&nbsp;</td></tr>
+     </tbody><tbody><tr><th>65</th><th>65</th><td class="l"><span>&nbsp; &nbsp;*/</span>&nbsp;</td></tr><tr><th>66</th><th>66</th><td class="l"><span>&nbsp; public function isWindows()</span>&nbsp;</td></tr><tr><th>67</th><th>67</th><td class="l"><span>&nbsp; {</span>&nbsp;</td></tr></tbody><tbody class="mod"><tr class="first"><th>68</th><th>&nbsp;</th><td class="l">&nbsp; <del>&nbsp;</del>return (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') ? true : false;&nbsp;</td></tr><tr class="last"><th>&nbsp;</th><th>68</th><td class="r">&nbsp; <ins>&nbsp; </ins>return (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') ? true : false;&nbsp;</td></tr></tbody><tbody><tr><th>69</th><th>69</th><td class="l"><span>&nbsp; }</span>&nbsp;</td></tr></tbody><tbody class="mod"><tr class="first"><th>70</th><th>&nbsp;</th><td class="l">&nbsp; &nbsp;</td></tr><tr class="last"><th>&nbsp;</th><th>70</th><td class="r">&nbsp;</td></tr></tbody><tbody><tr><th>71</th><th>71</th><td class="l"><span>&nbsp; /**</span>&nbsp;</td></tr><tr><th>72</th><th>72</th><td class="l"><span>&nbsp; &nbsp;* Gets the absolute path to the configuration file</span>&nbsp;</td></tr><tr><th>73</th><th>73</th><td class="l"><span>&nbsp; &nbsp;*</span>&nbsp;</td></tr><tr><th>74</th><th>74</th><td class="l"><span>&nbsp; &nbsp;* @return string</span>&nbsp;</td></tr></tbody><tbody class="mod"><tr class="first"><th>75</th><th>&nbsp;</th><td class="l">&nbsp; &nbsp;*/<del>&nbsp; </del>&nbsp;</td></tr><tr class="last"><th>&nbsp;</th><th>75</th><td class="r">&nbsp; &nbsp;*/<ins></ins>&nbsp;</td></tr></tbody><tbody><tr><th>76</th><th>76</th><td class="l"><span>&nbsp; public function getConfigFile()</span>&nbsp;</td></tr><tr><th>77</th><th>77</th><td class="l"><span>&nbsp; {</span>&nbsp;</td></tr></tbody><tbody class="mod"><tr class="first"><th>78</th><th>&nbsp;</th><td class="l">&nbsp; <del>&nbsp;</del>$isWin = $this-&gt;isWindows();&nbsp;</td></tr><tr><th>79</th><th>&nbsp;</th><td class="l">&nbsp; &nbsp; &nbsp;</td></tr><tr><th>&nbsp;</th><th>78</th><td class="r">&nbsp; <ins>&nbsp; </ins>$isWin = $this-&gt;isWindows();&nbsp;</td></tr><tr class="last"><th>&nbsp;</th><th>79</th><td class="r">&nbsp;</td></tr></tbody><tbody><tr><th>80</th><th>80</th><td class="l"><span>&nbsp; &nbsp; if ((!$isWin &amp;&amp; substr($this-&gt;config_file, 0, 1) !== '/') || ($isWin &amp;&amp; substr($this-&gt;config_file, 1, 1) !== ':'))</span>&nbsp;</td></tr><tr><th>81</th><th>81</th><td class="l"><span>&nbsp; &nbsp; {</span>&nbsp;</td></tr><tr><th>82</th><th>82</th><td class="l"><span>&nbsp; &nbsp; &nbsp; $this-&gt;setConfigFile(realpath(dirname(__FILE__)) . '/' . $this-&gt;config_file);</span>&nbsp;</td></tr><tr><th>83</th><th>83</th><td class="l"><span>&nbsp; &nbsp; }</span>&nbsp;</td></tr></tbody><tbody class="mod"><tr class="first"><th>84</th><th>&nbsp;</th><td class="l">&nbsp; &nbsp; &nbsp;</td></tr><tr class="last"><th>&nbsp;</th><th>84</th><td class="r">&nbsp;</td></tr></tbody><tbody><tr><th>85</th><th>85</th><td class="l"><span>&nbsp; &nbsp; return $this-&gt;config_file;</span>&nbsp;</td></tr></tbody><tbody class="mod"><tr class="first"><th>86</th><th>&nbsp;</th><td class="l">&nbsp; }<del>&nbsp; &nbsp; </del>&nbsp;</td></tr><tr><th>87</th><th>&nbsp;</th><td class="l">&nbsp; &nbsp; &nbsp;</td></tr><tr><th>&nbsp;</th><th>86</th><td class="r">&nbsp; }<ins></ins>&nbsp;</td></tr><tr class="last"><th>&nbsp;</th><th>87</th><td class="r">&nbsp;</td></tr></tbody><tbody><tr><th>88</th><th>88</th><td class="l"><span>&nbsp; /**</span>&nbsp;</td></tr><tr><th>89</th><th>89</th><td class="l"><span>&nbsp; &nbsp;* Sets the dompdf object</span>&nbsp;</td></tr><tr><th>90</th><th>90</th><td class="l"><span>&nbsp; &nbsp;*</span>&nbsp;</td></tr></tbody>
+     <tbody class="skipped">
+      <tr><th>…</th><th>…</th><td>&nbsp;</td></tr>
+     </tbody><tbody><tr><th>94</th><th>94</th><td class="l"><span>&nbsp; {</span>&nbsp;</td></tr><tr><th>95</th><th>95</th><td class="l"><span>&nbsp; &nbsp; $this-&gt;dompdf = $object;</span>&nbsp;</td></tr><tr><th>96</th><th>96</th><td class="l"><span>&nbsp; }</span>&nbsp;</td></tr></tbody><tbody class="mod"><tr class="first"><th>97</th><th>&nbsp;</th><td class="l">&nbsp; &nbsp;</td></tr><tr class="last"><th>&nbsp;</th><th>97</th><td class="r">&nbsp;</td></tr></tbody><tbody><tr><th>98</th><th>98</th><td class="l"><span>&nbsp; /**</span>&nbsp;</td></tr><tr><th>99</th><th>99</th><td class="l"><span>&nbsp; &nbsp;* Returns the domPDF object</span>&nbsp;</td></tr><tr><th>100</th><th>100</th><td class="l"><span>&nbsp; &nbsp;*</span>&nbsp;</td></tr></tbody>
+     <tbody class="skipped">
+       </table>
+ </li>
+</ul></div>
+
+ </div>
+ 
+
+
+</div>
+
+<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="http://trac.symfony-project.org/attachment/ticket/2304/sfDomPDFPlugin.diff?format=raw">Original Format</a></li></ul></div>
+
+</div>
+
+<div id="footer">
+ <hr>
+ <a id="tracpowered" href="http://trac.edgewall.com/"><img src="trac_logo_mini.png" alt="Trac Powered" width="107" height="30"></a>
+ <p class="left">
+  Powered by <a href="http://trac.symfony-project.org/about"><strong>Trac
+</strong></a><br>
+  By <a href="http://www.edgewall.com/">Edgewall Software</a>.
+ </p>
+ <p class="right">
+  
+ </p>
+</div>
+
+<div style="padding-bottom: 30px;"></div>
+
+
+<div class="sensiolabs">
+  <div class="id_content">
+    <div class="clearfix">
+      <div class="column column_01">
+        <h2><img src="network.gif" alt="The Sensio Labs Network"></h2>
+        <div class="introduction">
+
+          Since 1998, Sensio Labs promotes the Open-Source software movement
+          by providing quality web application development, training,
+          consulting, and supporting several large Open-Source projects.
+
+        </div>
+      </div>
+      <div class="column column_02">
+        <div class="box">
+          <h3>Open-Source Software</h3>
+          <ul>
+            <li><a href="http://www.symfony-project.org/">The Symfony MVC framework</a></li>
+            <li><a href="http://components.symfony-project.org/">The Symfony Components</a></li>
+            <li><a href="http://www.doctrine-project.org/">The Doctrine ORM</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="column column_03">
+        <div class="box">
+        <h3>Services</h3>
+          <ul>
+            <li><a href="http://www.sensiolabs.com/en/training">Be Trained by OSS experts</a></li>
+            <li><a href="http://www.sensiolabs.com/books">Books on OSS</a></li>
+            <li><a href="http://www.symfony-live.com/">The Symfony Live Conference</a></li>
+          </ul>
+          <p class="more"><a href="http://www.sensiolabs.com/">&gt; More</a></p>
+        </div>
+      </div>
+    </div>
+    <div class="logo"><a href="http://www.sensiolabs.com/"><img src="sensiolabs.gif" alt="Sensio Labs"></a></div>
+  </div>
+</div>
+
+
+
+
+
+
+ </body>
+</html>

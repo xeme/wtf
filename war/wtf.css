@@ -62,6 +62,7 @@
 .wtf_discussion_post_even , .wtf_discussion_post_odd {
 	font-size: 12px;
 	padding: 5px;
+	font-family: none;
 }
 .wtf_discussion_post_even {
 	background-color: #dde;
@@ -71,21 +72,25 @@
 }
 .wtf_discussion_author {
 	font-weight: bold;
+	font-family: Arial, Verdana,Sans-Serif;
 }
 .wtf_discussion_date {
 	font-size: 10px;
 	color: #555;
 	font-weight: normal;
+	font-family: none;
 }
 .wtf_discussion_form, .wtf_discussion_form input {
 	font-size: 12px;
 	color: #000;
+	font-family: none;
 }
 .wtf_discussion_close {
 	font-size: 12px;
 	color: #000;
 	margin-left: 15px;
 	font-weight: bold;
+	font-family: none;
 }
 
 .wtf_poll_green { color: #080; }
@@ -110,13 +115,14 @@
 	width: 32px;
 	height: 21px;
 	z-index: 102;
+	font-family: none;
 }
 
 /* status bar */
 #wtf_status_bar
 {
 	position: fixed;
-	bottom: 0px;				/* vertival position [horizontal position (left/right) can be set in wtf_config.xml] */
+	bottom: 0px;				/* vertival position [horizontal position (left/right) can be set in config.xml] */
 	/*width: 150px; */
 	font-size: 11px;
 	background-color: #ede9e3;
@@ -173,6 +179,12 @@ documentElement.scrollTop
 	margin: 0px;
 	text-align: left;
 	font-size: 11px;
+}
+
+#wtf_status_panel div
+{
+	font-size: 11px;
+	font-family: none;
 }
 
 /* buttons */

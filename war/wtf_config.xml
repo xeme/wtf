@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wtf>
+	<!--
+		add <add_root>SELECTOR</add_root> for every selection root.
+		check http://www.w3.org/TR/css3-selectors/ to learn how to write selectors
+		
+		example:
+			<selectors>
+				<add_root>div#content *</add_root>
+				<exclude_root>a</exclude_root>
+			</selectors>	
+		(will make all but <a> children of <div id="content"> selectable)
+	 -->
+	<selectors>
+		<!-- WTF tests -->
+		<add_root>div#wtf_test</add_root>
+		<exclude_root>a</exclude_root>
+	</selectors>
+	
+	<!-- selection border thickness (px) -->
+	<option name="border_thickness" value="2"/>
+	<!-- minimum number of words to start next-level selection -->
+	<option name="min_words" value="10"/>
+	<!-- statusbar horizontal orientation (left/right) -->
+	<option name="orientation" value="left"/>
+	<!-- flash selection support -->
+	<option name="flash" value="false"/>
+</wtf>

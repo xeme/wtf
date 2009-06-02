@@ -8,22 +8,45 @@ import com.google.gwt.http.client.Request;
 import com.google.gwt.http.client.RequestBuilder;
 import com.google.gwt.http.client.RequestCallback;
 import com.google.gwt.http.client.Response;
+import com.google.gwt.i18n.client.Dictionary;
 import com.google.gwt.user.client.Command;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.xml.client.Element;
 import com.google.gwt.xml.client.NamedNodeMap;
 import com.google.gwt.xml.client.Node;
 import com.google.gwt.xml.client.NodeList;
 import com.google.gwt.xml.client.XMLParser;
+import com.google.gwt.xml.client.impl.DOMParseException;
 
 public class Config {
 	private static Element _config = null;
 	private static String _file_name;
 	private static Command _after_config_load;
 
-	public static void init(String file_name, Command after_config_load) {
-		_file_name = file_name;
+	private static boolean readParams() {
+		Dictionary params = null;
+		try {
+			params = Dictionary.getDictionary("wtf_params");
+		}catch(java.util.MissingResourceException e) {
+			StatusBar.setError("wtf_params not defined");
+			return false;
+		}
+
+		try {
+			_file_name = params.get("config_path");
+			return true;
+		}catch(java.util.MissingResourceException e) {
+			StatusBar.setError("config_path not defined");
+			return false;
+		}
+	}
+
+	public static void init(Command after_config_load) {
+		if(!readParams())
+			return;
 		_after_config_load = after_config_load;
-		RequestBuilder requestBuilder = new RequestBuilder(RequestBuilder.GET, file_name);
+		RequestBuilder requestBuilder = new RequestBuilder(RequestBuilder.GET, _file_name);
 		try {
 			requestBuilder.sendRequest(null, new RequestCallback() {
 				public void onError(Request request, Throwable e) {
@@ -35,7 +58,7 @@ public class Config {
 						try {
 							_config = XMLParser.parse(response.getText()).getDocumentElement();
 							_after_config_load.execute();
-						} catch(Throwable e) {
+						} catch(DOMParseException e) {
 							Debug.log("XML syntax error");
 							StatusBar.setError("XML syntax error");
 						}
@@ -71,7 +94,7 @@ public class Config {
 		}
 		return ret;
 	}
-	
+
 	public static List<String> getExcludeSelectors() {
 		List<String> ret = new  LinkedList<String>();
 		if(_config == null)
@@ -87,21 +110,21 @@ public class Config {
 		}
 		return ret;
 	}
-	
+
 	public static String getOptionString(String name, String def) {
 		String val = getOption(name);
 		if(val == "")
 			return "";
 		return val;
 	}
-	
+
 	public static String getOptionString(String name, HashSet<String> possible, String def) {
 		String val = getOptionString(name, def);
 		if(possible.contains(val))
 			return val;
 		return def;
 	}
-	
+
 	public static int getOptionInt(String name, int def) {
 		String v = getOption(name);
 		if(v == "")
@@ -113,7 +136,7 @@ public class Config {
 			return def;
 		}
 	}
-	
+
 	private static String getOption(String name) {
 		if(_config == null)
 			return "";
@@ -121,7 +144,7 @@ public class Config {
 		for(int i = options.getLength() - 1; i >= 0; i--) {
 			NamedNodeMap attrs = options.item(i).getAttributes();
 			Node an = attrs.getNamedItem("name");
-			
+
 			if(an == null || !an.toString().equals(name))
 				continue;
 			Node av = attrs.getNamedItem("value");

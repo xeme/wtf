@@ -78,8 +78,10 @@ public class DOMMagic {
 		StatusBar.setStatus("DOMMagic...");
 		DeferredCommand.addCommand(new Command() {
 			public void execute() {
-				DOMMagic.computeRowFormat();
-				StatusBar.setStatus("DOMMagic done");
+				if(!isComputed()) {
+					DOMMagic.computeRowFormat();
+					StatusBar.setStatus("DOMMagic done");
+				}
 			}
 		});
 	}

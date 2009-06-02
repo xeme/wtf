@@ -54,13 +54,13 @@ public class DiscussionManager {
 		LineNumbers lines1 = new LineNumbers();
 		LineNumbers lines2 = new LineNumbers();
 		//This line numbers match elements from wtf.html
-		lines1.addElement(new Pair<Integer, Integer>(77, 78));
+		/*lines1.addElement(new Pair<Integer, Integer>(77, 78));
 
 		lines2.addElement(new Pair<Integer, Integer>(98, 148));
 		lines2.addElement(new Pair<Integer, Integer>(149, 150));
 
 		discussions.add(new Pair<LineNumbers, Integer>(lines1, 22));
-		discussions.add(new Pair<LineNumbers, Integer>(lines2, 45));
+		discussions.add(new Pair<LineNumbers, Integer>(lines2, 45));*/
 
 
 		//after fetching do this:
