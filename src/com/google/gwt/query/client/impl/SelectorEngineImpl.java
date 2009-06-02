@@ -25,7 +25,7 @@ import com.google.gwt.query.client.SelectorEngine;
 /**
  * Base/Utility class for runtime selector engine implementations.
  */
-public abstract class SelectorEngineImpl {
+public class SelectorEngineImpl {
 
   /**
    * Internal class.
@@ -129,5 +129,7 @@ public abstract class SelectorEngineImpl {
    * @param ctx the DOM node to use as a context
    * @return a list of matched nodes
    */
-  public abstract NodeList<Element> select(String selector, Node ctx);
+  public NodeList<Element> select(String selector, Node ctx) {
+    return null;
+  }
 }
