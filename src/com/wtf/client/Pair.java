@@ -1,9 +1,10 @@
 package com.wtf.client;
 
-public class Pair <T, U>
-{
-	private final T first;
-	private final U second;
+import com.google.gwt.user.client.rpc.IsSerializable;
+
+public class Pair <T, U> implements IsSerializable {
+	private T first;
+	private U second;
 
 	public Pair(T f, U s)	{
 		this.first = f;
@@ -15,5 +16,12 @@ public class Pair <T, U>
 	}
 	public U second() {
 		return second;
+	}
+	
+	public void setFirst(T f)	{
+		first = f;
+	}
+	public void setSecond(U s) {
+		second = s;
 	}
 } 

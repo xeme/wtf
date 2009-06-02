@@ -20,7 +20,6 @@ public class SelectedElement {
 
 	//next-level selection attributes
 	private List<Pair<Node, List<Node> > > _origin = new LinkedList<Pair<Node, List<Node> > >();
-
 	private HashSet<Node> _selected = new HashSet<Node>();
 	private HashSet<Node> _tmp_selected = new HashSet<Node>();
 	private int _start_selection = -1;
