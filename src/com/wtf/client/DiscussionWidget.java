@@ -165,9 +165,11 @@ public class DiscussionWidget extends Composite{
 		if(numRows % 2 == 0) {
 			cl.getElement().getParentElement().setClassName("wtf_discussion_post_even");
 			al.getElement().getParentElement().setClassName("wtf_discussion_post_even");
+			al.getElement().getParentElement().setAttribute("width", "90px");
 		} else {
 			cl.getElement().getParentElement().setClassName("wtf_discussion_post_odd");
 			al.getElement().getParentElement().setClassName("wtf_discussion_post_odd");
+			al.getElement().getParentElement().setAttribute("width", "90px");
 		}
 		cl.getElement().getParentElement().scrollIntoView();
 	}
