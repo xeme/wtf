@@ -1,8 +1,8 @@
 package com.wtf.client;
 
-import com.google.gwt.user.client.rpc.IsSerializable;
+import java.io.Serializable;
 
-public class Pair <T, U> implements IsSerializable {
+public class Pair<T, U> implements Serializable {
 	private T first;
 	private U second;
 	

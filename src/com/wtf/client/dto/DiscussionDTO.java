@@ -1,10 +1,11 @@
 package com.wtf.client.dto;
 
-import com.google.gwt.user.client.rpc.IsSerializable;
 
 import com.wtf.client.LineNumbers;
 
-public class DiscussionDTO implements IsSerializable {
+import java.io.Serializable;
+
+public class DiscussionDTO implements Serializable {
   private String key;
   private LineNumbers lines;
   private int postsCount;

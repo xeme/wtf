@@ -63,41 +63,6 @@ public class DiscussionManager {
 		StatusBar.setStatus("Fetching discussions...");	
 		Debug.log("Fetching discussions...");
 
-		//TODO (peper): to z RPC: zbior par (obiekt LineNumbers, liczba postow w watku)
-		final HashSet<Pair<String, Pair<LineNumbers, Integer> > > discussions =
-		  new HashSet<Pair<String, Pair<LineNumbers, Integer> > >();
-
-		//simulator
-		//LineNumbers lines1 = new LineNumbers();
-		//LineNumbers lines2 = new LineNumbers();
-		//This line numbers match elements from wtf.html
-		/*lines1.addElement(new Pair<Integer, Integer>(77, 78));
-
-		lines2.addElement(new Pair<Integer, Integer>(98, 148));
-		lines2.addElement(new Pair<Integer, Integer>(149, 150));
-
-		discussions.add(new Pair<LineNumbers, Integer>(lines1, 22));
-		discussions.add(new Pair<LineNumbers, Integer>(lines2, 45));*/
-
-		//after fetching do this:
-		final Command after_fetching = new Command() {
-			public void execute() {
-				for(Pair<String, Pair<LineNumbers, Integer> > d : discussions) {
-					Selection sel = DOMMagic.getSelectionFromLineNumbers(d.second().first());
-					if(sel != null) {
-						 Discussion ds = new Discussion(sel, d.second().second(), null);
-						 ds.setKey(d.first());
-						_discussions.add(ds);
-					}
-				}
-
-				StatusBar.setStatus("Discussions fetched");
-				_fetching = false;
-				_fetched = true;
-				callback.execute();
-			}
-		};
-		
 		wtfService.getDiscussions(pageUrl, new AsyncCallback<List<DiscussionDTO>>() {
       @Override
       public void onFailure(Throwable caught) {
@@ -105,20 +70,33 @@ public class DiscussionManager {
       }
 
       @Override
-      public void onSuccess(List<DiscussionDTO> ds) {
+      public void onSuccess(final List<DiscussionDTO> ds) {
         StatusBar.setStatus("Fetching " + ds.size() + " discussions win");
-        for (DiscussionDTO d : ds) {
-          discussions.add(new Pair<String, Pair<LineNumbers, Integer>>(
-                  d.getKey(),
-                  new Pair<LineNumbers, Integer>(d.getLines(), d.getPostsCount())));
-        }
+        
+        Command add_discussions = new Command() {
+          @Override
+          public void execute() {
+            for (DiscussionDTO d : ds) {
+              Selection sel = DOMMagic.getSelectionFromLineNumbers(d.getLines());
+              if(sel != null) {
+                Discussion dis = new Discussion(sel, d.getPostsCount(), null);
+                dis.setKey(d.getKey());
+                _discussions.add(dis);
+              }
+              StatusBar.setStatus("Discussions fetched");
+              _fetching = false;
+              _fetched = true;
+              callback.execute();
+            }
+          }
+        };
         
         //DOMMagic must be computed before applying fetched discussions
         if (DOMMagic.isComputed()) {
-          after_fetching.execute();
+          add_discussions.execute();
         } else {
           DOMMagic.requestComputingRowFormat();
-          DeferredCommand.addCommand(after_fetching);
+          DeferredCommand.addCommand(add_discussions);
         }
       }
 		});
@@ -189,23 +167,6 @@ public class DiscussionManager {
 		answers.add(new Answer("NIEJASNE", "a2", "wtf_poll_gray"));
 		answers.add(new Answer("BLAD", "a3", "wtf_poll_red"));
 		
-		SPair<Integer, Integer> a = new SPair<Integer, Integer>(1, 2);
-		HashSet<Integer> s = new HashSet<Integer>();
-		s.add(1);
-		/*
-		wtfService.createStuff(a, new AsyncCallback<Boolean>() {
-      @Override
-      public void onFailure(Throwable caught) {
-        Debug.log("createStuff fail:" + caught.getMessage());
-      }
-
-      @Override
-      public void onSuccess(Boolean result) {
-        Debug.log("createStuff success!");
-      }
-		});
-		*/
-
 		_poll = new Poll(answers);
 		//after creating do this:
 		StatusBar.setStatus("Poll fetched");
@@ -217,7 +178,7 @@ public class DiscussionManager {
 	        final Command callback) {
 		StatusBar.setStatus("Creating discussion...");
 		Debug.log("Creating discussion...");
-			//create LineNumbres object
+		//create LineNumbres object
 		LineNumbers line_numbers = DOMMagic.getLineNumbersFromSelection(discussion.getSelection());
 
 		//debug

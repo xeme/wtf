@@ -5,7 +5,6 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import org.datanucleus.exceptions.NucleusObjectNotFoundException;
 
 import com.wtf.client.LineNumbers;
-import com.wtf.client.SPair;
 import com.wtf.client.dto.DiscussionDTO;
 import com.wtf.client.dto.PostDTO;
 import com.wtf.client.rpc.WTFService;
@@ -23,20 +22,6 @@ import javax.jdo.Transaction;
 public class WTFServiceImpl extends RemoteServiceServlet implements
         WTFService {
   
-  @Override
-  public Boolean createStuff(SPair<Integer, Integer> p) {
-    PersistenceManager pm = PMF.get().getPersistenceManager();
-    
-    try {
-      //pm.makePersistent(new PostJDO("john", "bla bla", new Date()));
-      //pm.makePersistent(new PostJDO("fail", "bla bla bla", new Date()));
-    } finally {
-      pm.close();
-    }
-    
-    return true;
-  }
-
   @Override
   public String createDiscussion(String url, LineNumbers lines) {
     PersistenceManager pm = PMF.get().getPersistenceManager();

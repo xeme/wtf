@@ -1,10 +1,9 @@
 package com.wtf.client.dto;
 
-import com.google.gwt.user.client.rpc.IsSerializable;
-
+import java.io.Serializable;
 import java.util.Date;
 
-public class PostDTO implements IsSerializable {
+public class PostDTO implements Serializable {
   private String author;
 	private String content;
 	private Date date;
