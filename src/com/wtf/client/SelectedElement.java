@@ -70,16 +70,18 @@ public class SelectedElement {
 		Node node = _element;
 		NodeList<Node> children = node.getChildNodes();
 		//check if its enough text to add spans
+		int min_words = Config.getOptionInt("min_words", 10);
+		min_words = Math.max(2, min_words);
 		int length = 0;
 		for(int i = 0; i < children.getLength(); i++) {
 			if(children.getItem(i).getNodeType() == Node.TEXT_NODE) {
 				Text text_node =  children.getItem(i).cast();
 				length += text_node.getData().split(" ").length;
-				if(length >= 10)
+				if(length >= min_words)
 					break;
 			}
 		}
-		if(length < 10)
+		if(length < min_words)
 			return;
 
 		int counter = 0;
