@@ -24,6 +24,8 @@ import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.ToggleButton;
 
+import com.wtf.client.dto.PostDTO;
+
 public class DiscussionWidget extends Composite{
 
 	private Discussion _discussion;
@@ -140,13 +142,13 @@ public class DiscussionWidget extends Composite{
 	}
 
 	private void fillThread() {
-		List<Post> thread = _discussion.getThread();
-		for(Post p : thread) {
+		List<PostDTO> thread = _discussion.getThread();
+		for(PostDTO p : thread) {
 			addPost(p);
 		}
 	}
 
-	private void addPost(Post p) {
+	private void addPost(PostDTO p) {
 		int numRows = _thread.getRowCount();
 		Label cl = new Label(p.getContent());
 
@@ -197,7 +199,7 @@ public class DiscussionWidget extends Composite{
 				if(submit.isDown()) {
 					DeferredCommand.addCommand(new Command() {	//simulate server request
 						public void execute() {
-							Post p = new Post(author.getText(), content.getText(), new Date());
+							PostDTO p = new PostDTO(author.getText(), content.getText(), new Date());
 							_discussion.addPost(p);
 							addPost(p);
 							submit.setDown(false);

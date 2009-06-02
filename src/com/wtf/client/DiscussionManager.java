@@ -6,13 +6,21 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
+import com.google.gwt.http.client.Request;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DeferredCommand;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.rpc.ServiceDefTarget;
 import com.wtf.client.Poll.Answer;
+import com.wtf.client.dto.DiscussionDTO;
+import com.wtf.client.dto.PostDTO;
+import com.wtf.client.rpc.WTFService;
+import com.wtf.client.rpc.WTFServiceAsync;
 
 public class DiscussionManager {
 	private static boolean _fetched = false;
@@ -24,7 +32,15 @@ public class DiscussionManager {
 
 	//number of clouds attached to element
 	private static HashMap<Element, Integer> _clouds_attached = new HashMap<Element, Integer>();
-
+	
+	private static WTFServiceAsync wtfService = GWT.create(WTFService.class);
+	static {
+	  //ServiceDefTarget sdt = (ServiceDefTarget) wtfService;
+	  //sdt.setServiceEntryPoint("http://wtf-review.appspot.com/wtf/magic");
+    //sdt.setRpcRequestBuilder(new RpcRequestBuilderWN());
+	}
+	private static String pageUrl = GWT.getHostPageBaseURL();
+	
 	public static void init() {
 		Window.addResizeHandler(new ResizeHandler() {
 			public void onResize(ResizeEvent event) {				
@@ -48,11 +64,12 @@ public class DiscussionManager {
 		Debug.log("Fetching discussions...");
 
 		//TODO (peper): to z RPC: zbior par (obiekt LineNumbers, liczba postow w watku)
-		final HashSet<Pair<LineNumbers, Integer> > discussions = new HashSet<Pair<LineNumbers, Integer> >();
+		final HashSet<Pair<String, Pair<LineNumbers, Integer> > > discussions =
+		  new HashSet<Pair<String, Pair<LineNumbers, Integer> > >();
 
 		//simulator
-		LineNumbers lines1 = new LineNumbers();
-		LineNumbers lines2 = new LineNumbers();
+		//LineNumbers lines1 = new LineNumbers();
+		//LineNumbers lines2 = new LineNumbers();
 		//This line numbers match elements from wtf.html
 		/*lines1.addElement(new Pair<Integer, Integer>(77, 78));
 
@@ -62,14 +79,16 @@ public class DiscussionManager {
 		discussions.add(new Pair<LineNumbers, Integer>(lines1, 22));
 		discussions.add(new Pair<LineNumbers, Integer>(lines2, 45));*/
 
-
 		//after fetching do this:
-		Command after_fetching = new Command() {
+		final Command after_fetching = new Command() {
 			public void execute() {
-				for(Pair<LineNumbers, Integer> d : discussions) {
-					Selection sel = DOMMagic.getSelectionFromLineNumbers(d.first());
-					if(sel != null)
-						_discussions.add(new Discussion(sel, d.second(), null));
+				for(Pair<String, Pair<LineNumbers, Integer> > d : discussions) {
+					Selection sel = DOMMagic.getSelectionFromLineNumbers(d.second().first());
+					if(sel != null) {
+						 Discussion ds = new Discussion(sel, d.second().second(), null);
+						 ds.setKey(d.first());
+						_discussions.add(ds);
+					}
 				}
 
 				StatusBar.setStatus("Discussions fetched");
@@ -78,23 +97,42 @@ public class DiscussionManager {
 				callback.execute();
 			}
 		};
-		//DOMMagic must be computed before applying fetched discussions
-		if(DOMMagic.isComputed()) {
-			after_fetching.execute();
-		} else {
-			DOMMagic.requestComputingRowFormat();
-			DeferredCommand.addCommand(after_fetching);
-		}		
+		
+		wtfService.getDiscussions(pageUrl, new AsyncCallback<List<DiscussionDTO>>() {
+      @Override
+      public void onFailure(Throwable caught) {
+        StatusBar.setStatus("Fetching discussions fail:" + caught.getMessage());
+      }
+
+      @Override
+      public void onSuccess(List<DiscussionDTO> ds) {
+        StatusBar.setStatus("Fetching " + ds.size() + " discussions win");
+        for (DiscussionDTO d : ds) {
+          discussions.add(new Pair<String, Pair<LineNumbers, Integer>>(
+                  d.getKey(),
+                  new Pair<LineNumbers, Integer>(d.getLines(), d.getPostsCount())));
+        }
+        
+        //DOMMagic must be computed before applying fetched discussions
+        if (DOMMagic.isComputed()) {
+          after_fetching.execute();
+        } else {
+          DOMMagic.requestComputingRowFormat();
+          DeferredCommand.addCommand(after_fetching);
+        }
+      }
+		});
 	}
 
-	public static void fetchDiscussionDetails(Discussion discussion, Command callback) {
+	public static void fetchDiscussionDetails(final Discussion discussion,
+	        final Command callback) {
 		//do we want to fetch every time discussion is viewed??
 		if(discussion.isFetched()) {
 			callback.execute();
 			return;
 		}
 
-		if(discussion.isFetching())
+		if (discussion.isFetching())
 			return;
 		discussion.setFetching(true);		
 
@@ -103,33 +141,35 @@ public class DiscussionManager {
 
 		//TODO (peper): to z RPC: ankieta z wynikami i tresc dyskusji
 		List<Answer> answers = new LinkedList<Answer>();
-		List<Post> thread = new LinkedList<Post>();
 
 		//simulator	
 		answers.add(new Answer("OK", "a1", "wtf_poll_green", 23));
 		answers.add(new Answer("NIEJASNE", "a2", "wtf_poll_gray", 3));
 		answers.add(new Answer("BLAD", "a3", "wtf_poll_red", 56));
-		Poll poll = new Poll(answers);		
+		final Poll poll = new Poll(answers);		
 
-		thread.add(new Post("janek", "no to jest bez sensu", new Date()));
-		thread.add(new Post("zenon", "jakto bez sensu? przeciez wszystko jest OK.", new Date()));
-		thread.add(new Post("janek", "jest calkowicie bez sensu dlatego ze jest bez sensu - bez skladu, ladu i porzadku, dluzszy post bez sensu", new Date()));
-		thread.add(new Post("iwonka", "WPISUJCIE MIASTA!!", new Date()));
-		thread.add(new Post("kononowicz", "Białystok", new Date()));
-		thread.add(new Post("cygan", "Toruń", new Date()));
-		thread.add(new Post("Isabell", "Brwinów", new Date()));
-		thread.add(new Post("admin", "Wy wszyscy jesteście zbanowani!!", new Date()));
-		thread.add(new Post("iwonka", "Twoja stara jest zbanowana...", new Date()));
-		thread.add(new Post("dlugi_nick_ktory_jest_dlugi", "ale nie mam co powiedziec", new Date()));
+		final List<PostDTO> thread = new LinkedList<PostDTO>();
 
-		//after fetching do this:
-		discussion.setPoll(poll);
-		discussion.setThread(thread);
+		wtfService.getPosts(discussion.getKey(), new AsyncCallback<List<PostDTO>>() {
+      @Override
+      public void onFailure(Throwable caught) {
+        StatusBar.setStatus("Fetching details failed: " + caught.getMessage());
+      }
 
-		StatusBar.setStatus("Details fetched");
-		discussion.setFetching(false);
-		discussion.setFetched(true);		
-		callback.execute();
+      @Override
+      public void onSuccess(List<PostDTO> posts) {
+        thread.addAll(posts);
+        
+        //after fetching do this:
+        discussion.setPoll(poll);
+        discussion.setThread(thread);
+
+        StatusBar.setStatus("Details fetched");
+        discussion.setFetching(false);
+        discussion.setFetched(true);		
+        callback.execute();
+      }
+		});
 	}
 
 	public static void fetchPollInfo(Command callback) {
@@ -148,6 +188,23 @@ public class DiscussionManager {
 		answers.add(new Answer("OK", "a1", "wtf_poll_green"));
 		answers.add(new Answer("NIEJASNE", "a2", "wtf_poll_gray"));
 		answers.add(new Answer("BLAD", "a3", "wtf_poll_red"));
+		
+		SPair<Integer, Integer> a = new SPair<Integer, Integer>(1, 2);
+		HashSet<Integer> s = new HashSet<Integer>();
+		s.add(1);
+		/*
+		wtfService.createStuff(a, new AsyncCallback<Boolean>() {
+      @Override
+      public void onFailure(Throwable caught) {
+        Debug.log("createStuff fail:" + caught.getMessage());
+      }
+
+      @Override
+      public void onSuccess(Boolean result) {
+        Debug.log("createStuff success!");
+      }
+		});
+		*/
 
 		_poll = new Poll(answers);
 		//after creating do this:
@@ -156,12 +213,11 @@ public class DiscussionManager {
 		callback.execute();
 	}	
 
-	public static void createDiscussion(final Discussion discussion, final Command callback) {
+	public static void createDiscussion(final Discussion discussion,
+	        final Command callback) {
 		StatusBar.setStatus("Creating discussion...");
 		Debug.log("Creating discussion...");
-		//create discussion in the backend and update it's id
-
-		//create LineNumbres object
+			//create LineNumbres object
 		LineNumbers line_numbers = DOMMagic.getLineNumbersFromSelection(discussion.getSelection());
 
 		//debug
@@ -170,24 +226,44 @@ public class DiscussionManager {
 		//TODO (peper): tutaj utworzenie nowej dyskusji w backendzie i sciagniecie jej id
 		//wyslac trzeba jej line_numbers i tresc dyskusji
 
-		//TODO (filip): dodac id do dyskusji
+		Request r = wtfService.createDiscussion(pageUrl, line_numbers, new AsyncCallback<String>() {
+      @Override
+      public void onFailure(Throwable caught) {
+        Debug.log("Creating discussion fail: " + caught.getMessage()); 
+        StatusBar.setStatus("Creating discussion fail: " + caught.getMessage()); 
+      }
 
-		//after creating do this:
-		StatusBar.setStatus("Discussion created");
-		callback.execute();
+      @Override
+      public void onSuccess(String key) {
+        // after creating do this:
+        discussion.setKey(key);
+        StatusBar.setStatus("Discussion created");
+        Debug.log("Discussion created");
+        callback.execute();
+      }
+		});
 	}
-
-	public static void addPost(Discussion discussion, Post post, Command callback) {
+	
+	public static void addPost(Discussion discussion, PostDTO post,
+	        final Command callback) {
 		StatusBar.setStatus("Adding post...");
 		Debug.log("Adding post...");
-		//add post
-
+		
 		//TODO (peper): tutaj wyslanie tresci posta dla tej konkretnej dyskusji
 		//TODO (filip): dodac id do dyskusji
+		wtfService.addPost(discussion.getKey(), post, new AsyncCallback<Boolean>() {
+      @Override
+      public void onFailure(Throwable caught) {
+      }
 
-		//after adding do this:
-		StatusBar.setStatus("Post added");
-		callback.execute();
+      @Override
+      public void onSuccess(Boolean result) {
+        //after adding do this:
+        StatusBar.setStatus("Post added");
+        callback.execute();
+      }
+		});
+		
 	}
 
 	public static void showIcons() {

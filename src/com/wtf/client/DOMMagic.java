@@ -24,10 +24,10 @@ public class DOMMagic {
 	public static Selection getSelectionFromLineNumbers(LineNumbers line_numbers) {
 		HashSet<SelectedElement> selected_elements = new HashSet<SelectedElement>();
 
-		HashSet<Pair<Integer, Integer> > elements_lines = line_numbers.getElements();
-		HashMap<Pair<Integer, Integer>, SelectedElement> tmp = new HashMap<Pair<Integer, Integer>, SelectedElement>();
+		HashSet<SPair<Integer, Integer> > elements_lines = line_numbers.getElements();
+		HashMap<SPair<Integer, Integer>, SelectedElement> tmp = new HashMap<SPair<Integer, Integer>, SelectedElement>();
 
-		for(Pair<Integer, Integer> element_lines : elements_lines) {
+		for(SPair<Integer, Integer> element_lines : elements_lines) {
 			int line = 0;
 			if(_line_to_elem.containsKey(element_lines.first())) {
 				line = element_lines.first();
@@ -50,8 +50,8 @@ public class DOMMagic {
 		}
 		
 		//next level
-		HashSet<Pair<Pair<Integer, Integer>, HashSet<Integer> > > next_levels = line_numbers.getNextLevelWords();
-		for(Pair<Pair<Integer, Integer>, HashSet<Integer> > next_level : next_levels) {
+		HashSet<SPair<SPair<Integer, Integer>, HashSet<Integer>>> next_levels = line_numbers.getNextLevelWords();
+		for(SPair<SPair<Integer, Integer>, HashSet<Integer>> next_level : next_levels) {
 			SelectedElement selected_element = tmp.get(next_level.first());
 			if(selected_element == null) {
 				Debug.log("Error: Incorrect next level description");
@@ -79,9 +79,11 @@ public class DOMMagic {
 				return null;
 			}
 			
-			line_numbers.addElement(_elem_to_lines.get(elem));
-			line_numbers.addNextLevelWords(_elem_to_lines.get(elem), s_elem.getSelectedWords());
-		}	
+			Pair<Integer, Integer> lines = _elem_to_lines.get(elem);
+			line_numbers.addElement(new SPair<Integer, Integer>(lines.first(), lines.second()));
+			line_numbers.addNextLevelWords(new SPair<Integer, Integer>(lines.first(), lines.second()),
+			        s_elem.getSelectedWords());
+		}		
 		Debug.log("Selection->LineNumbers");
 		return line_numbers;
 	}

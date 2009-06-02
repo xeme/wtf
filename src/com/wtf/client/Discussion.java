@@ -8,11 +8,13 @@ import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DeferredCommand;
 import com.google.gwt.user.client.ui.RootPanel;
 
+import com.wtf.client.dto.PostDTO;
+
 public class Discussion {
 
 	private DiscussionWidget _discussion_widget = null;
 	private Poll _poll;
-	private List<Post> _thread = new LinkedList<Post>();
+	private List<PostDTO> _thread = new LinkedList<PostDTO>();
 	private int _thread_size;
 	private Selection _selection;
 	private CloudWidget _icon;
@@ -21,6 +23,8 @@ public class Discussion {
 
 	private boolean _fetching = false;
 	private boolean _fetched = false;
+	
+	private String key;
 
 	private boolean _new = false; //new discussion exists only locally
 
@@ -88,7 +92,7 @@ public class Discussion {
 		return _poll;
 	}
 
-	public List<Post> getThread() {
+	public List<PostDTO> getThread() {
 		return _thread;
 	}
 
@@ -104,16 +108,15 @@ public class Discussion {
 		_poll = poll;
 	}
 
-	public void setThread(List<Post> thread) {
+	public void setThread(List<PostDTO> thread) {
 		_thread = thread;
 		updateThreadSize();
 	}
 
-	public void addPost(final Post p) {
-		final Discussion this_ref = this;
+	public void addPost(final PostDTO p) {
 		final Command add_post = new Command() {
 			public void execute() {
-				DiscussionManager.addPost(this_ref, p, new Command() {
+				DiscussionManager.addPost(Discussion.this, p, new Command() {
 					public void execute() {
 						_thread.add(p);
 						updateThreadSize();
@@ -126,7 +129,7 @@ public class Discussion {
 			DiscussionManager.createDiscussion(this, new Command() {
 				public void execute() {
 					setNew(false);
-					DiscussionManager.addDiscussion(this_ref);
+					DiscussionManager.addDiscussion(Discussion.this);
 
 					Selector.endSelectionMode();
 					_discussion_widget.setOnClose(getNormalOnClose());
@@ -250,4 +253,12 @@ public class Discussion {
 	private boolean isVisible() {
 		return _discussion_widget != null && _discussion_widget.isVisible();
 	}
+
+  public String getKey() {
+    return key;
+  }
+
+  public void setKey(String key) {
+    this.key = key;
+  }
 }
