@@ -58,7 +58,7 @@ public class Debug {
 
 		_logs.add(s);
 		if(_logs.size() > 10) {
-			_logs.poll();
+		//	_logs.poll();
 		}
 		String out = "";
 		Iterator<String> iter = _logs.iterator();

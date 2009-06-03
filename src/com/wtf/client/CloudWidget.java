@@ -54,7 +54,7 @@ public class CloudWidget extends Composite {
 	}
 	
 	public void drawIcon(Element elem, int thread_size) {
-		if(elem == null)
+		if(elem == null || _icon != null)
 			return;
 
 		Image icon = StatusBar.wtfImageBundle.new_discussion().createImage();

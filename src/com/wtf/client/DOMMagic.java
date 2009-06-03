@@ -61,7 +61,6 @@ public class DOMMagic {
 			selected_element.setSelectedWords(next_level.second());
 		}
 		
-		Debug.log("LineNumbers->Selection");
 		return new Selection(selected_elements);
 	}
 	
@@ -82,7 +81,7 @@ public class DOMMagic {
 			line_numbers.addElement(_elem_to_lines.get(elem));
 			line_numbers.addNextLevelWords(_elem_to_lines.get(elem), s_elem.getSelectedWords());
 		}	
-		Debug.log("Selection->LineNumbers");
+		
 		return line_numbers;
 	}
 
