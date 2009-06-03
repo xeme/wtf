@@ -5,18 +5,31 @@ import java.util.Date;
 
 public class PostDTO implements Serializable {
   private String author;
-	private String content;
-	private Date date;
-	
-	protected PostDTO() {}
-	
-	public PostDTO(String author, String content, Date date) {
-	  this.author = author;
-		this.content = content;
-		this.date = date;
-	}
-	
-	public void setAuthor(String author) {
+  private String content;
+  private Date date;
+
+  public PostDTO(String author, String content, Date date) {
+    this.author = author;
+    this.content = content;
+    this.date = date;
+  }
+
+  protected PostDTO() {
+  }
+
+  public String getAuthor() {
+    return author;
+  }
+
+  public String getContent() {
+    return content;
+  }
+
+  public Date getDate() {
+    return date;
+  }
+
+  public void setAuthor(String author) {
     this.author = author;
   }
 
@@ -27,16 +40,4 @@ public class PostDTO implements Serializable {
   public void setDate(Date date) {
     this.date = date;
   }
-
-	public String getAuthor() {
-		return author;
-	}
-
-	public String getContent() {
-		return content;
-	}
-
-	public Date getDate() {
-		return date;
-	}
 }

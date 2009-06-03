@@ -10,8 +10,13 @@ import com.wtf.client.dto.PostDTO;
 import java.util.List;
 
 public interface WTFServiceAsync {
-  Request createDiscussion(String url, LineNumbers lines, AsyncCallback<String> callback);
+  Request addPost(String discussionKey, PostDTO post,
+      AsyncCallback<Boolean> callback);
+
+  Request createDiscussion(String url, LineNumbers lines,
+      AsyncCallback<String> callback);
+
   Request getDiscussions(String url, AsyncCallback<List<DiscussionDTO>> callback);
-  Request addPost(String discussionKey, PostDTO post, AsyncCallback<Boolean> callback);
+
   Request getPosts(String discussionKey, AsyncCallback<List<PostDTO>> callback);
 }

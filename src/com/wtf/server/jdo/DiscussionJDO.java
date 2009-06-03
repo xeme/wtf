@@ -1,7 +1,5 @@
 package com.wtf.server.jdo;
 
-import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.datastore.KeyFactory;
 import com.wtf.client.LineNumbers;
 
 import java.util.ArrayList;
@@ -18,51 +16,51 @@ import javax.jdo.annotations.PrimaryKey;
 public class DiscussionJDO {
   @PrimaryKey
   @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-  @Extension(vendorName="datanucleus", key="gae.encoded-pk", value="true")
+  @Extension(vendorName = "datanucleus", key = "gae.encoded-pk", value = "true")
   private String key;
-  
+
   @Persistent
   private PageJDO page;
-  
-  @Persistent(serialized="true")
+
+  @Persistent(serialized = "true")
   private LineNumbers lines;
-  
+
   @Persistent(mappedBy = "discussion")
   private List<PostJDO> posts = new ArrayList<PostJDO>();
-  
+
   public DiscussionJDO(LineNumbers lines) {
     this.lines = lines;
   }
-  
+
+  public void addPost(PostJDO post) {
+    this.posts.add(post);
+  }
+
   public String getKey() {
     return key;
+  }
+
+  public LineNumbers getLines() {
+    return lines;
   }
 
   public PageJDO getPage() {
     return page;
   }
 
-  public void setPage(PageJDO page) {
-    this.page = page;
-  }
-  
-  public LineNumbers getLines() {
-    return lines;
+  public List<PostJDO> getPosts() {
+    return posts;
   }
 
   public void setLines(LineNumbers lines) {
     this.lines = lines;
   }
 
-  public List<PostJDO> getPosts() {
-    return posts;
+  public void setPage(PageJDO page) {
+    this.page = page;
   }
 
   public void setPosts(List<PostJDO> posts) {
     this.posts = posts;
-  }
-  
-  public void addPost(PostJDO post) {
-    this.posts.add(post);
   }
 }

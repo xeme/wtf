@@ -11,7 +11,7 @@ public class SiteJDO {
   @PrimaryKey
   @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
   private Long id;
-  
+
   @Persistent
   private String baseUrl;
 }

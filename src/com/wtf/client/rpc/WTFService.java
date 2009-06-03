@@ -11,8 +11,11 @@ import java.util.List;
 
 @RemoteServiceRelativePath("rpc")
 public interface WTFService extends RemoteService {
-  String createDiscussion(String url, LineNumbers lines);
-  List<DiscussionDTO> getDiscussions(String url);
   Boolean addPost(String discussionKey, PostDTO post);
+
+  String createDiscussion(String url, LineNumbers lines);
+
+  List<DiscussionDTO> getDiscussions(String url);
+
   List<PostDTO> getPosts(String discussionKey);
 }
