@@ -21,7 +21,7 @@ public class StatusBar {
    * Status Bar Widget
    */
   private static class StatusBarWidget extends Composite implements
-      ClickHandler {
+  ClickHandler {
 
     private Label _status = new Label();
     private HorizontalPanel menu_panel = new HorizontalPanel();
@@ -67,9 +67,18 @@ public class StatusBar {
                   DiscussionManager.removeIcons();
                 }
                 Selector.startSelectionMode();
+                DeferredCommand.addCommand(new Command() { 
+                  public void execute() {
+                    StatusBar.setStatus("Selection Mode");
+                  }
+                });
               } else {
                 Selector.endSelectionMode();
-                StatusBar.setStatus("WTF ready");
+                DeferredCommand.addCommand(new Command() { 
+                  public void execute() {
+                    StatusBar.setStatus("WTF ready");
+                  }
+                });
               }
             }
           });
@@ -89,8 +98,12 @@ public class StatusBar {
                 DiscussionManager.showIcons();
               } else {
                 DiscussionManager.removeIcons();
-                StatusBar.setStatus("WTF ready");
               }
+              DeferredCommand.addCommand(new Command() { 
+                public void execute() {
+                  StatusBar.setStatus("WTF ready");
+                }
+              });
             }
           });
       _b_show_discussions.setTitle("Show Discussions");

@@ -324,6 +324,8 @@ public class Selector {
   }
 
   public static void startSelectionMode() {
+    DiscussionManager.fetchDiscussionsList(new Command() { public void execute() {} });
+    
     DOMMagic.requestComputingRowFormat();
 
     // chunk operations
@@ -341,7 +343,6 @@ public class Selector {
     DeferredCommand.addCommand(new Command() { // start_selection chunk
       public void execute() {
         initNewCloud();
-        StatusBar.setStatus("Selection Mode");
       }
     });
     StatusBar.setSelectionMode(true);

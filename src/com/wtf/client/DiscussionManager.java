@@ -192,7 +192,6 @@ public class DiscussionManager {
                     _discussions.add(dis);
                   }
                 }
-                StatusBar.setStatus("Discussions fetched");
                 _fetching = false;
                 _fetched = true;
                 callback.execute();

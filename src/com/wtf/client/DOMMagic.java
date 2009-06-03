@@ -89,10 +89,10 @@ public class DOMMagic {
   }
 
   public static void requestComputingRowFormat() {
+    StatusBar.setStatus("DOMMagic...");
     DeferredCommand.addCommand(new Command() {
       public void execute() {
         if (!isComputed()) {
-          StatusBar.setStatus("DOMMagic...");
           DOMMagic.computeRowFormat();
         }
       }
