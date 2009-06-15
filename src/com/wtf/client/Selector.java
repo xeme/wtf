@@ -29,7 +29,7 @@ public class Selector {
   private static boolean _initialized = false;
   private static boolean _selection_mode = false;
   private static CloudPresenter _new_cloud = null;
-  private static Discussion _new_discussion;
+  private static DiscussionPresenter _new_discussion;
 
   private static HashMap<Element, SelectedElement> _active_selection = new HashMap<Element, SelectedElement>();
   private static HashSet<Element> _init_done = new HashSet<Element>();
@@ -246,9 +246,11 @@ public class Selector {
         _new_discussion.hide();
       }
     };
-    _new_discussion = new Discussion(new Selection(
-        new HashSet<SelectedElement>()), 0, on_close);
-    _new_discussion.setNew(true);
+    
+    Discussion discussion = new Discussion(new Selection(new HashSet<SelectedElement>()), 0);
+    discussion.setNew(true);
+    _new_discussion = new DiscussionPresenter(discussion, on_close);
+
     Command on_click = new Command() {
       public void execute() {
         if (_selection_mode) {
@@ -259,13 +261,13 @@ public class Selector {
             public void execute() {
               if (!StatusBar.isSelectionMode())
                 return;
-              _new_discussion.setPoll(DiscussionManager.getNewPoll());
+              _new_discussion.setPoll(DiscussionsManager.getNewPoll());
               _selection_mode = false;
               remove_selection();
               _new_discussion.show();
             }
           };
-          DiscussionManager.fetchPollInfo(cmd);
+          DiscussionsManager.fetchPollInfo(cmd);
         } else {
           _selection_mode = true;
           _new_discussion.hide();
@@ -328,7 +330,7 @@ public class Selector {
   }
 
   public static void startSelectionMode() {
-    DiscussionManager.fetchDiscussionsList(new Command() { public void execute() {} });
+    DiscussionsManager.fetchDiscussionsList(new Command() { public void execute() {} });
     
     DOMMagic.requestComputingRowFormat();
 

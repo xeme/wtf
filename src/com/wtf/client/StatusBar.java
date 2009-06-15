@@ -64,7 +64,7 @@ public class StatusBar {
               if (_b_start_selection.isDown()) {
                 if (_b_show_discussions.isDown()) {
                   _b_show_discussions.setDown(false);
-                  DiscussionManager.removeIcons();
+                  DiscussionsManager.removeIcons();
                 }
                 Selector.startSelectionMode();
                 DeferredCommand.addCommand(new Command() { 
@@ -95,9 +95,9 @@ public class StatusBar {
                   _b_start_selection.setDown(false);
                   Selector.endSelectionMode();
                 }
-                DiscussionManager.showIcons();
+                DiscussionsManager.showIcons();
               } else {
-                DiscussionManager.removeIcons();
+                DiscussionsManager.removeIcons();
               }
               DeferredCommand.addCommand(new Command() { 
                 public void execute() {
@@ -154,7 +154,7 @@ public class StatusBar {
     if (_status_bar._b_show_discussions.isDown())
       DeferredCommand.addCommand(new Command() {
         public void execute() {
-          DiscussionManager.removeIcons();
+          DiscussionsManager.removeIcons();
         }
       });
     DeferredCommand.addCommand(new Command() {

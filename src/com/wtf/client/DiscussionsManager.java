@@ -1,7 +1,10 @@
 package com.wtf.client;
 
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.http.client.Request;
@@ -9,25 +12,19 @@ import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DeferredCommand;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-
 import com.wtf.client.Poll.Answer;
 import com.wtf.client.dto.DiscussionDTO;
 import com.wtf.client.dto.PostDTO;
 import com.wtf.client.rpc.WTFService;
 import com.wtf.client.rpc.WTFServiceAsync;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-
-public class DiscussionManager {
+public class DiscussionsManager {
   private static boolean _fetched = false;
   private static boolean _fetching = false;
   private static boolean _icons_visible = false;
   private static Poll _poll = null;
   private static boolean _poll_fetching = false;
-  private static HashSet<Discussion> _discussions = new HashSet<Discussion>();
+  private static HashSet<DiscussionPresenter> _discussions = new HashSet<DiscussionPresenter>();
 
   private static WTFServiceAsync wtfService = GWT.create(WTFService.class);
   private static String pageUrl = GWT.getHostPageBaseURL();
@@ -37,18 +34,17 @@ public class DiscussionManager {
     // sdt.setRpcRequestBuilder(new RpcRequestBuilderWN());
   }
 
-  public static void addDiscussion(Discussion d) {
+  public static void addDiscussion(DiscussionPresenter d) {
     _discussions.add(d);
-    d.setFetched(true);
   }
 
+  //TODO: move to DiscussionPresenter
   public static void addPost(Discussion discussion, PostDTO post,
       final Command callback) {
     StatusBar.setStatus("Adding post...");
     Debug.log("Adding post...");
 
     // TODO (peper): tutaj wyslanie tresci posta dla tej konkretnej dyskusji
-    // TODO (filip): dodac id do dyskusji
     wtfService.addPost(discussion.getKey(), post, new AsyncCallback<Boolean>() {
       @Override
       public void onFailure(Throwable caught) {
@@ -64,6 +60,7 @@ public class DiscussionManager {
 
   }
 
+  //TODO: move to DiscussionPresenter
   public static void createDiscussion(final Discussion discussion,
       final Command callback) {
     StatusBar.setStatus("Creating discussion...");
@@ -98,6 +95,7 @@ public class DiscussionManager {
         });
   }
 
+  //TODO: move to DiscussionPresenter
   public static void fetchDiscussionDetails(final Discussion discussion,
       final Command callback) {
     // do we want to fetch every time discussion is viewed??
@@ -174,10 +172,9 @@ public class DiscussionManager {
                 for (DiscussionDTO d : ds) {
                   Selection sel = DOMMagic.getSelectionFromLineNumbers(d.getLines());
                   if (sel != null) {
-                    Discussion dis = new Discussion(sel, d.getPostsCount(),
-                        null);
+                    Discussion dis = new Discussion(sel, d.getPostsCount());
                     dis.setKey(d.getKey());
-                    _discussions.add(dis);
+                    _discussions.add(new DiscussionPresenter(dis, null));
                   }
                 }
                 _fetching = false;
@@ -222,10 +219,6 @@ public class DiscussionManager {
     callback.execute();
   }
 
-  public static HashSet<Discussion> getDiscussions() {
-    return _discussions;
-  }
-
   public static Poll getNewPoll() {
     return _poll;
   }
@@ -233,14 +226,14 @@ public class DiscussionManager {
   public static void init() {
     Window.addResizeHandler(new ResizeHandler() {
       public void onResize(ResizeEvent event) {
-        DiscussionManager.redrawIcons();
-        DiscussionManager.redrawDiscussions();
+        DiscussionsManager.redrawIcons();
+        DiscussionsManager.redrawDiscussions();
       }
     });
   }
 
   public static void redrawDiscussions() {
-    for (Discussion d : _discussions) {
+    for (DiscussionPresenter d : _discussions) {
       d.reposition();
     }
   }
@@ -252,12 +245,12 @@ public class DiscussionManager {
     }
   }
 
-  public static void removeIcons() {
+  public static void removeIcons() { //TODO: troche za duzo odwolan?
     if (!_fetched)
       return;
-    for (Discussion elem : _discussions) {
-      elem.removeIcon();
-      elem.hide();
+    for (DiscussionPresenter d : _discussions) {
+      d.removeIcon();
+      d.hide();
     }
     _icons_visible = false;
     StatusBar.setDiscussionMode(false);
@@ -269,8 +262,8 @@ public class DiscussionManager {
       public void execute() {
         if (!StatusBar.isDiscussionMode())
           return;
-        for (Discussion elem : _discussions) {
-          elem.showIcon();
+        for (DiscussionPresenter d : _discussions) {
+          d.showIcon();
         }
         _icons_visible = true;
       }
