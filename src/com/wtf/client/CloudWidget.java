@@ -1,104 +1,81 @@
 package com.wtf.client;
 
+import java.util.HashMap;
+
 import com.google.gwt.dom.client.Element;
-import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.Event;
-import com.google.gwt.user.client.EventListener;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.Label;
+import com.wtf.client.CloudPresenter.CloudView;
 
-public class CloudWidget extends Composite {
-  private Element _target_element = null;
-  private Element _icon = null;
-  private Element _value = null;
-
-  private Command _on_click = null;
-  private Command _on_mouse_over = null;
-  private Command _on_mouse_out = null;
+public class CloudWidget extends Composite implements CloudView {
+  private Image _icon = null;
+  private Label _value = null;
+  
+  //number of clouds attached to this place
+  private static HashMap<Integer, Integer> _clouds = new HashMap<Integer, Integer>();
 
   private int _offset = -1;
 
-  public CloudWidget(Command on_click, Command on_mouse_over,
-      Command on_mous_out) {
-    _on_click = on_click;
-    _on_mouse_over = on_mouse_over;
-    _on_mouse_out = on_mous_out;
+  public CloudWidget() {
+    _icon = StatusBar.wtfImageBundle.new_discussion().createImage();
+    _value = new Label();
+  }
+  
+  public com.google.gwt.user.client.Element getClickable() {
+    return _value.getElement();
+  }
+  
+  public Label getValue() {
+    return _value;
   }
 
-  public void drawIcon(Element elem, int thread_size) {
-    if (elem == null || _icon != null)
-      return;
-
-    Image icon = StatusBar.wtfImageBundle.new_discussion().createImage();
-
-    int top = elem.getAbsoluteTop() - 20;
-    int left = elem.getAbsoluteLeft() - icon.getWidth();
+  public void drawIcon(int elem_hash, int elem_top, int elem_left, int thread_size) {
+    int top = elem_top - 20;
+    int left = elem_left - _icon.getWidth();
     left = Math.max(left, 0);
     top = Math.max(top, 0);
 
     if (_offset == -1)
-      setOffset(elem, icon.getHeight());
+      setOffset(elem_hash, _icon.getHeight());
     top += _offset;
 
-    DOM.setStyleAttribute(icon.getElement(), "position", "absolute");
-    DOM.setStyleAttribute(icon.getElement(), "top", top + "px");
-    DOM.setStyleAttribute(icon.getElement(), "left", left + "px");
-    icon.getElement().setClassName("wtf_icon");
-
-    StatusBar.getIgnoredParent().appendChild(icon.getElement());
-
-    _icon = icon.getElement();
-    drawValue(left, top, Integer.toString(thread_size));
+    renderIcon(top, left, Integer.toString(thread_size));
   }
 
-  public void drawNewIcon() {
-    if (_target_element == null)
-      return;
-    if (_icon != null)
-      removeIcon();
+  public void drawNewIcon(int elem_top, int elem_left) {
+    removeIcon();
 
-    Image icon = StatusBar.wtfImageBundle.new_discussion().createImage();
-
-    int top = _target_element.getAbsoluteTop() - 20;
-    int left = _target_element.getAbsoluteLeft() - icon.getWidth();
+    int top = elem_top - 20;
+    int left = elem_left - _icon.getWidth();
     left = Math.max(left, 0);
     top = Math.max(top, 0);
 
-    DOM.setStyleAttribute(icon.getElement(), "position", "absolute");
-    DOM.setStyleAttribute(icon.getElement(), "top", top + "px");
-    DOM.setStyleAttribute(icon.getElement(), "left", left + "px");
-    icon.getElement().setClassName("wtf_icon");
-
-    StatusBar.getIgnoredParent().appendChild(icon.getElement());
-
-    _icon = icon.getElement();
-    drawValue(left, top, "?");
+    renderIcon(top, left, "?");
   }
-
+  
   public void removeIcon() {
-    if (_value != null) {
-      _value.getParentElement().removeChild(_value);
-      _value = null;
+    if (_value.getElement().getParentElement() != null) {
+      _value.getElement().getParentElement().removeChild(_value.getElement());
     }
-    if (_icon != null) {
-      _icon.getParentElement().removeChild(_icon);
-      _icon = null;
+    if (_icon.getElement().getParentElement() != null) {
+      _icon.getElement().getParentElement().removeChild(_icon.getElement());
     }
   }
 
-  public void setTargetElement(Element terget_element) {
-    _target_element = terget_element;
-  }
+  private void renderIcon(int top, int left, String val) {
+    DOM.setStyleAttribute(_icon.getElement(), "position", "absolute");
+    DOM.setStyleAttribute(_icon.getElement(), "top", top + "px");
+    DOM.setStyleAttribute(_icon.getElement(), "left", left + "px");
+    _icon.getElement().setClassName("wtf_icon");
 
-  public void updateValue(int val) {
-    if (_value != null) {
-      _value.setInnerText(Integer.toString(val));
-    }
+    StatusBar.getIgnoredParent().appendChild(_icon.getElement());
+    renderValue(left, top, val);
   }
-
-  private void drawValue(int x, int y, String value) {
-    Element val = DOM.createDiv();
+  
+  private void renderValue(int x, int y, String value) {
+    Element val = _value.getElement();
     val.setInnerText(value);
     val.setClassName("wtf_icon_text");
     com.google.gwt.user.client.Element val_ = val.cast();
@@ -110,37 +87,25 @@ public class CloudWidget extends Composite {
     DOM.setStyleAttribute(val_, "cursor", "pointer");
 
     StatusBar.getIgnoredParent().appendChild(val);
-    _value = val;
-
-    DOM.sinkEvents(val_, Event.MOUSEEVENTS | Event.ONCLICK);
-    DOM.setEventListener(val_, new EventListener() {
-      public void onBrowserEvent(Event event) {
-        switch (DOM.eventGetType(event)) {
-          case Event.ONMOUSEOVER:
-            if (_on_mouse_over == null)
-              return;
-            _on_mouse_over.execute();
-            break;
-          case Event.ONMOUSEOUT:
-            if (_on_mouse_out == null)
-              return;
-            _on_mouse_out.execute();
-            break;
-          case Event.ONCLICK:
-            if (_on_click == null)
-              return;
-            _on_click.execute();
-            break;
-        }
-        DOM.eventPreventDefault(event);
-      }
-    });
   }
 
-  private void setOffset(Element elem, int height) {
-    if (elem == null)
-      _offset = 0;
-    _offset = DiscussionManager.getCloudsNumber(elem) * height;
-    DiscussionManager.addCloud(elem);
+  private void setOffset(int elem_hash, int height) {
+    _offset = getCloudsNumber(elem_hash) * height;
+    addCloud(elem_hash);
+  }
+  
+  private static int getCloudsNumber(int elem_hash) {
+    if (!_clouds.containsKey(elem_hash))
+      return 0;
+    return _clouds.get(elem_hash);
+  }
+  
+  private static void addCloud(int elem_hash) {
+    int old_val = 0;
+    if (_clouds.containsKey(elem_hash)) {
+      old_val = _clouds.get(elem_hash);
+      _clouds.remove(elem_hash);
+    }
+    _clouds.put(elem_hash, old_val + 1);
   }
 }

@@ -13,6 +13,7 @@ import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.EventListener;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.wtf.client.CloudPresenter.CloudView;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -27,7 +28,7 @@ public class Selector {
                                                    // element
   private static boolean _initialized = false;
   private static boolean _selection_mode = false;
-  private static CloudWidget _new_cloud = null;
+  private static CloudPresenter _new_cloud = null;
   private static Discussion _new_discussion;
 
   private static HashMap<Element, SelectedElement> _active_selection = new HashMap<Element, SelectedElement>();
@@ -271,7 +272,10 @@ public class Selector {
         }
       }
     };
-    _new_cloud = new CloudWidget(on_click, null, null);
+
+    CloudView cloud_view = new CloudWidget();
+    _new_cloud = new CloudPresenter(on_click, null, null);
+    _new_cloud.bindWidget(cloud_view);
   }
 
   public static boolean isFlash(com.google.gwt.user.client.Element elem) {
@@ -404,7 +408,6 @@ public class Selector {
 
   // end of interface
   private static void drawIcon() {
-    _new_cloud.removeIcon();
     Element top_elem = null;
     for (Element elem : _active_selection.keySet()) {
       if (top_elem == null || elem.getAbsoluteTop() < top_elem.getAbsoluteTop()) {
@@ -413,8 +416,8 @@ public class Selector {
     }
     if (top_elem == null)
       return;
-    _new_cloud.setTargetElement(top_elem);
-    _new_cloud.drawNewIcon();
+
+    _new_cloud.drawNewIcon((com.google.gwt.user.client.Element) top_elem);
   }
 
   private static void initDOM() {

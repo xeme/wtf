@@ -5,6 +5,7 @@ import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DeferredCommand;
 import com.google.gwt.user.client.ui.RootPanel;
 
+import com.wtf.client.CloudPresenter.CloudView;
 import com.wtf.client.dto.PostDTO;
 
 import java.util.LinkedList;
@@ -17,7 +18,7 @@ public class Discussion {
   private List<PostDTO> _thread = new LinkedList<PostDTO>();
   private int _thread_size;
   private Selection _selection;
-  private CloudWidget _icon;
+  private CloudPresenter _icon;
   private boolean _over_icon = false;
   private Command _on_close;
 
@@ -60,7 +61,10 @@ public class Discussion {
       }
 
     };
-    _icon = new CloudWidget(on_click, on_mouse_over, on_mouse_out);
+    
+    CloudView cloud_view = new CloudWidget();
+    _icon = new CloudPresenter(on_click, on_mouse_over, on_mouse_out);
+    _icon.bindWidget(cloud_view);
   }
 
   public void addPost(final PostDTO p) {
@@ -222,7 +226,7 @@ public class Discussion {
 
   public void showIcon() {
     Element elem = _selection.getTopElement();
-    _icon.drawIcon(elem, _thread_size);
+    _icon.drawIcon((com.google.gwt.user.client.Element) elem, _thread_size);
   }
 
   public void showSelection() {

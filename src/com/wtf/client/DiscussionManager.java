@@ -29,24 +29,12 @@ public class DiscussionManager {
   private static boolean _poll_fetching = false;
   private static HashSet<Discussion> _discussions = new HashSet<Discussion>();
 
-  // number of clouds attached to element
-  private static HashMap<Element, Integer> _clouds_attached = new HashMap<Element, Integer>();
-
   private static WTFServiceAsync wtfService = GWT.create(WTFService.class);
   private static String pageUrl = GWT.getHostPageBaseURL();
   static {
     // ServiceDefTarget sdt = (ServiceDefTarget) wtfService;
     // sdt.setServiceEntryPoint("http://wtf-review.appspot.com/wtf/magic");
     // sdt.setRpcRequestBuilder(new RpcRequestBuilderWN());
-  }
-
-  public static void addCloud(Element elem) {
-    int old_val = 0;
-    if (_clouds_attached.containsKey(elem)) {
-      old_val = _clouds_attached.get(elem);
-      _clouds_attached.remove(elem);
-    }
-    _clouds_attached.put(elem, old_val + 1);
   }
 
   public static void addDiscussion(Discussion d) {
@@ -232,12 +220,6 @@ public class DiscussionManager {
     StatusBar.setStatus("Poll fetched");
     _poll_fetching = false;
     callback.execute();
-  }
-
-  public static int getCloudsNumber(Element elem) {
-    if (!_clouds_attached.containsKey(elem))
-      return 0;
-    return _clouds_attached.get(elem);
   }
 
   public static HashSet<Discussion> getDiscussions() {
