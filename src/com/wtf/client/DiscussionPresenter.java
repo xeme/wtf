@@ -7,6 +7,7 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DeferredCommand;
 import com.wtf.client.CloudPresenter.CloudView;
@@ -36,6 +37,8 @@ public class DiscussionPresenter {
   private CloudPresenter _icon;
   private boolean _over_icon = false;
   private Command _on_close;
+  
+  private HandlerRegistration _registered_on_close;
 
   public DiscussionPresenter(Discussion discussion, Command on_close) {
     _discussion = discussion;
@@ -86,7 +89,7 @@ public class DiscussionPresenter {
       }
     });
 
-    _discussion_widget.getClose().addClickHandler(new ClickHandler() {
+    _registered_on_close = _discussion_widget.getClose().addClickHandler(new ClickHandler() {
       public void onClick(ClickEvent event) {
         _on_close.execute();
       }
@@ -121,6 +124,7 @@ public class DiscussionPresenter {
 
           Selector.endSelectionMode();
 
+          _registered_on_close.removeHandler();
           _discussion_widget.getClose().addClickHandler(new ClickHandler() {
             public void onClick(ClickEvent event) {
               getNormalOnClose().execute();
