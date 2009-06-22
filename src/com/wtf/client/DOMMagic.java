@@ -1,14 +1,14 @@
 package com.wtf.client;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Stack;
+
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Node;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DeferredCommand;
 import com.google.gwt.user.client.ui.RootPanel;
-
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Stack;
 
 public class DOMMagic {
   private static String _row_format = "";
@@ -16,9 +16,13 @@ public class DOMMagic {
   private static int _line_counter;
 
   // maps for relations between Elements and lines
-  private static HashMap<Element, Pair<Integer, Integer>> _elem_to_lines = new HashMap<Element, Pair<Integer, Integer>>();
+  private static HashMap<Element, TagLines> _elem_to_lines = new HashMap<Element, TagLines>();
   private static HashMap<Integer, Element> _line_to_elem = new HashMap<Integer, Element>();
 
+  public static String getRowFormat() {
+    return _row_format;
+  }  
+  
   public static LineNumbers getLineNumbersFromSelection(Selection selection) {
     LineNumbers line_numbers = new LineNumbers();
 
@@ -34,8 +38,7 @@ public class DOMMagic {
       }
 
       line_numbers.addElement(_elem_to_lines.get(elem));
-      line_numbers.addNextLevelWords(_elem_to_lines.get(elem),
-          s_elem.getSelectedWords());
+      line_numbers.addNextLevelWords(_elem_to_lines.get(elem), s_elem.getSelectedWords());
     }
 
     return line_numbers;
@@ -44,19 +47,19 @@ public class DOMMagic {
   public static Selection getSelectionFromLineNumbers(LineNumbers line_numbers) {
     HashSet<SelectedElement> selected_elements = new HashSet<SelectedElement>();
 
-    HashSet<Pair<Integer, Integer>> elements_lines = line_numbers.getElements();
-    HashMap<Pair<Integer, Integer>, SelectedElement> tmp = new HashMap<Pair<Integer, Integer>, SelectedElement>();
+    HashSet<TagLines> elements_lines = line_numbers.getElements();
+    HashMap<TagLines, SelectedElement> tmp = new HashMap<TagLines, SelectedElement>();
 
-    for (Pair<Integer, Integer> element_lines : elements_lines) {
+    for (TagLines element_lines : elements_lines) {
       int line = 0;
-      if (_line_to_elem.containsKey(element_lines.first())) {
-        line = element_lines.first();
+      if (_line_to_elem.containsKey(element_lines.getOpenLine())) {
+        line = element_lines.getOpenLine();
       } else {
-        if (_line_to_elem.containsKey(element_lines.second())) {
-          line = element_lines.second();
+        if (_line_to_elem.containsKey(element_lines.getCloseLine())) {
+          line = element_lines.getCloseLine();
         } else {
           Debug.log("Error: There is no element in relation with lines: "
-              + element_lines.first() + " and " + element_lines.second());
+              + element_lines.getOpenLine() + " and " + element_lines.getCloseLine());
           StatusBar.setError("Incorect discussion location");
           return null;
         }
@@ -70,15 +73,15 @@ public class DOMMagic {
     }
 
     // next level
-    HashSet<Pair<Pair<Integer, Integer>, HashSet<Integer>>> next_levels = line_numbers.getNextLevelWords();
-    for (Pair<Pair<Integer, Integer>, HashSet<Integer>> next_level : next_levels) {
-      SelectedElement selected_element = tmp.get(next_level.first());
+    HashSet<WordsLines> next_levels = line_numbers.getNextLevelWords();
+    for (WordsLines next_level : next_levels) {
+      SelectedElement selected_element = tmp.get(next_level.getParentTag());
       if (selected_element == null) {
         Debug.log("Error: Incorrect next level description");
         StatusBar.setError("Incorect discussion location");
         return null;
       }
-      selected_element.setSelectedWords(next_level.second());
+      selected_element.setSelectedWords(next_level.getLines());
     }
 
     return new Selection(selected_elements);
@@ -119,11 +122,10 @@ public class DOMMagic {
         _line_to_elem.put(_line_counter - 1, (Element) node.first());
         // opening tag
         if (!node.second()) {
-          _elem_to_lines.put((Element) node.first(),
-              new Pair<Integer, Integer>(_line_counter - 1, -1));
+          _elem_to_lines.put((Element) node.first(), new TagLines(_line_counter - 1, -1));
         } else {
-          Pair<Integer, Integer> tmp = _elem_to_lines.remove((Element) node.first());
-          tmp.setSecond(_line_counter - 1);
+          TagLines tmp = _elem_to_lines.remove((Element) node.first());
+          tmp.setCloseLine(_line_counter - 1);
           _elem_to_lines.put((Element) node.first(), tmp);
         }
       }
@@ -176,7 +178,7 @@ public class DOMMagic {
           continue;
 
         /* debug only */
-        _row_format += _line_counter + ": ";
+        //_row_format += _line_counter + ": ";
         /* debug only */
 
         _row_format += word + "\n";
@@ -185,7 +187,7 @@ public class DOMMagic {
 
     } else {
       /* debug only */
-      _row_format += _line_counter + ": ";
+      //_row_format += _line_counter + ": ";
       /* debug only */
 
       _row_format += "<";

@@ -9,31 +9,28 @@ import java.util.HashSet;
  * selection definition
  */
 public class LineNumbers implements Serializable {
-  private HashSet<Pair<Integer, Integer>> _elements = new HashSet<Pair<Integer, Integer>>();
+  private HashSet<TagLines> _elements = new HashSet<TagLines>();
+  private HashSet<WordsLines> _next_level = new HashSet<WordsLines>();
 
-  private HashSet<Pair<Pair<Integer, Integer>, HashSet<Integer>>> _next_level = new HashSet<Pair<Pair<Integer, Integer>, HashSet<Integer>>>();
-
-  public void addElement(Pair<Integer, Integer> elem) {
+  public void addElement(TagLines elem) {
     _elements.add(elem);
   }
 
-  public void addNextLevelWords(Pair<Integer, Integer> elem,
-      HashSet<Integer> words) {
-    _next_level.add(new Pair<Pair<Integer, Integer>, HashSet<Integer>>(elem,
-        words));
+  public void addNextLevelWords(TagLines elem, HashSet<Integer> words) {
+    _next_level.add(new WordsLines(elem, words));
   }
 
   public void debug() {
-    for (Pair<Integer, Integer> e : _elements) {
-      Debug.log("(" + e.first() + "," + e.second() + ")");
+    for (TagLines e : _elements) {
+      Debug.log("(" + e.getOpenLine() + "," + e.getCloseLine() + ")");
     }
   }
 
-  public HashSet<Pair<Integer, Integer>> getElements() {
+  public HashSet<TagLines> getElements() {
     return _elements;
   }
 
-  public HashSet<Pair<Pair<Integer, Integer>, HashSet<Integer>>> getNextLevelWords() {
+  public HashSet<WordsLines> getNextLevelWords() {
     return _next_level;
   }
 }
