@@ -34,11 +34,7 @@ public class Debug {
       });
     }
     // check whether debug mode is on
-    HashSet<String> possible = new HashSet<String>();
-    possible.add("true");
-    possible.add("false");
-    String support = Config.getOptionString("debug", possible, "false");
-    _debug_mode = support.equals("true");
+    _debug_mode = Config.getOptionBoolean("debug", false);
 
     if (!_debug_mode)
       return;

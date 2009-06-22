@@ -174,6 +174,9 @@ public class StatusBar {
   public static void init() {
     _status_bar = new StatusBarWidget();
     RootPanel.get().add(_status_bar);
+    
+    String[] possible = {"left", "right"};
+    _status_bar.setOrientation(Config.getOptionString("statusbar_orientation", possible, "left"));
   }
 
   public static boolean isDiscussionMode() {
@@ -200,10 +203,6 @@ public class StatusBar {
     _error = true;
     blockWTF();
     _status_bar.setOrientation("left");
-  }
-
-  public static void setOrientation(String o) {
-    _status_bar.setOrientation(o);
   }
 
   public static void setSelectionMode(boolean b) {

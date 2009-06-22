@@ -25,16 +25,11 @@ public class WTF implements EntryPoint {
   }
 
   private void doLoad() {
+    Config.init();
     StatusBar.init();
     StatusBar.setStatus("WTF loading...");
-    Command after_config_load = new Command() {
-      public void execute() {
-        // things that need configuration file
-        DiscussionsManager.init();
-        StatusBar.setStatus("WTF ready");
-        Debug.log(">> WTF console <<");
-      }
-    };
-    Config.init(after_config_load);
+    DiscussionsManager.init();
+    StatusBar.setStatus("WTF ready");
+    Debug.log(">> WTF console <<");
   }
 }

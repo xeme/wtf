@@ -121,11 +121,7 @@ public class SelectedElement {
   }
 
   public boolean isSupported() {
-    HashSet<String> possible = new HashSet<String>();
-    possible.add("true");
-    possible.add("false");
-    String support = Config.getOptionString("flash", possible, "false");
-    return !Selector.isFlash(_element) || support.equals("true");
+    return !Selector.isFlash(_element) || Config.getOptionBoolean("flash", false);
   }
 
   public void removeNextLevel() {

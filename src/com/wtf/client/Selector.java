@@ -25,7 +25,7 @@ import java.util.Stack;
  */
 public class Selector {
   private static SelectedElement _selected = null; // current highlighted
-                                                   // element
+  // element
   private static boolean _initialized = false;
   private static boolean _selection_mode = false;
   private static CloudPresenter _new_cloud = null;
@@ -232,10 +232,10 @@ public class Selector {
 
   public static boolean ignore(com.google.gwt.user.client.Element elem) {
     return elem.getId().equals("wtf_selection_l")
-        || elem.getId().equals("wtf_selection_r")
-        || elem.getId().equals("wtf_selection_t")
-        || elem.getId().equals("wtf_selection_b")
-        || elem.getId().equals("wtf_selection_tab") || parentIgnore(elem);
+    || elem.getId().equals("wtf_selection_r")
+    || elem.getId().equals("wtf_selection_t")
+    || elem.getId().equals("wtf_selection_b")
+    || elem.getId().equals("wtf_selection_tab") || parentIgnore(elem);
   }
 
   public static void initNewCloud() {
@@ -246,7 +246,7 @@ public class Selector {
         _new_discussion.hide();
       }
     };
-    
+
     Discussion discussion = new Discussion(new Selection(new HashSet<SelectedElement>()), 0);
     discussion.setNew(true);
     _new_discussion = new DiscussionPresenter(discussion, on_close);
@@ -282,7 +282,7 @@ public class Selector {
 
   public static boolean isFlash(com.google.gwt.user.client.Element elem) {
     return elem.getTagName().toLowerCase().equals("object")
-        || elem.getTagName().toLowerCase().equals("embed");
+    || elem.getTagName().toLowerCase().equals("embed");
   }
 
   public static boolean isSelectionMode() {
@@ -331,7 +331,7 @@ public class Selector {
 
   public static void startSelectionMode() {
     DiscussionsManager.fetchDiscussionsList(new Command() { public void execute() {} });
-    
+
     DOMMagic.requestComputingRowFormat();
 
     // chunk operations
@@ -367,11 +367,7 @@ public class Selector {
 
   private static void addListener(com.google.gwt.user.client.Element elem) {
     if (isFlash(elem)) {
-      HashSet<String> possible = new HashSet<String>();
-      possible.add("true");
-      possible.add("false");
-      String support = Config.getOptionString("flash", possible, "false");
-      if (support.equals("false"))
+      if (!Config.getOptionBoolean("flash", false))
         return;
     }
     DOM.sinkEvents(elem, Event.MOUSEEVENTS | Event.ONCLICK);
@@ -423,21 +419,17 @@ public class Selector {
   }
 
   private static void initDOM() {
-    List<String> exclude_selectors = Config.getExcludeSelectors();
-    for (String str : exclude_selectors) {
-      NodeList<Element> elems = $(str).get();
-      for (int i = 0; i < elems.getLength(); i++) {
-        _exclude.add(elems.getItem(i));
-      }
+    NodeList<Element> elems;
+    elems = $(Config.getOptionString("exclude_roots",  "")).get();
+    for (int i = 0; i < elems.getLength(); i++) {
+      _exclude.add(elems.getItem(i));
     }
 
-    List<String> add_selectors = Config.getAddSelectors();
-    for (String str : add_selectors) {
-      NodeList<Element> elems = $(str).get();
-      for (int i = 0; i < elems.getLength(); i++) {
-        initElementByRoot(elems.getItem(i));
-      }
+    elems = $(Config.getOptionString("include_roots",  "")).get();
+    for (int i = 0; i < elems.getLength(); i++) {
+      initElementByRoot(elems.getItem(i));
     }
+
     _init_done.clear();
     _exclude.clear();
   }

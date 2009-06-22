@@ -1,0 +1,36 @@
+== WTF CONFIGURATION MANUAL ==
+
+OPTIONS:
+
+statusbar_orientation: "left/right"
+
+border_thickness: "x"
+    x - selection border thickness (px)
+
+min_words: "x"
+    x - number of words within DOM element to start next-level selection
+
+include_roots: "selector"
+exclude_roots: "selector"
+    "selector" - CSS3 selector quering every selection root.
+                  (check http://www.w3.org/TR/css3-selectors/ to learn how to write selectors)
+    example:
+      include_roots: "div#content *",
+      exclude_roots: "a, img"
+    
+    above will make all but <a> and <img> children of <div id="content"> selectable
+
+    
+
+example configuration:
+
+var wtf_params = {
+  statusbar_orientation: "left",
+  include_roots: "div#content *",
+  exclude_roots: "a, img",
+  border_thickness: "2",
+  min_words: "10"
+}
+
+do not leave ',' after last option because it fails in IE
+(TODO: trzeba to sprawdzic ale w gtopie mialem z tym chyba problem)
