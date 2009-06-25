@@ -1,14 +1,16 @@
 package com.wtf.client;
 
+import static com.google.gwt.query.client.GQuery.$;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Stack;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Node;
+import com.google.gwt.dom.client.NodeList;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DeferredCommand;
-import com.google.gwt.user.client.ui.RootPanel;
 
 public class DOMMagic {
   private static String _row_format = "";
@@ -18,6 +20,10 @@ public class DOMMagic {
   // maps for relations between Elements and lines
   private static HashMap<Element, TagLines> _elem_to_lines = new HashMap<Element, TagLines>();
   private static HashMap<Integer, Element> _line_to_elem = new HashMap<Integer, Element>();
+  
+
+  private static HashSet<Element> _done = new HashSet<Element>();
+  private static HashSet<Element> _exclude = new HashSet<Element>();
 
   public static String getRowFormat() {
     return _row_format;
@@ -106,13 +112,38 @@ public class DOMMagic {
     Debug.log_time("start computiong Row Format ");
 
     _line_counter = 0;
+  
+    NodeList<Element> elems;
+    elems = $(Config.getOptionString("exclude_roots",  "")).get();
+    for (int i = 0; i < elems.getLength(); i++) {
+      _exclude.add(elems.getItem(i));
+    }
 
+    elems = $(Config.getOptionString("include_roots",  "")).get();
+    for (int i = 0; i < elems.getLength(); i++) {
+      computeRoot(elems.getItem(i));
+    }
+
+    _done.clear();
+    _exclude.clear();
+        
+    Debug.log_time("Done ");
+    _computed = true;
+
+    // this may slow down every other logging so use this wisely
+    // debug();
+  }
+  
+  private static void computeRoot(Node root) {
     // Pair(node, is_closing_tag)
     Stack<Pair<Node, Boolean>> stack = new Stack<Pair<Node, Boolean>>();
-    stack.push(new Pair<Node, Boolean>(RootPanel.getBodyElement(), false));
+    stack.push(new Pair<Node, Boolean>(root, false));
     Pair<Node, Boolean> node = null;
     while (!stack.isEmpty()) {
       node = stack.pop();
+      
+      if (_done.contains(node.first()) || _exclude.contains(node.first()))
+        continue;
 
       // add node to row_format
       printNode(node);
@@ -146,11 +177,6 @@ public class DOMMagic {
         child = child.getPreviousSibling();
       }
     }
-    Debug.log_time("Done ");
-    _computed = true;
-
-    // this may slow down every other logging so use this wisely
-    // debug();
   }
 
   private static void debug() {

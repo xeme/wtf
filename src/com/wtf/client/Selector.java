@@ -2,6 +2,10 @@ package com.wtf.client;
 
 import static com.google.gwt.query.client.GQuery.$;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Stack;
+
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NodeList;
 import com.google.gwt.event.logical.shared.ResizeEvent;
@@ -14,11 +18,6 @@ import com.google.gwt.user.client.EventListener;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.wtf.client.CloudPresenter.CloudView;
-
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Stack;
 
 /*
  * Selection Manager
