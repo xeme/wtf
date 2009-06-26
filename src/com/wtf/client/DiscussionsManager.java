@@ -18,6 +18,7 @@ import com.google.gwt.user.client.rpc.ServiceDefTarget;
 
 import com.wtf.client.Poll.Answer;
 import com.wtf.client.dto.DiscussionDTO;
+import com.wtf.client.dto.PageDTO;
 import com.wtf.client.dto.PostDTO;
 import com.wtf.client.rpc.WTFService;
 import com.wtf.client.rpc.WTFServiceAsync;
@@ -34,10 +35,10 @@ public class DiscussionsManager {
   private static WTFServiceAsync wtfService = GWT.create(WTFService.class);
   private static String pageUrl = Window.Location.getHref();
   static {
-    ServiceDefTarget sdt = (ServiceDefTarget) wtfService;
-    sdt.setServiceEntryPoint("http://wtf-review.appspot.com/wtf/rpc");
-    sdt.setRpcRequestBuilder(new RpcRequestBuilderWN(
-        Config.getOptionString("dummy_url", "")));
+    //ServiceDefTarget sdt = (ServiceDefTarget) wtfService;
+    //sdt.setServiceEntryPoint("http://wtf-review.appspot.com/wtf/rpc");
+    //sdt.setRpcRequestBuilder(new RpcRequestBuilderWN(
+        //Config.getOptionString("dummy_url", "")));
   }
 
   public static void addDiscussion(DiscussionPresenter d) {
@@ -76,7 +77,7 @@ public class DiscussionsManager {
 
     // debug
     // line_numbers.debug();
-
+    
     Request r = wtfService.createDiscussion(pageUrl, line_numbers,
         new AsyncCallback<String>() {
       @Override
@@ -92,6 +93,19 @@ public class DiscussionsManager {
         discussion.setKey(key);
         StatusBar.setStatus("Discussion created");
         Debug.log("Discussion created");
+        
+        wtfService.updateContent(pageUrl, DOMMagic.getRowFormat(), new AsyncCallback<Boolean>() {
+          @Override
+          public void onFailure(Throwable caught) {
+            Debug.log("Page content update fail: " + caught.getMessage());
+          }
+
+          @Override
+          public void onSuccess(Boolean result) {
+            Debug.log("Page content updated? " + result);
+          }
+        });
+        
         callback.execute();
       }
     });
@@ -153,11 +167,12 @@ public class DiscussionsManager {
       return;
     }
     _fetching = true;
+    StatusBar.setStatus("Fetching content...");
+    
     StatusBar.setStatus("Fetching discussions...");
     Debug.log("Fetching discussions...");
 
-    wtfService.getDiscussions(pageUrl,
-        new AsyncCallback<List<DiscussionDTO>>() {
+    wtfService.getPage(pageUrl, new AsyncCallback<PageDTO>() {
       @Override
       public void onFailure(Throwable caught) {
         StatusBar.setStatus("Fetching discussions fail:"
@@ -165,17 +180,25 @@ public class DiscussionsManager {
       }
 
       @Override
-      public void onSuccess(final List<DiscussionDTO> ds) {
-        StatusBar.setStatus("Fetching " + ds.size() + " discussions win");
+      public void onSuccess(final PageDTO p) {
+        if (p == null) {
+          _fetching = false;
+          _fetched = true;
+          callback.execute();
+          return;
+        }
+        
+        Debug.log("Fetching content win: '" + p.getContent() + "'");
+        Debug.log("Fetching " + p.getDiscussions().size() + " discussions win");
 
         final Command add_discussions = new Command() {
           @Override
           public void execute() {
-            for (DiscussionDTO d : ds) {
+            for (DiscussionDTO d : p.getDiscussions()) {
               LineNumbers lines = d.getLines();
-              if(_old_to_new != null) {
+              if (_old_to_new != null) {
                 lines = updateLines(lines);
-                if(lines == null)
+                if (lines == null)
                   continue;
               }
 
@@ -194,6 +217,7 @@ public class DiscussionsManager {
 
         Command update_and_add = new Command() {
           public void execute() {
+            DiffManager._old_string = p.getContent();
             DiffManager.computeDiff(DOMMagic.getRowFormat(),
                 //this will execute if row_formats differ
                 new Command() {
@@ -228,11 +252,34 @@ public class DiscussionsManager {
   }
 
   public static void updateLineNumbers(Command callback) {
-    //TODO (peper): update LineNumbers on the server
-    //_discussions zawiera juz dobrze umieszczone dyskusje czyli cos w stylu:
-    /*for(DiscussionPresenter d : _discussions) {
-      rpc_update(DOMMagic.getLineNumbersFromSelection(d.getSelection()));
-    }*/
+    wtfService.updateContent(pageUrl, DOMMagic.getRowFormat(),
+        new AsyncCallback<Boolean>() {
+          @Override
+          public void onFailure(Throwable caught) {
+              Debug.log("Updating page content fail: " + caught.getMessage());
+          }
+
+          @Override
+          public void onSuccess(Boolean result) {
+              Debug.log("Updating page content win? " + result);
+          }
+    });
+    
+    for (DiscussionPresenter d : _discussions) {
+      wtfService.updateLineNumbers(d.getDiscussion().getKey(),
+          DOMMagic.getLineNumbersFromSelection(d.getSelection()),
+          new AsyncCallback<Boolean>() {
+            @Override
+            public void onFailure(Throwable caught) {
+              Debug.log("Updating lines fail: " + caught.getMessage());
+            }
+
+            @Override
+            public void onSuccess(Boolean result) {
+              Debug.log("Updating lines win? " + result);
+            }
+      });
+    }
 
     //after update:
     callback.execute();

@@ -4,7 +4,7 @@ import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 import com.wtf.client.LineNumbers;
-import com.wtf.client.dto.DiscussionDTO;
+import com.wtf.client.dto.PageDTO;
 import com.wtf.client.dto.PostDTO;
 
 import java.util.List;
@@ -15,7 +15,12 @@ public interface WTFService extends RemoteService {
 
   String createDiscussion(String url, LineNumbers lines);
 
-  List<DiscussionDTO> getDiscussions(String url);
+  PageDTO getPage(String url);
 
   List<PostDTO> getPosts(String discussionKey);
+  
+  Boolean updateLineNumbers(String key, LineNumbers lineNumbersFromSelection);
+  
+  String getContent(String url);
+  Boolean updateContent(String url, String content);
 }

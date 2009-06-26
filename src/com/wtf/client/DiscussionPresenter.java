@@ -33,6 +33,10 @@ public class DiscussionPresenter {
 
   private Discussion _discussion;
 
+  public Discussion getDiscussion() {
+    return _discussion;
+  }
+
   private DiscussionView _discussion_widget = null;
 
   private CloudPresenter _icon;

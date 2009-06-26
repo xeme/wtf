@@ -6,6 +6,7 @@ import org.datanucleus.exceptions.NucleusObjectNotFoundException;
 
 import com.wtf.client.LineNumbers;
 import com.wtf.client.dto.DiscussionDTO;
+import com.wtf.client.dto.PageDTO;
 import com.wtf.client.dto.PostDTO;
 import com.wtf.client.rpc.WTFService;
 import com.wtf.server.jdo.DiscussionJDO;
@@ -87,7 +88,7 @@ public class WTFServiceImpl extends RemoteServiceServlet implements WTFService {
   }
 
   @Override
-  public List<DiscussionDTO> getDiscussions(String url) {
+  public PageDTO getPage(String url) {
     PersistenceManager pm = PMF.get().getPersistenceManager();
 
     PageJDO p;
@@ -106,9 +107,10 @@ public class WTFServiceImpl extends RemoteServiceServlet implements WTFService {
           d.getPosts().size()));
     }
 
+    log.severe("Returning content '" + p.getContent() + "'");
     log.severe("Returning " + discussions.size() + " discussions.");
 
-    return discussions;
+    return new PageDTO(p.getContent(), discussions);
   }
 
   @Override
@@ -132,5 +134,53 @@ public class WTFServiceImpl extends RemoteServiceServlet implements WTFService {
     log.severe("Returning " + posts.size() + " posts.");
 
     return posts;
+  }
+
+  @Override
+  public String getContent(String url) {
+    PersistenceManager pm = PMF.get().getPersistenceManager();
+
+    PageJDO p;
+    try {
+      p = pm.getObjectById(PageJDO.class, url);
+      return p.getContent();
+    } catch (JDOObjectNotFoundException e) {
+      log.severe("No PageJDO for " + url);
+      return null;
+    }
+  }
+
+  @Override
+  public Boolean updateContent(String url, String content) {
+    PersistenceManager pm = PMF.get().getPersistenceManager();
+
+    PageJDO p;
+    try {
+      p = pm.getObjectById(PageJDO.class, url);
+      log.severe("Updating content of " + url + " with '" + content + "'");
+      p.setContent(content);
+      pm.close();
+      return true;
+    } catch (JDOObjectNotFoundException e) {
+      log.severe("No PageJDO for " + url);
+      return false;
+    }
+  }
+
+  @Override
+  public Boolean updateLineNumbers(String key,
+      LineNumbers lineNumbersFromSelection) {
+    PersistenceManager pm = PMF.get().getPersistenceManager();
+    
+    DiscussionJDO d;
+    try {
+      d = pm.getObjectById(DiscussionJDO.class, key);
+      d.setLines(lineNumbersFromSelection);
+      pm.close();
+      return true;
+    } catch (JDOObjectNotFoundException e) {
+      log.severe("No discussion: " + key);
+      return false;
+    }
   }
 }

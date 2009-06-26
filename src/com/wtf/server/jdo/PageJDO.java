@@ -1,5 +1,7 @@
 package com.wtf.server.jdo;
 
+import com.google.appengine.api.datastore.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +29,9 @@ public class PageJDO {
   @Persistent
   @Extension(vendorName = "datanucleus", key = "gae.pk-name", value = "true")
   private String url;
+  
+  @Persistent
+  private Text content;
 
   @Persistent(mappedBy = "page")
   private List<DiscussionJDO> discussions = new ArrayList<DiscussionJDO>();
@@ -47,6 +52,18 @@ public class PageJDO {
     return url;
   }
 
+  public String getContent() {
+    if (content != null) {
+      return content.toString();
+    } else {
+      return null;
+    }
+  }
+
+  public void setContent(String content) {
+    this.content = new Text(content);
+  }
+  
   public void setDiscussions(List<DiscussionJDO> discussions) {
     this.discussions = discussions;
   }
