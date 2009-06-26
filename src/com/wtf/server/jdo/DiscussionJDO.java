@@ -8,6 +8,7 @@ import java.util.List;
 import javax.jdo.annotations.Extension;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.Order;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
@@ -26,6 +27,7 @@ public class DiscussionJDO {
   private LineNumbers lines;
 
   @Persistent(mappedBy = "discussion")
+  @Order(extensions = @Extension(vendorName="datanucleus", key="list-ordering", value="date asc"))
   private List<PostJDO> posts = new ArrayList<PostJDO>();
 
   public DiscussionJDO(LineNumbers lines) {
