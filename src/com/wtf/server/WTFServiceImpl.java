@@ -107,7 +107,7 @@ public class WTFServiceImpl extends RemoteServiceServlet implements WTFService {
           d.getPosts().size()));
     }
 
-    log.severe("Returning content '" + p.getContent() + "'");
+    log.severe("Returning content ["+ p.getContent().length() + "] '" + p.getContent() + "'");
     log.severe("Returning " + discussions.size() + " discussions.");
 
     return new PageDTO(p.getContent(), discussions);
@@ -157,7 +157,7 @@ public class WTFServiceImpl extends RemoteServiceServlet implements WTFService {
     PageJDO p;
     try {
       p = pm.getObjectById(PageJDO.class, url);
-      log.severe("Updating content of " + url + " with '" + content + "'");
+      log.severe("Updating content of " + url + " with ["+ content.length() + "] '" + content + "'");
       p.setContent(content);
       pm.close();
       return true;

@@ -13,7 +13,6 @@ import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DeferredCommand;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.rpc.RpcRequestBuilderWN;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
 
 import com.wtf.client.Poll.Answer;
@@ -188,7 +187,9 @@ public class DiscussionsManager {
           return;
         }
         
-        Debug.log("Fetching content win: '" + p.getContent() + "'");
+       // String ptmp = p.getContent().replace("<", "&lt;");
+        //ptmp = ptmp.replace(">", "&gt;");
+       // Debug.log("Fetching content win: '" + ptmp + "'");
         Debug.log("Fetching " + p.getDiscussions().size() + " discussions win");
 
         final Command add_discussions = new Command() {
@@ -209,6 +210,11 @@ public class DiscussionsManager {
                 _discussions.add(new DiscussionPresenter(dis, null));
               }
             }
+            updateLineNumbers(new Command() {
+              public void execute() {
+                StatusBar.setStatus("DOM changes submited");
+              }
+            });
             _fetching = false;
             _fetched = true;
             callback.execute();
@@ -223,11 +229,7 @@ public class DiscussionsManager {
                 new Command() {
               public void execute() { 
                 _old_to_new = DiffManager.getOldToNew();
-                updateLineNumbers(new Command() {
-                  public void execute() {
-                    StatusBar.setStatus("DOM changes submited");
-                  }
-                });
+                Debug.log("DIFFER");
                 add_discussions.execute();
               }
             },
@@ -235,6 +237,7 @@ public class DiscussionsManager {
             new Command() {
               public void execute() { 
                 add_discussions.execute();
+                Debug.log("DO NOT DIFFER");
               }
             });
           }

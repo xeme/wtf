@@ -54,7 +54,7 @@ public class PageJDO {
 
   public String getContent() {
     if (content != null) {
-      return content.toString();
+      return content.getValue();
     } else {
       return null;
     }

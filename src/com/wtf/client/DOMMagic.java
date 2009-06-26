@@ -20,7 +20,7 @@ public class DOMMagic {
   // maps for relations between Elements and lines
   private static HashMap<Element, TagLines> _elem_to_lines = new HashMap<Element, TagLines>();
   private static HashMap<Integer, Element> _line_to_elem = new HashMap<Integer, Element>();
-  
+
 
   private static HashSet<Element> _done = new HashSet<Element>();
   private static HashSet<Element> _exclude = new HashSet<Element>();
@@ -28,7 +28,7 @@ public class DOMMagic {
   public static String getRowFormat() {
     return _row_format;
   }  
-  
+
   public static LineNumbers getLineNumbersFromSelection(Selection selection) {
     LineNumbers line_numbers = new LineNumbers();
 
@@ -112,28 +112,35 @@ public class DOMMagic {
     Debug.log_time("start computiong Row Format ");
 
     _line_counter = 0;
-  
+
     NodeList<Element> elems;
-    elems = $(Config.getOptionString("exclude_roots",  "")).get();
-    for (int i = 0; i < elems.getLength(); i++) {
-      _exclude.add(elems.getItem(i));
+    String str = "";
+    
+    str = Config.getOptionString("exclude_roots",  "");
+    if(!str.trim().equals("")) {
+      elems = $(str).get();
+      for (int i = 0; i < elems.getLength(); i++) {
+        _exclude.add(elems.getItem(i));
+      }
     }
 
-    elems = $(Config.getOptionString("include_roots",  "")).get();
-    for (int i = 0; i < elems.getLength(); i++) {
-      computeRoot(elems.getItem(i));
+    str = Config.getOptionString("include_roots",  "");
+    if(!str.trim().equals("")) {
+      elems = $(str).get();
+      for (int i = 0; i < elems.getLength(); i++) {
+        computeRoot(elems.getItem(i));
+      }
     }
-
     _done.clear();
     _exclude.clear();
-        
+
     Debug.log_time("Done ");
     _computed = true;
 
     // this may slow down every other logging so use this wisely
     //debug();
   }
-  
+
   private static void computeRoot(Node root) {
     // Pair(node, is_closing_tag)
     Stack<Pair<Node, Boolean>> stack = new Stack<Pair<Node, Boolean>>();
@@ -141,7 +148,7 @@ public class DOMMagic {
     Pair<Node, Boolean> node = null;
     while (!stack.isEmpty()) {
       node = stack.pop();
-      
+
       if (_done.contains(node.first()) || _exclude.contains(node.first()))
         continue;
 

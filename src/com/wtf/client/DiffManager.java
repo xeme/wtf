@@ -4,7 +4,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.google.gwt.user.client.Command;
-import com.google.gwt.user.client.DeferredCommand;
 
 public class DiffManager {
   public static String _old_string = null;
@@ -34,6 +33,7 @@ public class DiffManager {
     //equal?
     if(_old_string.equals(new_string)) {
       Debug.log_time("end ");
+      StatusBar.setStatus("Done");  
       return false;
     }
     Debug.log_time("end ");
@@ -108,6 +108,7 @@ public class DiffManager {
       tmp += i + " : " + _old_to_new[i] + " " + tx + "<br>";
     }
     //Debug.log(tmp);
+    StatusBar.setStatus("Done");   
     return true;
   }
 }

@@ -420,16 +420,22 @@ public class Selector {
 
   private static void initDOM() {
     NodeList<Element> elems;
-    elems = $(Config.getOptionString("exclude_roots",  "")).get();
-    for (int i = 0; i < elems.getLength(); i++) {
-      _exclude.add(elems.getItem(i));
+    String str = "";
+    str = Config.getOptionString("exclude_roots",  "");
+    if(!str.trim().equals("")) {
+      elems = $(str).get();
+      for (int i = 0; i < elems.getLength(); i++) {
+        _exclude.add(elems.getItem(i));
+      }
     }
 
-    elems = $(Config.getOptionString("include_roots",  "")).get();
-    for (int i = 0; i < elems.getLength(); i++) {
-      initElementByRoot(elems.getItem(i));
+    str = Config.getOptionString("include_roots",  "");
+    if(!str.trim().equals("")) {
+      elems = $(str).get();
+      for (int i = 0; i < elems.getLength(); i++) {
+        initElementByRoot(elems.getItem(i));
+      }
     }
-
     _init_done.clear();
     _exclude.clear();
   }
