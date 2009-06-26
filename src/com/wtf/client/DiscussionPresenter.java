@@ -21,6 +21,7 @@ public class DiscussionPresenter {
     HasClickHandlers getClose();
     String getContent();
     String getAuthor();
+    void setAuthor(String author);
     void setFormVisibility(boolean visibility);
     void setVisible(boolean visibility);
     boolean isVisible();
@@ -79,6 +80,11 @@ public class DiscussionPresenter {
   }
 
   public void bindWidget(DiscussionView w) {
+    String user = Config.getOptionString("user", null);
+    if (user != null) {
+      w.setAuthor(user);
+    }
+    
     _discussion_widget = w;
 
     _discussion_widget.setPoll(_discussion.getPoll()); //TODO: support polls
@@ -196,7 +202,6 @@ public class DiscussionPresenter {
           return;
         if (_discussion_widget == null) {
           bindWidget(new DiscussionWidget());
-          Debug.log("dupa");
           _discussion_widget.attach();
         }
         _discussion_widget.setVisible(true);

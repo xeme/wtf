@@ -112,6 +112,11 @@ public class DiscussionWidget extends Composite implements DiscussionView {
   public String getAuthor() {
     return _author.getText();
   }
+  
+  public void setAuthor(String author) {
+    _author.setText(author);
+    _author.setReadOnly(true);
+  }
 
   public void position(int elem_top, int elem_left) {
     int top = elem_top - this.getOffsetHeight();
