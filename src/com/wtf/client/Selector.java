@@ -204,6 +204,7 @@ public class Selector {
   public static void endSelectionMode() {
     // Debug.log_time("endSelectionMode");
     StatusBar.setStatus("Leaving Selection Mode...");
+    Debug.log("Leaving Selection Mode...");
     // chunk operations
     DeferredCommand.addCommand(new Command() {
       public void execute() {

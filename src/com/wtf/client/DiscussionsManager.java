@@ -59,6 +59,7 @@ public class DiscussionsManager {
       public void onSuccess(Boolean result) {
         // after adding do this:
         StatusBar.setStatus("Post added");
+        Debug.log("Post added: " + result);;
         callback.execute();
       }
     });
