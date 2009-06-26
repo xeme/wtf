@@ -2,7 +2,6 @@ package com.wtf.client;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.Command;
 
 public class WTF implements EntryPoint {
 

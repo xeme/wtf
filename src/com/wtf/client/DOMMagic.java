@@ -84,7 +84,7 @@ public class DOMMagic {
       SelectedElement selected_element = tmp.get(next_level.getParentTag());
       if (selected_element == null) {
         Debug.log("Error: Incorrect next level description");
-        StatusBar.setError("Incorect discussion location");
+        //StatusBar.setError("Incorect discussion location");
         return null;
       }
       selected_element.setSelectedWords(next_level.getLines());
@@ -131,7 +131,7 @@ public class DOMMagic {
     _computed = true;
 
     // this may slow down every other logging so use this wisely
-    // debug();
+    //debug();
   }
   
   private static void computeRoot(Node root) {
@@ -182,7 +182,8 @@ public class DOMMagic {
   private static void debug() {
     _row_format = _row_format.replace("<", "&lt;");
     _row_format = _row_format.replace(">", "&gt;");
-    _row_format = _row_format.replace("\n", "<br>");
+    //_row_format = _row_format.replace("\n", "<br>");
+    _row_format = _row_format.replace("\n", "\\n");
     Debug.log(_row_format);
   }
 
@@ -197,8 +198,11 @@ public class DOMMagic {
   }
 
   private static void printNode(Pair<Node, Boolean> node) {
+    String sep = "__wtf__";
     if (node.first().getNodeType() == Node.TEXT_NODE) {
-      String words[] = node.first().getNodeValue().split("\\s"); // whitespace
+      //String words[] = node.first().getNodeValue().split("\\s"); // whitespace
+      String val = node.first().getNodeValue();//.replaceAll("\n", "&nbsp;");
+      String words[] = val.split(" ");
       for (String word : words) {
         if (word.length() == 0)
           continue;
@@ -207,7 +211,7 @@ public class DOMMagic {
         //_row_format += _line_counter + ": ";
         /* debug only */
 
-        _row_format += word + "\n";
+        _row_format += word + sep;
         _line_counter++;
       }
 
@@ -219,7 +223,7 @@ public class DOMMagic {
       _row_format += "<";
       if (node.second())
         _row_format += "/";
-      _row_format += node.first().getNodeName() + ">\n";
+      _row_format += node.first().getNodeName() + ">" + sep;
 
       _line_counter++;
     }

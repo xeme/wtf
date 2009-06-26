@@ -70,10 +70,13 @@ public class SelectedElement {
         Text text_node = children.getItem(i).cast();
 
         String text_node_data = text_node.getData();
+        //text_node_data = text_node_data.replaceAll("\n", " ");
         String split[] = text_node_data.split(" ");
         List<Node> new_nodes = new LinkedList<Node>();
         for (int j = 0; j < split.length; j++) {
           String s = split[j];
+          if(s.length() == 0)
+            continue;
           Element span = DOM.createSpan();
           // hashCode may differ among page views
           span.setId("wtf_span_" + _element.hashCode() + "_" + counter);

@@ -38,23 +38,31 @@
 
     <br />
     <h2 id="h2">jakis sobie h2</h2>
-    <p id="ppp"> to jest akapit tekstu to jest akapit tekstu to jest akapit tekstu 
-    to jest akapit tekstuto jest akapit tekstuto jest akapit tekstuto jest akapit tekstu
-    to jest akapit tekstuto jest akapit tekstuto jest akapit tekstuto jest akapit tekstu
-    to jest akapit tekstuto jest akapit tekstuto jest akapit tekstuto jest akapit tekstu
+    <p id="ppp"> Developers often asked what's the best way to go 
+    about building custom widgets. There are of course a number of best
+     practices to consider when answering this question. In this post I'll 
+     highlight a few I like to start off with. 
+     Prefer composition to inheritance. Unnecessarily 
+     exposing implementation details is generally a bad 
+     idea, and it's no different when you are building custom
+      widgets. In GWT terms, this means that your custom widgets 
+      should typically extend Composite.
     </p>
-    <p>Jakis tekst jakis tekst bla bla bla bla tekst jest
+    <p>Here the HorizontalPanel implementation is exposed 
     bez_spacji<img src="wazniak/914d162e749b2152ebb203fe5811fe29.png">
-    to jest dupa blada. <img src="wazniak/914d162e749b2152ebb203fe5811fe29.png">
-    aaa as s ds sd s s</p>
+    Others may come to depend <img src="wazniak/914d162e749b2152ebb203fe5811fe29.png">
+    on the presence of one or more inherited methods</p>
     <a href="#aa">aaaaaaa</a>
     <br />
-    <div style="width: 400px;"  id="div1"> to jest tekst pierwszej czesci diva i troche
-    tego tekstu tu jest. pierwsza czesc diva.
-       <p  id="p_in_div"> to jest akapit tekstu to jest akapit tekstu to jest akapit tekstu 
-    to jest akapit tekstuto jest akapit tekstuto 
+    <div style="width: 400px;"  id="div1"> he use of HorizontalPanel is a hidden implementation detail
+ We are free to change the implementation without affecting others public
+       <p  id="p_in_div"> Extending Composite also ensures that you do not inadvertently 
+       expose methods inherited from the parent classes into your new widget's API. Doing so 
+       can quickly lead to other classes depending on not only your class' implementation, but 
+       also the implementation of any parent classes. Remember, you can always add to your API. 
+       It's generally impossible to take anything away without introducing a breaking change. 
     </p>
-    to jest druga czesc diva. sam tekst zaraz za dzieckiem zawierajacym rowniez tekst
+    Be wary of multiple constructors as they can quickly get out of hand
     </div>
     <img src="wazniak/alch.jpg"  id="img">
     <object width="400" height="150">

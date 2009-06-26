@@ -242,6 +242,10 @@ public class DiscussionPresenter {
     _discussion.setSelection(selection);
   }
   
+  public Selection getSelection() {
+    return _discussion.getSelection();
+  }
+  
   public void setPoll(Poll poll) {
     _discussion.setPoll(poll);
   }

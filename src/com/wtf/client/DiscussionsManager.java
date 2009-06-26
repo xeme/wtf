@@ -1,5 +1,6 @@
 package com.wtf.client;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -25,6 +26,7 @@ public class DiscussionsManager {
   private static Poll _poll = null;
   private static boolean _poll_fetching = false;
   private static HashSet<DiscussionPresenter> _discussions = new HashSet<DiscussionPresenter>();
+  private static Integer[] _old_to_new = null;
 
   private static WTFServiceAsync wtfService = GWT.create(WTFService.class);
   private static String pageUrl = GWT.getHostPageBaseURL();
@@ -44,7 +46,6 @@ public class DiscussionsManager {
     StatusBar.setStatus("Adding post...");
     Debug.log("Adding post...");
 
-    // TODO (peper): tutaj wyslanie tresci posta dla tej konkretnej dyskusji
     wtfService.addPost(discussion.getKey(), post, new AsyncCallback<Boolean>() {
       @Override
       public void onFailure(Throwable caught) {
@@ -71,28 +72,24 @@ public class DiscussionsManager {
     // debug
     // line_numbers.debug();
 
-    // TODO (peper): tutaj utworzenie nowej dyskusji w backendzie i sciagniecie
-    // jej id
-    // wyslac trzeba jej line_numbers i tresc dyskusji
-
     Request r = wtfService.createDiscussion(pageUrl, line_numbers,
         new AsyncCallback<String>() {
-          @Override
-          public void onFailure(Throwable caught) {
-            Debug.log("Creating discussion fail: " + caught.getMessage());
-            StatusBar.setStatus("Creating discussion fail: "
-                + caught.getMessage());
-          }
+      @Override
+      public void onFailure(Throwable caught) {
+        Debug.log("Creating discussion fail: " + caught.getMessage());
+        StatusBar.setStatus("Creating discussion fail: "
+            + caught.getMessage());
+      }
 
-          @Override
-          public void onSuccess(String key) {
-            // after creating do this:
-            discussion.setKey(key);
-            StatusBar.setStatus("Discussion created");
-            Debug.log("Discussion created");
-            callback.execute();
-          }
-        });
+      @Override
+      public void onSuccess(String key) {
+        // after creating do this:
+        discussion.setKey(key);
+        StatusBar.setStatus("Discussion created");
+        Debug.log("Discussion created");
+        callback.execute();
+      }
+    });
   }
 
   //TODO: move to DiscussionPresenter
@@ -124,26 +121,26 @@ public class DiscussionsManager {
 
     wtfService.getPosts(discussion.getKey(),
         new AsyncCallback<List<PostDTO>>() {
-          @Override
-          public void onFailure(Throwable caught) {
-            StatusBar.setStatus("Fetching details failed: "
-                + caught.getMessage());
-          }
+      @Override
+      public void onFailure(Throwable caught) {
+        StatusBar.setStatus("Fetching details failed: "
+            + caught.getMessage());
+      }
 
-          @Override
-          public void onSuccess(List<PostDTO> posts) {
-            thread.addAll(posts);
+      @Override
+      public void onSuccess(List<PostDTO> posts) {
+        thread.addAll(posts);
 
-            // after fetching do this:
-            discussion.setPoll(poll);
-            discussion.setThread(thread);
+        // after fetching do this:
+        discussion.setPoll(poll);
+        discussion.setThread(thread);
 
-            StatusBar.setStatus("Details fetched");
-            discussion.setFetching(false);
-            discussion.setFetched(true);
-            callback.execute();
-          }
-        });
+        StatusBar.setStatus("Details fetched");
+        discussion.setFetching(false);
+        discussion.setFetched(true);
+        callback.execute();
+      }
+    });
   }
 
   public static void fetchDiscussionsList(final Command callback) {
@@ -156,42 +153,84 @@ public class DiscussionsManager {
 
     wtfService.getDiscussions(pageUrl,
         new AsyncCallback<List<DiscussionDTO>>() {
-          @Override
-          public void onFailure(Throwable caught) {
-            StatusBar.setStatus("Fetching discussions fail:"
-                + caught.getMessage());
-          }
+      @Override
+      public void onFailure(Throwable caught) {
+        StatusBar.setStatus("Fetching discussions fail:"
+            + caught.getMessage());
+      }
 
-          @Override
-          public void onSuccess(final List<DiscussionDTO> ds) {
-            StatusBar.setStatus("Fetching " + ds.size() + " discussions win");
+      @Override
+      public void onSuccess(final List<DiscussionDTO> ds) {
+        StatusBar.setStatus("Fetching " + ds.size() + " discussions win");
 
-            Command add_discussions = new Command() {
-              @Override
-              public void execute() {
-                for (DiscussionDTO d : ds) {
-                  Selection sel = DOMMagic.getSelectionFromLineNumbers(d.getLines());
-                  if (sel != null) {
-                    Discussion dis = new Discussion(sel, d.getPostsCount());
-                    dis.setKey(d.getKey());
-                    _discussions.add(new DiscussionPresenter(dis, null));
-                  }
-                }
-                _fetching = false;
-                _fetched = true;
-                callback.execute();
+        final Command add_discussions = new Command() {
+          @Override
+          public void execute() {
+            for (DiscussionDTO d : ds) {
+              LineNumbers lines = d.getLines();
+              if(_old_to_new != null) {
+                lines = updateLines(lines);
+                if(lines == null)
+                  continue;
               }
-            };
 
-            // DOMMagic must be computed before applying fetched discussions
-            if (DOMMagic.isComputed()) {
-              add_discussions.execute();
-            } else {
-              DOMMagic.requestComputingRowFormat();
-              DeferredCommand.addCommand(add_discussions);
+              Selection sel = DOMMagic.getSelectionFromLineNumbers(lines);
+              if (sel != null) {
+                Discussion dis = new Discussion(sel, d.getPostsCount());
+                dis.setKey(d.getKey());
+                _discussions.add(new DiscussionPresenter(dis, null));
+              }
             }
+            _fetching = false;
+            _fetched = true;
+            callback.execute();
           }
-        });
+        };
+
+        Command update_and_add = new Command() {
+          public void execute() {
+            DiffManager.computeDiff(DOMMagic.getRowFormat(),
+                //this will execute if row_formats differ
+                new Command() {
+              public void execute() { 
+                _old_to_new = DiffManager.getOldToNew();
+                updateLineNumbers(new Command() {
+                  public void execute() {
+                    StatusBar.setStatus("DOM changes submited");
+                  }
+                });
+                add_discussions.execute();
+              }
+            },
+            //this will execute if row_formats do not differ
+            new Command() {
+              public void execute() { 
+                add_discussions.execute();
+              }
+            });
+          }
+        };
+
+        // DOMMagic must be computed before computing diff and applying fetched discussions
+        if (DOMMagic.isComputed()) {
+          update_and_add.execute();
+        } else {
+          DOMMagic.requestComputingRowFormat();
+          DeferredCommand.addCommand(update_and_add);
+        }
+      }
+    });
+  }
+
+  public static void updateLineNumbers(Command callback) {
+    //TODO (peper): update LineNumbers on the server
+    //_discussions zawiera juz dobrze umieszczone dyskusje czyli cos w stylu:
+    /*for(DiscussionPresenter d : _discussions) {
+      rpc_update(DOMMagic.getLineNumbersFromSelection(d.getSelection()));
+    }*/
+
+    //after update:
+    callback.execute();
   }
 
   public static void fetchPollInfo(Command callback) {
@@ -277,6 +316,63 @@ public class DiscussionsManager {
       });
     } else {
       cmd.execute();
+    }
+  }
+
+  public static LineNumbers updateLines(LineNumbers old) {
+    if(_old_to_new == null)
+      return old; 
+    Debug.log("update discussion...");
+
+    HashMap<TagLines, TagLines> tmp = new HashMap<TagLines, TagLines>();
+    LineNumbers updated = new LineNumbers();
+    HashSet<TagLines> elems = old.getElements();
+    for(TagLines tag : elems) {
+      TagLines ntag = updateTag(tag);
+      if(ntag == null)
+        continue;
+      updated.addElement(ntag);
+      tmp.put(tag, ntag);
+    }
+
+    HashSet<WordsLines> next_level = old.getNextLevelWords();
+    for(WordsLines wl : next_level) {
+      TagLines ntag = tmp.get(wl.getParentTag());
+      if(ntag== null) {
+        Debug.log("Error in updateLines: Incorrect next level description");
+        return null;
+      }
+      
+      HashSet<Integer> lines = wl.getLines();
+      HashSet<Integer> updated_lines = new HashSet<Integer>();
+      for(int line : lines) {
+        int with_open_tag = wl.getParentTag().getOpenLine() + line + 1;
+        //Debug.log("line: " + line + " with_open_tag: " + with_open_tag);
+        if(_old_to_new[with_open_tag] != -1) {
+          updated_lines.add(_old_to_new[with_open_tag] - ntag.getOpenLine() - 1);     
+        } else {
+          Debug.log("diff: word is missing");
+        }
+      }
+      
+      updated.addNextLevelWords(ntag, updated_lines);
+    }
+    return updated;
+  }
+
+  private static TagLines updateTag(TagLines tag) {
+    if(_old_to_new[tag.getOpenLine()] == -1 && _old_to_new[tag.getCloseLine()] == -1) {
+      //tag is missing
+      //TODO: do something useful
+      Debug.log("diff: tag is missing");
+      return null;
+    } else {
+      int open = _old_to_new[tag.getOpenLine()];
+      int close = _old_to_new[tag.getCloseLine()];
+      //Debug.log("open: " + tag.getOpenLine() + " nopen: " + open);
+      //Debug.log("close: " + tag.getCloseLine() + " nclose: " + close);
+      return new TagLines(open != -1 ? open : tag.getOpenLine(), 
+          close != -1 ? close : tag.getCloseLine());
     }
   }
 }
