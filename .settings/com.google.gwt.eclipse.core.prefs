@@ -1,5 +1,5 @@
-#Fri Jun 26 10:32:55 CEST 2009
+#Tue Jun 30 00:03:32 CEST 2009
 eclipse.preferences.version=1
-entryPointModules=com.wtf.WTF
+entryPointModules=com.wtf.WTF|com.wtf.CrossSiteProxyWN
 filesCopiedToWebInfLib=gwt-servlet.jar
 gwtCompileSettings=PGd3dC1jb21waWxlLXNldHRpbmdzPjxsb2ctbGV2ZWw+SU5GTzwvbG9nLWxldmVsPjxvdXRwdXQtc3R5bGU+T0JGVVNDQVRFRDwvb3V0cHV0LXN0eWxlPjxleHRyYS1hcmdzPjwhW0NEQVRBWy1nZW4gZ2VuX2Rpcl1dPjwvZXh0cmEtYXJncz48dm0tYXJncz48IVtDREFUQVstWG14NTEybV1dPjwvdm0tYXJncz48L2d3dC1jb21waWxlLXNldHRpbmdzPg\=\=
