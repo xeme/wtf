@@ -130,7 +130,9 @@ public class DOMMagic {
       for (int i = 0; i < elems.getLength(); i++) {
         computeRoot(elems.getItem(i));
       }
+      Debug.log("elems: " + elems.getLength());
     }
+    
     _done.clear();
     _exclude.clear();
 
