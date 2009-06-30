@@ -13,6 +13,7 @@ import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DeferredCommand;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.rpc.RpcRequestBuilderWN;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
 
 import com.wtf.client.Poll.Answer;
@@ -34,10 +35,10 @@ public class DiscussionsManager {
   private static WTFServiceAsync wtfService = GWT.create(WTFService.class);
   private static String pageUrl = Window.Location.getHref();
   static {
-    //ServiceDefTarget sdt = (ServiceDefTarget) wtfService;
-    //sdt.setServiceEntryPoint("http://wtf-review.appspot.com/wtf/rpc");
-    //sdt.setRpcRequestBuilder(new RpcRequestBuilderWN(
-        //Config.getOptionString("dummy_url", "")));
+    ServiceDefTarget sdt = (ServiceDefTarget) wtfService;
+    sdt.setServiceEntryPoint("http://wtf-review.appspot.com/wtf/rpc");
+    sdt.setRpcRequestBuilder(new RpcRequestBuilderWN(
+        Config.getOptionString("dummy_url", "")));
   }
 
   public static void addDiscussion(DiscussionPresenter d) {
@@ -102,10 +103,9 @@ public class DiscussionsManager {
           @Override
           public void onSuccess(Boolean result) {
             Debug.log("Page content updated? " + result);
+            callback.execute();
           }
         });
-        
-        callback.execute();
       }
     });
   }
