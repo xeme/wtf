@@ -393,9 +393,8 @@ public class DiscussionsManager {
     HashSet<WordsLines> next_level = old.getNextLevelWords();
     for(WordsLines wl : next_level) {
       TagLines ntag = tmp.get(wl.getParentTag());
-      if(ntag== null) {
-        Debug.log("Error in updateLines: Incorrect next level description");
-        return null;
+      if (ntag == null) {
+        continue;
       }
       
       HashSet<Integer> lines = wl.getLines();
