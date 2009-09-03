@@ -35,17 +35,17 @@ public class DiscussionsManager {
   private static WTFServiceAsync wtfService = GWT.create(WTFService.class);
   private static String pageUrl = Window.Location.getHref();
   static {
-    ServiceDefTarget sdt = (ServiceDefTarget) wtfService;
-    sdt.setServiceEntryPoint("http://wtf-review.appspot.com/wtf/rpc");
-    sdt.setRpcRequestBuilder(new RpcRequestBuilderWN(
-        Config.getOptionString("dummy_url", "")));
+     ServiceDefTarget sdt = (ServiceDefTarget) wtfService;
+     sdt.setServiceEntryPoint("http://wtf-review.appspot.com/wtf/rpc");
+     sdt.setRpcRequestBuilder(new RpcRequestBuilderWN(
+     Config.getOptionString("dummy_url", "")));
   }
 
   public static void addDiscussion(DiscussionPresenter d) {
     _discussions.add(d);
   }
 
-  //TODO: move to DiscussionPresenter
+  // TODO: move to DiscussionPresenter
   public static void addPost(Discussion discussion, PostDTO post,
       final Command callback) {
     StatusBar.setStatus("Adding post...");
@@ -67,7 +67,7 @@ public class DiscussionsManager {
 
   }
 
-  //TODO: move to DiscussionPresenter
+  // TODO: move to DiscussionPresenter
   public static void createDiscussion(final Discussion discussion,
       final Command callback) {
     StatusBar.setStatus("Creating discussion...");
@@ -77,7 +77,7 @@ public class DiscussionsManager {
 
     // debug
     // line_numbers.debug();
-    
+
     Request r = wtfService.createDiscussion(pageUrl, line_numbers,
         new AsyncCallback<String>() {
       @Override
@@ -93,11 +93,13 @@ public class DiscussionsManager {
         discussion.setKey(key);
         StatusBar.setStatus("Discussion created");
         Debug.log("Discussion created");
-        
-        wtfService.updateContent(pageUrl, DOMMagic.getRowFormat(), new AsyncCallback<Boolean>() {
+
+        wtfService.updateContent(pageUrl, DOMMagic.getRowFormat(),
+            new AsyncCallback<Boolean>() {
           @Override
           public void onFailure(Throwable caught) {
-            Debug.log("Page content update fail: " + caught.getMessage());
+            Debug.log("Page content update fail: "
+                + caught.getMessage());
           }
 
           @Override
@@ -110,7 +112,7 @@ public class DiscussionsManager {
     });
   }
 
-  //TODO: move to DiscussionPresenter
+  // TODO: move to DiscussionPresenter
   public static void fetchDiscussionDetails(final Discussion discussion,
       final Command callback) {
     // do we want to fetch every time discussion is viewed??
@@ -167,15 +169,14 @@ public class DiscussionsManager {
     }
     _fetching = true;
     StatusBar.setStatus("Fetching content...");
-    
+
     StatusBar.setStatus("Fetching discussions...");
     Debug.log("Fetching discussions...");
 
     wtfService.getPage(pageUrl, new AsyncCallback<PageDTO>() {
       @Override
       public void onFailure(Throwable caught) {
-        StatusBar.setStatus("Fetching discussions fail:"
-            + caught.getMessage());
+        StatusBar.setStatus("Fetching discussions fail:" + caught.getMessage());
       }
 
       @Override
@@ -186,10 +187,10 @@ public class DiscussionsManager {
           callback.execute();
           return;
         }
-        
-       // String ptmp = p.getContent().replace("<", "&lt;");
-        //ptmp = ptmp.replace(">", "&gt;");
-       // Debug.log("Fetching content win: '" + ptmp + "'");
+
+        // String ptmp = p.getContent().replace("<", "&lt;");
+        // ptmp = ptmp.replace(">", "&gt;");
+        // Debug.log("Fetching content win: '" + ptmp + "'");
         Debug.log("Fetching " + p.getDiscussions().size() + " discussions win");
 
         final Command add_discussions = new Command() {
@@ -246,7 +247,8 @@ public class DiscussionsManager {
           }
         };
 
-        // DOMMagic must be computed before computing diff and applying fetched discussions
+        // DOMMagic must be computed before computing diff and applying fetched
+        // discussions
         if (DOMMagic.isComputed()) {
           update_and_add.execute();
         } else {
@@ -260,34 +262,34 @@ public class DiscussionsManager {
   public static void updateLineNumbers(Command callback) {
     wtfService.updateContent(pageUrl, DOMMagic.getRowFormat(),
         new AsyncCallback<Boolean>() {
-          @Override
-          public void onFailure(Throwable caught) {
-              Debug.log("Updating page content fail: " + caught.getMessage());
-          }
+      @Override
+      public void onFailure(Throwable caught) {
+        Debug.log("Updating page content fail: " + caught.getMessage());
+      }
 
-          @Override
-          public void onSuccess(Boolean result) {
-              Debug.log("Updating page content win? " + result);
-          }
+      @Override
+      public void onSuccess(Boolean result) {
+        Debug.log("Updating page content win? " + result);
+      }
     });
-    
+
     for (DiscussionPresenter d : _discussions) {
       wtfService.updateLineNumbers(d.getDiscussion().getKey(),
           DOMMagic.getLineNumbersFromSelection(d.getSelection()),
           new AsyncCallback<Boolean>() {
-            @Override
-            public void onFailure(Throwable caught) {
-              Debug.log("Updating lines fail: " + caught.getMessage());
-            }
+        @Override
+        public void onFailure(Throwable caught) {
+          Debug.log("Updating lines fail: " + caught.getMessage());
+        }
 
-            @Override
-            public void onSuccess(Boolean result) {
-              Debug.log("Updating lines win? " + result);
-            }
+        @Override
+        public void onSuccess(Boolean result) {
+          Debug.log("Updating lines win? " + result);
+        }
       });
     }
 
-    //after update:
+    // after update:
     callback.execute();
   }
 
@@ -342,7 +344,7 @@ public class DiscussionsManager {
     }
   }
 
-  public static void removeIcons() { //TODO: troche za duzo odwolan?
+  public static void removeIcons() { // TODO: troche za duzo odwolan?
     if (!_fetched)
       return;
     for (DiscussionPresenter d : _discussions) {
@@ -378,49 +380,50 @@ public class DiscussionsManager {
   }
 
   public static LineNumbers updateLines(LineNumbers old) {
-    if(_old_to_new == null)
-      return old; 
+    if (_old_to_new == null)
+      return old;
     Debug.log("update discussion...");
 
     HashMap<TagLines, TagLines> tmp = new HashMap<TagLines, TagLines>();
     LineNumbers updated = new LineNumbers();
     HashSet<TagLines> elems = old.getElements();
-    for(TagLines tag : elems) {
+    for (TagLines tag : elems) {
       TagLines ntag = updateTag(tag);
-      if(ntag == null)
+      if (ntag == null)
         continue;
       updated.addElement(ntag);
       tmp.put(tag, ntag);
     }
 
     HashSet<WordsLines> next_level = old.getNextLevelWords();
-    for(WordsLines wl : next_level) {
+    for (WordsLines wl : next_level) {
       TagLines ntag = tmp.get(wl.getParentTag());
       if (ntag == null) {
         continue;
       }
-      
+
       HashSet<Integer> lines = wl.getLines();
       HashSet<Integer> updated_lines = new HashSet<Integer>();
-      for(int line : lines) {
+      for (int line : lines) {
         int with_open_tag = wl.getParentTag().getOpenLine() + line + 1;
-        //Debug.log("line: " + line + " with_open_tag: " + with_open_tag);
-        if(_old_to_new[with_open_tag] != -1) {
-          updated_lines.add(_old_to_new[with_open_tag] - ntag.getOpenLine() - 1);     
+        // Debug.log("line: " + line + " with_open_tag: " + with_open_tag);
+        if (_old_to_new[with_open_tag] != -1) {
+          updated_lines.add(_old_to_new[with_open_tag] - ntag.getOpenLine() - 1);
         } else {
           Debug.log("diff: word is missing");
         }
       }
-      
+
       updated.addNextLevelWords(ntag, updated_lines);
     }
     return updated;
   }
 
   private static TagLines updateTag(TagLines tag) {
-    if(_old_to_new[tag.getOpenLine()] == -1 && _old_to_new[tag.getCloseLine()] == -1) {
-      //tag is missing
-      //TODO: do something useful
+    if (_old_to_new[tag.getOpenLine()] == -1
+        && _old_to_new[tag.getCloseLine()] == -1) {
+      // tag is missing
+      // TODO: do something useful
       Debug.log("diff: tag is missing");
       return null;
     } else {

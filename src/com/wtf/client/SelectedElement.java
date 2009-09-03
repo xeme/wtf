@@ -31,8 +31,7 @@ public class SelectedElement {
   private boolean _next_level_commited = false;
 
   // in IE if onmousedown and onmouseup targets are not equal, onclick is
-  // generated
-  // (targeting common ancestor)
+  // generated (targeting common ancestor)
   public boolean _ie_fail_prevent_click_event = false;
 
   public SelectedElement(Element element) {
