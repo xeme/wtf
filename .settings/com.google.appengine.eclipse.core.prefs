@@ -1,5 +1,5 @@
-#Sat Jun 13 16:19:36 CEST 2009
+#Wed Sep 02 21:19:05 CEST 2009
 eclipse.preferences.version=1
-filesCopiedToWebInfLib=datanucleus-jpa-1.1.0.jar|jdo2-api-2.3-SNAPSHOT.jar|geronimo-jta_1.1_spec-1.1.1.jar|geronimo-jpa_3.0_spec-1.1.1.jar|datanucleus-core-1.1.0.jar|datanucleus-appengine-1.0.1.final.jar|appengine-api-1.0-sdk-1.2.1.jar
+filesCopiedToWebInfLib=geronimo-jta_1.1_spec-1.1.1.jar|jdo2-api-2.3-ea.jar|datanucleus-core-1.1.4-gae.jar|datanucleus-jpa-1.1.4.jar|datanucleus-appengine-1.0.2.final.jar|geronimo-jpa_3.0_spec-1.1.1.jar|appengine-api-1.0-sdk-1.2.2.jar
 ormEnhancementInclusions=src/com/wtf/server/jdo/
 validationExclusions=
