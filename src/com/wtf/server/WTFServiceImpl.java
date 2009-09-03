@@ -1,9 +1,15 @@
 package com.wtf.server;
 
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.logging.Logger;
+
+import javax.jdo.JDOObjectNotFoundException;
+import javax.jdo.PersistenceManager;
+import javax.jdo.Transaction;
+
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
-
-import org.datanucleus.exceptions.NucleusObjectNotFoundException;
-
 import com.wtf.client.LineNumbers;
 import com.wtf.client.dto.DiscussionDTO;
 import com.wtf.client.dto.PageDTO;
@@ -12,16 +18,6 @@ import com.wtf.client.rpc.WTFService;
 import com.wtf.server.jdo.DiscussionJDO;
 import com.wtf.server.jdo.PageJDO;
 import com.wtf.server.jdo.PostJDO;
-
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.logging.Logger;
-
-import javax.jdo.Extent;
-import javax.jdo.JDOObjectNotFoundException;
-import javax.jdo.PersistenceManager;
-import javax.jdo.Transaction;
 
 @SuppressWarnings("serial")
 public class WTFServiceImpl extends RemoteServiceServlet implements WTFService {
@@ -108,7 +104,7 @@ public class WTFServiceImpl extends RemoteServiceServlet implements WTFService {
     }
 
     //log.severe("Returning content ["+ p.getContent().length() + "] '" + p.getContent() + "'");
-    log.severe("Returning content: " + p.getContent());
+    //log.severe("Returning content: " + p.getContent());
     log.severe("Returning " + discussions.size() + " discussions.");
 
     return new PageDTO(p.getContent(), discussions);
@@ -173,7 +169,7 @@ public class WTFServiceImpl extends RemoteServiceServlet implements WTFService {
   public Boolean updateLineNumbers(String key,
       LineNumbers lineNumbersFromSelection) {
     PersistenceManager pm = PMF.get().getPersistenceManager();
-    
+
     DiscussionJDO d;
     try {
       d = pm.getObjectById(DiscussionJDO.class, key);
@@ -183,6 +179,66 @@ public class WTFServiceImpl extends RemoteServiceServlet implements WTFService {
     } catch (JDOObjectNotFoundException e) {
       log.severe("No discussion: " + key);
       return false;
+    }
+  }
+
+  @Override
+  public Integer[] computeDiff(String url, String new_content) {
+    PersistenceManager pm = PMF.get().getPersistenceManager();
+
+    PageJDO p;
+    String old_content;
+    Integer[] old_to_new;
+    try {
+      p = pm.getObjectById(PageJDO.class, url);
+      old_content = p.getContent();
+      if(old_content == null || old_content.equals(new_content)) {
+        return null;
+      }
+      log.severe("DIFF: start\n");
+      String[] old_splitted = old_content.split("__wtf__");
+      String[] new_splitted = new_content.split("__wtf__");
+
+      int n = old_splitted.length;
+
+      old_to_new = new Integer[n];
+      for(int i = 0; i < n; i++)
+        old_to_new[i] = -1;
+      
+      log.severe("DIFF: splitted and after init\n");
+      
+      Diff diff = new Diff(old_splitted, new_splitted);
+      Diff.change script = diff.diff_2(false);
+      
+      log.severe("DIFF: after diff!\n");
+      
+      int line_old = 0, moved = 0;
+      while(script != null) {
+        for(int i = line_old; i < script.line0; i++)
+          old_to_new[i] = i - moved;
+
+        int delta = script.deleted - script.inserted;
+        moved += delta;
+        line_old = script.line0 + script.deleted;
+
+        script = script.link;
+      }
+      for(int i = line_old; i < n; i++)
+        old_to_new[i] = i - moved;
+      
+      log.severe("DIFF: done!\n");
+      
+      /*String tmp = "";
+      log.severe("DIFF: new: " + new_splitted.length + " old: " + n);
+      for(int i = 0; i < n; i++) {
+        tmp += "[" + i + "] = " + old_to_new[i] + "\n";
+      }
+      log.severe("DIFF: \n" + tmp);*/
+
+      return old_to_new;
+    } catch (JDOObjectNotFoundException e) {
+      log.severe("No PageJDO for " + url);
+      return null;
     }
   }
 }

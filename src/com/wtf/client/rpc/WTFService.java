@@ -23,4 +23,6 @@ public interface WTFService extends RemoteService {
   
   String getContent(String url);
   Boolean updateContent(String url, String content);
+  
+  Integer[] computeDiff(String url, String new_content);
 }

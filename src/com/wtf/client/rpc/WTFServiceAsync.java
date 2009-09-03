@@ -22,7 +22,9 @@ public interface WTFServiceAsync {
 
   Request updateLineNumbers(String key, LineNumbers lineNumbersFromSelection,
       AsyncCallback<Boolean> callback);
-  
+
   Request getContent(String url, AsyncCallback<String> callback);
   Request updateContent(String url, String content, AsyncCallback<Boolean> callback);
+
+  Request computeDiff(String url, String new_content, AsyncCallback<Integer[]> callback);
 }

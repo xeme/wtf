@@ -223,23 +223,26 @@ public class DiscussionsManager {
 
         Command update_and_add = new Command() {
           public void execute() {
-            DiffManager._old_string = p.getContent();
-            DiffManager.computeDiff(DOMMagic.getRowFormat(),
-                //this will execute if row_formats differ
-                new Command() {
-              public void execute() { 
-                _old_to_new = DiffManager.getOldToNew();
-                Debug.log("DIFFER");
-                add_discussions.execute();
-              }
-            },
-            //this will execute if row_formats do not differ
-            new Command() {
-              public void execute() { 
-                add_discussions.execute();
-                Debug.log("DO NOT DIFFER");
-              }
-            });
+            wtfService.computeDiff(pageUrl, DOMMagic.getRowFormat(),
+                new AsyncCallback<Integer[]>() {
+                  @Override
+                  public void onFailure(Throwable caught) {
+                    Debug.log("Computing diff fail: " + caught.getMessage());
+                  }
+
+                  @Override
+                  public void onSuccess(Integer[] old_to_new) {
+                    Debug.log("Computing diff win");
+                    if (old_to_new == null) { // do not differ
+                      add_discussions.execute();
+                      Debug.log("DO NOT DIFFER");
+                    } else {
+                      Debug.log("DIFFER");
+                      _old_to_new = old_to_new;
+                      add_discussions.execute();
+                    }
+                  }
+                });
           }
         };
 
@@ -421,12 +424,12 @@ public class DiscussionsManager {
       Debug.log("diff: tag is missing");
       return null;
     } else {
+      //  Debug.log("open: " + tag.getOpenLine());
+      //  Debug.log("close: " + tag.getCloseLine());
       int open = _old_to_new[tag.getOpenLine()];
       int close = _old_to_new[tag.getCloseLine()];
-      //Debug.log("open: " + tag.getOpenLine() + " nopen: " + open);
-      //Debug.log("close: " + tag.getCloseLine() + " nclose: " + close);
-      return new TagLines(open != -1 ? open : tag.getOpenLine(), 
-          close != -1 ? close : tag.getCloseLine());
+      return new TagLines(open != -1 ? open : tag.getOpenLine(), close != -1
+          ? close : tag.getCloseLine());
     }
   }
 }
